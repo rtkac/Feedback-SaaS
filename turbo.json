@@ -4,18 +4,23 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "inputs": ["$TURBO_DEFAULT$", ".env*"],
-      "outputs": [".next/**", "!.next/cache/**", "!.next/dev/**"]
-    },
-    "lint": {
-      "dependsOn": ["^lint"]
-    },
-    "check-types": {
-      "dependsOn": ["^check-types"]
+      "outputs": ["dist/**"]
     },
     "dev": {
+      "dependsOn": ["^build"],
+      "with": ["@feedback-saas/ui#watch"],
       "cache": false,
       "persistent": true
-    }
+    },
+    "//#lint": {
+      "dependsOn": ["^build"]
+    },
+    "//#format": {
+      "dependsOn": ["^build"]
+    },
+    "test": {
+      "dependsOn": ["^test"]
+    },
+    "watch": { "cache": false, "persistent": true }
   }
 }
