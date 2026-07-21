@@ -9,6 +9,5 @@
     "skipLibCheck": true,
     "target": "esnext"
   },
-  "include": ["src"],
-  "exclude": ["node_modules", "dist"]
+  "include": ["src"]
 }

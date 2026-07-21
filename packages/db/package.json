@@ -1,23 +1,25 @@
 {
-  "name": "@feedback-saas/ui",
+  "name": "@feedback-saas/db",
   "private": true,
+  "files": [
+    "dist"
+  ],
   "type": "module",
   "exports": {
-    "types": "./src/index.ts",
-    "default": "./dist/index.js"
+    ".": "./dist/index.js",
+    "./schema/*": "./dist/schema/*.js"
   },
   "scripts": {
     "watch": "tsc --watch",
     "build": "tsc"
   },
   "dependencies": {
-    "react": "19.2.7",
-    "react-dom": "19.2.7"
+    "@neondatabase/serverless": "1.1.0",
+    "drizzle-kit": "0.31.10",
+    "drizzle-orm": "0.45.2"
   },
   "devDependencies": {
     "@types/bun": "1.3.14",
-    "@types/react": "19.2.17",
-    "@types/react-dom": "19.2.3",
     "typescript": "6.0.3"
   }
 }
