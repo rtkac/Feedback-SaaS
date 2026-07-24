@@ -10,6 +10,10 @@ export const auth = betterAuth({
     provider: 'pg',
     schema,
   }),
+  trustedOrigins: (process.env.BETTER_AUTH_TRUSTED_ORIGINS ?? '')
+    .split(',')
+    .map((o) => o.trim())
+    .filter(Boolean),
   emailAndPassword: {
     enabled: true,
     autoSignIn: false,

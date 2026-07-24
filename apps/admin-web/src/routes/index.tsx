@@ -1,16 +1,29 @@
+import { signOut } from '@feedback-saas/auth/auth-client';
 import { createFileRoute } from '@tanstack/react-router';
 
-export const Route = createFileRoute('/')({ component: App });
+export const Route = createFileRoute('/')({
+  component: RouteComponent,
+});
 
-function App() {
+function RouteComponent() {
+  const { user } = Route.useRouteContext();
+
+  const navigate = Route.useNavigate();
+
+  const handleOnSignOut = async () => {
+    await signOut({
+      fetchOptions: {
+        onSuccess: () => {
+          navigate({ href: `${import.meta.env.VITE_FEEDBACK_SAAS_AUTH_WEB_URL}/sign-in` });
+        },
+      },
+    });
+  };
+
   return (
-    <div className="flex min-h-svh p-6">
-      <div className="flex max-w-md min-w-0 flex-col gap-4 text-sm leading-loose">
-        <div>
-          <h1 className="font-medium">Project ready!</h1>
-          <p>You may now add components and start building.</p>
-        </div>
-      </div>
+    <div>
+      Welcome, {user.name}!<br />
+      <button onClick={handleOnSignOut}>Sign Out</button>
     </div>
   );
 }

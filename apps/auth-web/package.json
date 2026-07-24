@@ -1,9 +1,9 @@
 {
-  "name": "admin-web",
+  "name": "auth-web",
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite dev --port 3001 && bun run watch-routes",
+    "dev": "vite dev --port 3000 && bun run watch-routes",
     "build": "bun run generate-routes && vite build",
     "generate-routes": "tsr generate",
     "watch-routes": "tsr watch",

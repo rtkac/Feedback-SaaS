@@ -1,5 +1,6 @@
 {
   "name": "@feedback-saas/db",
+  "version": "0.0.1",
   "private": true,
   "files": [
     "dist"
@@ -11,7 +12,10 @@
   },
   "scripts": {
     "watch": "tsc --watch",
-    "build": "tsc"
+    "build": "tsc",
+    "db:push": "drizzle-kit push",
+    "db:generate": "drizzle-kit generate",
+    "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
     "@neondatabase/serverless": "1.1.0",
