@@ -1,4 +1,3 @@
-import { Button } from '@feedback-saas/ui';
 import { createFileRoute } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/')({ component: App });
@@ -10,9 +9,7 @@ function App() {
         <div>
           <h1 className="font-medium">Project ready!</h1>
           <p>You may now add components and start building.</p>
-          <p>We&apos;ve already added the button component for you.</p>
         </div>
-        <Button />
       </div>
     </div>
   );

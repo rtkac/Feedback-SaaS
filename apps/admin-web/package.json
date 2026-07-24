@@ -3,8 +3,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite dev --port 3000",
-    "build": "vite build",
+    "dev": "vite dev --port 3000 && bun run watch-routes",
+    "build": "bun run generate-routes && vite build",
+    "generate-routes": "tsr generate",
+    "watch-routes": "tsr watch",
     "test": "vitest run",
     "typecheck": "tsc --noEmit"
   },
@@ -33,6 +35,7 @@
   },
   "devDependencies": {
     "@tanstack/devtools-vite": "0.8.1",
+    "@tanstack/router-cli": "1.167.21",
     "@testing-library/dom": "10.4.1",
     "@testing-library/react": "16.3.2",
     "@types/bun": "1.3.14",
