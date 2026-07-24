@@ -1,0 +1,27 @@
+{
+  "name": "@feedback-saas/auth",
+  "version": "0.0.1",
+  "private": true,
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "exports": {
+    ".": "./dist/index.js",
+    "./auth.functions": "./dist/auth.functions.js",
+    "./auth-client": "./dist/auth-client.js"
+  },
+  "scripts": {
+    "watch": "tsc --watch",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@feedback-saas/db": "0.0.1",
+    "@tanstack/react-start": "1.168.32",
+    "better-auth": "1.6.23"
+  },
+  "devDependencies": {
+    "@types/bun": "1.3.14",
+    "typescript": "6.0.3"
+  }
+}
