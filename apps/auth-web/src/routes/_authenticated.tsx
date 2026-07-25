@@ -6,7 +6,7 @@ export const Route = createFileRoute('/_authenticated')({
     const session = await getSession();
     if (session) {
       throw redirect({
-        href: `${import.meta.env.VITE_FEEDBACK_SAAS_ADMIN_WEB_URL}`,
+        href: import.meta.env.VITE_FEEDBACK_SAAS_ADMIN_WEB_URL,
       });
     }
   },
