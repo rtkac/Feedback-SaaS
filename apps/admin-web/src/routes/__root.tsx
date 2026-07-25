@@ -3,7 +3,9 @@ import { TanStackDevtools } from '@tanstack/react-devtools';
 import { HeadContent, Scripts, createRootRoute, redirect } from '@tanstack/react-router';
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
 
-import appCss from '../styles.css?url';
+import appCss from '@/styles.css?url';
+
+import { getLocale } from '@/paraglide/runtime';
 
 export const Route = createRootRoute({
   beforeLoad: async () => {
@@ -46,7 +48,7 @@ export const Route = createRootRoute({
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang={getLocale()}>
       <head>
         <HeadContent />
       </head>

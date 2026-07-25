@@ -3,7 +3,8 @@ import { useMutation } from '@tanstack/react-query';
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { z } from 'zod';
 
-import { signInUserOptions } from '../../queries';
+import { m } from '@/paraglide/messages';
+import { signInUserOptions } from '@/queries';
 
 // import { Button } from '@/components/ui/button';
 // import { Field, FieldError, FieldGroup, FieldLabel, FieldSet } from '@/components/ui/field';
@@ -40,7 +41,7 @@ function RouteComponent() {
 
   return (
     <div className="flex flex-col gap-8 w-full max-w-md">
-      <div className="flex flex-col gap-2">sign in</div>
+      <div className="flex flex-col gap-2">{m.signIn()}</div>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -82,7 +83,7 @@ function RouteComponent() {
         <form.Subscribe selector={(state) => state.isSubmitting}>
           {(isSubmitting) => (
             <button type="submit" disabled={isSubmitting} className="w-full">
-              sign in
+              {m.signIn()}
             </button>
           )}
         </form.Subscribe>

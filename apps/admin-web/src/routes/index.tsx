@@ -1,6 +1,8 @@
 import { signOut } from '@feedback-saas/auth/auth-client';
 import { createFileRoute } from '@tanstack/react-router';
 
+import { m } from '@/paraglide/messages';
+
 export const Route = createFileRoute('/')({
   component: RouteComponent,
 });
@@ -23,7 +25,7 @@ function RouteComponent() {
   return (
     <div>
       Welcome, {user.name}!<br />
-      <button onClick={handleOnSignOut}>Sign Out</button>
+      <button onClick={handleOnSignOut}>{m.signOut()}</button>
     </div>
   );
 }
