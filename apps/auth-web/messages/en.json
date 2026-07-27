@@ -1,4 +1,27 @@
 {
   "$schema": "https://inlang.com/schema/inlang-message-format",
-  "signIn": "Sign in"
+  "signIn": "Sign in",
+  "signUpTitle": "Get started",
+  "signUpDesc": "Start your journey by creating an account.",
+  "signUpNameLabel": "Full Name",
+  "signUpNamePlaceholder": "Jane Doe",
+  "signUpEmailLabel": "Email",
+  "signUpEmailPlaceholder": "jane@company.com",
+  "signUpPasswordLabel": "Password",
+  "signUpPasswordPlaceholder": "Min. 8 characters",
+  "signUpPasswordConfirmLabel": "Confirm Password",
+  "signUpPasswordConfirmPlaceholder": "Re-enter your password",
+  "signUpButtonCreateAccount": "Create account",
+  "signUpErrorValidation": "There was a validation error. Please check your input.",
+  "signUpNameErrorRequired": "Name is required.",
+  "signUpEmailInvalid": "Invalid email address.",
+  "signUpPasswordMin": "Password must be at least 8 characters.",
+  "signUpPasswordMax": "Password must be at most 128 characters.",
+  "signUpPasswordUppercase": "Password must contain at least one uppercase letter.",
+  "signUpPasswordNumberOrSpecial": "Password must contain at least one number or special character.",
+  "signUpPasswordConfirmRequired": "Password confirmation is required.",
+  "signUpPasswordMatch": "Passwords do not match.",
+  "signUpErrorMessage": "An error occurred while creating your account. Please try again later.",
+  "signUpLoginDesc": "Already have an account?",
+  "signUpLoginButton": "Log in"
 }
