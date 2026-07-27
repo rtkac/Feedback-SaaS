@@ -1,4 +1,4 @@
-import { getSession } from '@feedback-saas/auth/auth.functions';
+import { getSession } from '@feedback-saas/auth/functions/auth.functions';
 import { TanStackDevtools } from '@tanstack/react-devtools';
 import { HeadContent, Scripts, createRootRoute, redirect } from '@tanstack/react-router';
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';

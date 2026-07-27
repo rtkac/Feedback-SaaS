@@ -1,4 +1,4 @@
-import { getSession } from '@feedback-saas/auth/auth.functions';
+import { getSession } from '@feedback-saas/auth/functions/auth.functions';
 import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/_authenticated')({
