@@ -8,7 +8,8 @@
   "type": "module",
   "exports": {
     ".": "./dist/index.js",
-    "./schema/*": "./dist/schema/*.js"
+    "./schemas/*": "./dist/schemas/*.js",
+    "./queries/*": "./dist/queries/*.js"
   },
   "scripts": {
     "watch": "tsc --watch",
@@ -19,6 +20,7 @@
   },
   "dependencies": {
     "@neondatabase/serverless": "1.1.0",
+    "better-auth": "1.6.23",
     "drizzle-kit": "0.31.10",
     "drizzle-orm": "0.45.2"
   },

@@ -11,7 +11,11 @@ const config = defineConfig({
     paraglideVitePlugin({ project: './project.inlang', outdir: './src/paraglide' }),
     devtools(),
     tailwindcss(),
-    tanstackStart(),
+    tanstackStart({
+      spa: {
+        enabled: true,
+      },
+    }),
     viteReact(),
   ],
 });
