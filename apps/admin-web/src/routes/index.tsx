@@ -1,16 +1,25 @@
 import { signOut } from '@feedback-saas/auth/auth-client';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 
 import { m } from '@/paraglide/messages';
+import { fetchUserWorkspacesOptions } from '@/queries/workspace';
 
 export const Route = createFileRoute('/')({
   component: RouteComponent,
+  loader: ({ context }) => {
+    return context.queryClient.ensureQueryData(fetchUserWorkspacesOptions());
+  },
 });
 
 function RouteComponent() {
+  const navigate = Route.useNavigate();
+
   const { user } = Route.useRouteContext();
 
-  const navigate = Route.useNavigate();
+  const { data } = useSuspenseQuery(fetchUserWorkspacesOptions());
+
+  console.log(data);
 
   const handleOnSignOut = async () => {
     await signOut({
