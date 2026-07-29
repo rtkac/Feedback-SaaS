@@ -44,7 +44,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
     ],
   }),
-  errorComponent: ErrorComponent,
+  errorComponent: ({ error }) => (
+    <div>
+      <h1>Error from root</h1>
+      <ErrorComponent error={error} />
+    </div>
+  ),
   notFoundComponent: () => (
     <main className="container mx-auto p-4 pt-16">
       <h1>404</h1>

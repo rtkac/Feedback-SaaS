@@ -7,9 +7,10 @@ import { fetchUserWorkspacesOptions } from '@/queries/workspace';
 
 export const Route = createFileRoute('/')({
   component: RouteComponent,
-  loader: ({ context }) => {
+  loader: async ({ context }) => {
     return context.queryClient.ensureQueryData(fetchUserWorkspacesOptions());
   },
+  pendingComponent: () => <div>Loading...</div>,
 });
 
 function RouteComponent() {
@@ -18,8 +19,6 @@ function RouteComponent() {
   const { user } = Route.useRouteContext();
 
   const { data } = useSuspenseQuery(fetchUserWorkspacesOptions());
-
-  console.log(data);
 
   const handleOnSignOut = async () => {
     await signOut({
@@ -35,6 +34,16 @@ function RouteComponent() {
     <div>
       Welcome, {user.name}!<br />
       <button onClick={handleOnSignOut}>{m.signOut()}</button>
+      <br />
+      <br />
+      <label htmlFor="workspace-select">Your workspaces</label>
+      <select id="workspace-select">
+        {data.map(({ workspace }) => (
+          <option value={workspace.name} key={workspace.id}>
+            {workspace.name}
+          </option>
+        ))}
+      </select>
     </div>
   );
 }

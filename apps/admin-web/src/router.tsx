@@ -12,7 +12,12 @@ export function getRouter() {
     scrollRestoration: true,
     defaultPreload: 'intent',
     defaultPreloadStaleTime: 0,
-    defaultErrorComponent: ErrorComponent,
+    defaultErrorComponent: ({ error }) => (
+      <div>
+        <h1>Error from rooter</h1>
+        <ErrorComponent error={error} />
+      </div>
+    ),
     context: { queryClient },
   });
 
