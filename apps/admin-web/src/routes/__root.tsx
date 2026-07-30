@@ -12,7 +12,11 @@ import appCss from '@/styles.css?url';
 
 import { getLocale } from '@/paraglide/runtime';
 
-export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
+interface MyRouterContext {
+  queryClient: QueryClient;
+}
+
+export const Route = createRootRouteWithContext<MyRouterContext>()({
   head: () => ({
     meta: [
       {
