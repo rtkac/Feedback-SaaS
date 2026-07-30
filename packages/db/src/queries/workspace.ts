@@ -1,7 +1,7 @@
 import { eq } from 'drizzle-orm';
 
 import { db } from '../index';
-import { workspace, workspaceMember } from '../schemas/workspace-schema';
+import { workspace, workspaceMember } from '../schema/workspace';
 
 export function getUserWorkspaces(userId: string) {
   return db

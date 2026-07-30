@@ -7,9 +7,18 @@
   ],
   "type": "module",
   "exports": {
-    ".": "./dist/index.js",
-    "./functions/*": "./dist/functions/*.js",
-    "./auth-client": "./dist/auth-client.js"
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./dist/index.js"
+    },
+    "./client": {
+      "types": "./src/client.ts",
+      "default": "./dist/client.js"
+    },
+    "./server": {
+      "types": "./src/server.ts",
+      "default": "./dist/server.js"
+    }
   },
   "scripts": {
     "watch": "tsc --watch",
@@ -25,6 +34,6 @@
   "devDependencies": {
     "@types/bun": "1.3.14",
     "@types/nodemailer": "8.0.1",
-    "typescript": "6.0.3"
+    "typescript": "7.0.2"
   }
 }
