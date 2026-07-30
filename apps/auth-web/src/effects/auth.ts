@@ -1,4 +1,4 @@
-import { signIn, signUp } from '@feedback-saas/auth/auth-client';
+import { signIn, signUp } from '@feedback-saas/auth/client';
 import { mutationOptions } from '@tanstack/react-query';
 
 import { SignInBody, SignUpBody } from '@/types';

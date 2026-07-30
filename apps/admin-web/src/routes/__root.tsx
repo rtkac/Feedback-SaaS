@@ -1,4 +1,3 @@
-import { getSession } from '@feedback-saas/auth/functions/auth.functions';
 import { TanStackDevtools } from '@tanstack/react-devtools';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import {
@@ -6,7 +5,6 @@ import {
   HeadContent,
   Scripts,
   createRootRouteWithContext,
-  redirect,
 } from '@tanstack/react-router';
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
 
@@ -15,15 +13,6 @@ import appCss from '@/styles.css?url';
 import { getLocale } from '@/paraglide/runtime';
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
-  beforeLoad: async () => {
-    const session = await getSession();
-    if (!session) {
-      throw redirect({
-        href: `${import.meta.env.VITE_FEEDBACK_SAAS_AUTH_WEB_URL}/sign-in`,
-      });
-    }
-    return { user: session.user };
-  },
   head: () => ({
     meta: [
       {

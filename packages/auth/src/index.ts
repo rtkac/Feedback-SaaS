@@ -1,10 +1,10 @@
 import { db } from '@feedback-saas/db';
-import * as schema from '@feedback-saas/db/schemas/auth-schema';
+import * as schema from '@feedback-saas/db/schema/auth';
 import { betterAuth } from 'better-auth';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 import { tanstackStartCookies } from 'better-auth/tanstack-start';
 
-import { sendSignUpVerificationEmailFn } from './functions/sign-up.functions';
+import { sendSignUpVerificationEmailFn } from './server-events';
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, {

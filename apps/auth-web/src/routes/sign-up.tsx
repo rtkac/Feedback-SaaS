@@ -3,12 +3,12 @@ import { useMutation } from '@tanstack/react-query';
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { z } from 'zod';
 
+import { signUpUserOptions } from '@/effects/auth';
 // import { Button } from '@/components/ui/button';
 // import { Field, FieldError, FieldGroup, FieldLabel, FieldSet } from '@/components/ui/field';
 // import { Input } from '@/components/ui/input';
 // import { Spinner } from '@/components/ui/spinner';
 import { m } from '@/paraglide/messages';
-import { signUpUserOptions } from '@/queries';
 
 export const Route = createFileRoute('/sign-up')({
   component: RouteComponent,

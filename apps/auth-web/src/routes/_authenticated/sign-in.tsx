@@ -3,8 +3,8 @@ import { useMutation } from '@tanstack/react-query';
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { z } from 'zod';
 
+import { signInUserOptions } from '@/effects/auth';
 import { m } from '@/paraglide/messages';
-import { signInUserOptions } from '@/queries';
 
 // import { Button } from '@/components/ui/button';
 // import { Field, FieldError, FieldGroup, FieldLabel, FieldSet } from '@/components/ui/field';
