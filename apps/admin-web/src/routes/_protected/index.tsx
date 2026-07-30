@@ -1,24 +1,18 @@
 import { signOut } from '@feedback-saas/auth/client';
-import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 
-import { fetchUserWorkspacesOptions } from '@/effects/workspace';
 import { m } from '@/paraglide/messages';
 
 export const Route = createFileRoute('/_protected/')({
   component: RouteComponent,
-  // loader: async ({ context }) => {
-  //   return context.queryClient.ensureQueryData(fetchUserWorkspacesOptions());
-  // },
-  // pendingComponent: () => <div>Loading...</div>,
 });
 
 function RouteComponent() {
   const navigate = Route.useNavigate();
 
-  // const { user } = Route.useRouteContext();
+  const { user, workspaces } = Route.useRouteContext();
 
-  // const { data } = useSuspenseQuery(fetchUserWorkspacesOptions());
+  console.log(user, workspaces);
 
   const handleOnSignOut = async () => {
     await signOut({
@@ -32,17 +26,17 @@ function RouteComponent() {
 
   return (
     <div>
-      {/* Welcome, {user.name}!<br /> */}
+      Welcome, {user.name}!<br />
       <button onClick={handleOnSignOut}>{m.signOut()}</button>
       <br />
       <br />
       <label htmlFor="workspace-select">Your workspaces</label>
       <select id="workspace-select">
-        {/* {data.map(({ workspace }) => (
+        {workspaces.map(({ workspace }) => (
           <option value={workspace.name} key={workspace.id}>
             {workspace.name}
           </option>
-        ))} */}
+        ))}
       </select>
     </div>
   );
