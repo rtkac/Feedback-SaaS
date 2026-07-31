@@ -2,7 +2,7 @@ import { TanStackDevtools } from '@tanstack/react-devtools';
 import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router';
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
 
-import appCss from '@/styles.css?url';
+import appCss from '@feedback-saas/ui/styles.css?url';
 
 import { getLocale } from '@/paraglide/runtime';
 

@@ -1,0 +1,9 @@
+{
+  "tailwindCSS.experimental.configFile": {
+    "packages/ui/src/styles.css": [
+      "packages/ui/src/**",
+      "apps/admin-web/src/**",
+      "apps/auth-web/src/**"
+    ]
+  }
+}
