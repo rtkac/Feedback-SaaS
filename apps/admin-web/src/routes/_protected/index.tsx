@@ -1,4 +1,5 @@
 import { signOut } from '@feedback-saas/auth/client';
+import { Button } from '@feedback-saas/ui';
 import { createFileRoute } from '@tanstack/react-router';
 
 import { m } from '@/paraglide/messages';
@@ -27,7 +28,7 @@ function RouteComponent() {
   return (
     <div>
       Welcome, {user.name}!<br />
-      <button onClick={handleOnSignOut}>{m.signOut()}</button>
+      <Button onClick={handleOnSignOut}>{m.signOut()}</Button>
       <br />
       <br />
       <label htmlFor="workspace-select">Your workspaces</label>

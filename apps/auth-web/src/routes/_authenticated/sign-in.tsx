@@ -1,3 +1,4 @@
+import { Button } from '@feedback-saas/ui';
 import { useForm } from '@tanstack/react-form';
 import { useMutation } from '@tanstack/react-query';
 import { createFileRoute, Link } from '@tanstack/react-router';
@@ -82,9 +83,9 @@ function RouteComponent() {
         </form.Field>
         <form.Subscribe selector={(state) => state.isSubmitting}>
           {(isSubmitting) => (
-            <button type="submit" disabled={isSubmitting} className="w-full">
+            <Button type="submit" disabled={isSubmitting}>
               {m.signIn()}
-            </button>
+            </Button>
           )}
         </form.Subscribe>
         {isError && <p>error message</p>}
