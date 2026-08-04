@@ -1,5 +1,5 @@
 import { signOut } from '@feedback-saas/auth/client';
-import { Button } from '@feedback-saas/ui';
+import { Button } from '@feedback-saas/ui/components';
 import { createFileRoute } from '@tanstack/react-router';
 
 import { m } from '@/paraglide/messages';
