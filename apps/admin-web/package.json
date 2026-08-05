@@ -3,8 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite dev --port 3001 && bun run watch-routes",
-    "build": "bun run generate-routes && vite build",
+    "dev": "NODE_OPTIONS='--import ./instrument.server.mjs' vite dev --port 3001 && bun run watch-routes",
+    "build": "bun run generate-routes && vite build && cp instrument.server.mjs dist/server",
     "generate-routes": "tsr generate",
     "watch-routes": "tsr watch",
     "test": "vitest run",
@@ -16,6 +16,7 @@
     "@feedback-saas/ui": "workspace:*",
     "@feedback-saas/utils": "workspace:*",
     "@fontsource-variable/dm-sans": "5.3.0",
+    "@sentry/tanstackstart-react": "catalog:",
     "@tabler/icons-react": "3.46.0",
     "@tailwindcss/vite": "4.3.3",
     "@tanstack/react-devtools": "0.10.9",
