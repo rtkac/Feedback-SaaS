@@ -1,4 +1,5 @@
 import { paraglideVitePlugin } from '@inlang/paraglide-js';
+import { sentryTanstackStart } from '@sentry/tanstackstart-react/vite';
 import tailwindcss from '@tailwindcss/vite';
 import { devtools } from '@tanstack/devtools-vite';
 import { tanstackStart } from '@tanstack/react-start/plugin/vite';
@@ -17,6 +18,11 @@ const config = defineConfig({
       },
     }),
     viteReact(),
+    sentryTanstackStart({
+      org: 'devlabs-lu',
+      project: 'feedback-saas-admin-web',
+      authToken: process.env.SENTRY_AUTH_TOKEN,
+    }),
   ],
 });
 
