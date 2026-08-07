@@ -3,8 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "NODE_OPTIONS='--import ./instrument.server.mjs' vite dev --port 3001 && bun run watch-routes",
-    "build": "bun run generate-routes && vite build && cp instrument.server.mjs dist/server",
+    "dev": "NODE_OPTIONS='--import ./instrument.server.mjs' bun --env-file=../../.env run vite dev --port 3001 && bun run watch-routes",
+    "build": "bun run generate-routes && bun --env-file=../../.env run vite build && cp instrument.server.mjs dist/server",
     "generate-routes": "tsr generate",
     "watch-routes": "tsr watch",
     "test": "vitest run",

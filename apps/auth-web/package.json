@@ -3,8 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite dev --port 3000 && bun run watch-routes",
-    "build": "bun run generate-routes && vite build",
+    "dev": "bun --env-file=../../.env run vite dev --port 3000 && bun run watch-routes",
+    "build": "bun run generate-routes && bun --env-file=../../.env run vite build",
     "generate-routes": "tsr generate",
     "watch-routes": "tsr watch",
     "test": "vitest run",
