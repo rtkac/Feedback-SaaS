@@ -1,41 +1,11 @@
-import { createServerFn } from '@tanstack/react-start';
-import nodemailer from 'nodemailer';
-import { z } from 'zod';
+import { Resend } from 'resend';
 
-type VerificationEmailData = {
-  to: string;
-  subject: string;
-  text: string;
-};
-
-const verificationEmailSchema = z.object({
-  to: z.email({ message: 'Invalid verification email address' }),
-  subject: z.string().min(1, 'Verification subject is required'),
-  text: z.string().min(1, 'Verification text is required'),
-});
-
-const transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
-  secure: true,
-  port: 465,
-  auth: {
-    user: process.env.EMAIL_ADDRESS,
-    pass: process.env.EMAIL_PASSWORD,
-  },
-});
-
-const sendSignUpVerificationEmail = async (data: VerificationEmailData) => {
-  const res = await transporter.sendMail({
-    from: process.env.EMAIL_ADDRESS,
-    to: data.to,
-    subject: data.subject,
-    text: data.text,
+export const sendSignUpVerificationEmail = async (email: string, url: string) => {
+  const resend = new Resend(process.env.RESEND_API_KEY);
+  return await resend.emails.send({
+    from: 'onboarding@feedback-saas.devlabs.sk',
+    to: email,
+    subject: 'Verify your email address [Feedback SaaS]',
+    html: `<p>Click the link to verify your email: <a href="${url}">${url}</a></p>`,
   });
-  return res;
 };
-
-export const sendSignUpVerificationEmailFn = createServerFn({ method: 'POST' })
-  .validator((data: VerificationEmailData) => verificationEmailSchema.parse(data))
-  .handler(async (ctx) => {
-    return await sendSignUpVerificationEmail(ctx.data);
-  });
