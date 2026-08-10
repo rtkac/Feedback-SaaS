@@ -1,5 +1,5 @@
 {
-  "name": "auth-web",
+  "name": "@feedback-saas/auth-web",
   "private": true,
   "type": "module",
   "scripts": {

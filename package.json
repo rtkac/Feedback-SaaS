@@ -1,5 +1,5 @@
 {
-  "name": "feedback-saas",
+  "name": "@feedback-saas",
   "private": true,
   "workspaces": [
     "apps/*",
