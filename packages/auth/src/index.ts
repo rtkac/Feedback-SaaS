@@ -4,7 +4,7 @@ import { betterAuth } from 'better-auth';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 import { tanstackStartCookies } from 'better-auth/tanstack-start';
 
-import { sendSignUpVerificationEmailFn } from './server-events';
+import { sendSignUpVerificationEmail } from './server-events';
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
@@ -27,14 +27,16 @@ export const auth = betterAuth({
     sendOnSignUp: true,
     autoSignInAfterVerification: true,
     sendVerificationEmail: async ({ user, url }) => {
-      await sendSignUpVerificationEmailFn({
-        data: {
-          to: user.email,
-          subject: 'Verify your email address',
-          text: `Click the link to verify your email: ${url}`,
-        },
-      });
+      await sendSignUpVerificationEmail(user.email, url);
     },
   },
+  baseURL: process.env.BETTER_AUTH_URL,
   plugins: [tanstackStartCookies()],
+  advanced: {
+    cookiePrefix: 'feedback-saas',
+    crossSubDomainCookies: {
+      enabled: true,
+      domain: process.env.NODE_ENV === 'development' ? undefined : '.devlabs.sk',
+    },
+  },
 });
