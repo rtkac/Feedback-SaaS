@@ -8,3 +8,8 @@ export type SignUpBody = {
   email: string;
   password: string;
 };
+
+export type ResetPasswordBody = {
+  newPassword: string;
+  token: string;
+};

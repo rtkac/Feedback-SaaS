@@ -1,7 +1,7 @@
-import { signIn, signUp } from '@feedback-saas/auth/client';
+import { signIn, signUp, requestPasswordReset, resetPassword } from '@feedback-saas/auth/client';
 import { mutationOptions } from '@tanstack/react-query';
 
-import { SignInBody, SignUpBody } from '@/types';
+import { ResetPasswordBody, SignInBody, SignUpBody } from '@/types';
 
 const signUpUser = async (body: SignUpBody) => {
   const response = await signUp.email({
@@ -38,4 +38,39 @@ const signInUser = async (body: SignInBody) => {
 export const signInUserOptions = () =>
   mutationOptions({
     mutationFn: (body: SignInBody) => signInUser(body),
+  });
+
+const sendRequestPasswordReset = async (email: string) => {
+  const response = await requestPasswordReset({
+    email,
+    redirectTo: `${import.meta.env.VITE_FEEDBACK_SAAS_AUTH_WEB_URL}/reset-password`,
+  });
+
+  if (response.error) {
+    throw response.error;
+  }
+
+  return response.data;
+};
+
+export const sendRequestPasswordResetOptions = () =>
+  mutationOptions({
+    mutationFn: (email: string) => sendRequestPasswordReset(email),
+  });
+
+const sendResetPassword = async (body: ResetPasswordBody) => {
+  const response = await resetPassword({
+    ...body,
+  });
+
+  if (response.error) {
+    throw response.error;
+  }
+
+  return response.data;
+};
+
+export const sendResetPasswordOptions = () =>
+  mutationOptions({
+    mutationFn: (body: ResetPasswordBody) => sendResetPassword(body),
   });

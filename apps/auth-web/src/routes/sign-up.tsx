@@ -175,7 +175,10 @@ function RouteComponent() {
         {/* </FieldGroup> */}
       </form>
       <p>
-        {m.signUpLoginDesc()} <Link to="/sign-in">{m.signUpLoginButton()}</Link>
+        {m.signUpLoginDesc()}{' '}
+        <Link to="/sign-in" className="underline">
+          {m.signUpLoginButton()}
+        </Link>
       </p>
     </div>
   );
