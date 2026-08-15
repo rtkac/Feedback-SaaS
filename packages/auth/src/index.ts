@@ -4,7 +4,7 @@ import { betterAuth } from 'better-auth';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 import { tanstackStartCookies } from 'better-auth/tanstack-start';
 
-import { sendSignUpVerificationEmail } from './server-events';
+import { sendSignUpVerificationEmail, sendResetPasswordEmail } from './server-events';
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
@@ -21,6 +21,10 @@ export const auth = betterAuth({
     requireEmailVerification: true,
     onExistingUserSignUp: () => {
       throw new Error();
+    },
+    revokeSessionsOnPasswordReset: true,
+    sendResetPassword: async ({ user, url }) => {
+      void sendResetPasswordEmail(user.email, url);
     },
   },
   emailVerification: {
