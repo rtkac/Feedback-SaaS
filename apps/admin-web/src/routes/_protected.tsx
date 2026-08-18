@@ -8,7 +8,7 @@ export const Route = createFileRoute('/_protected')({
     const session = await getSession();
     if (!session) {
       throw redirect({
-        href: `${import.meta.env.VITE_FEEDBACK_SAAS_AUTH_WEB_URL}/sign-in`,
+        href: import.meta.env.VITE_FEEDBACK_SAAS_AUTH_WEB_URL,
       });
     }
 

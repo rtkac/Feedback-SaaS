@@ -19,7 +19,7 @@ function RouteComponent() {
     await signOut({
       fetchOptions: {
         onSuccess: () => {
-          navigate({ href: `${import.meta.env.VITE_FEEDBACK_SAAS_AUTH_WEB_URL}/sign-in` });
+          navigate({ href: import.meta.env.VITE_FEEDBACK_SAAS_AUTH_WEB_URL });
         },
       },
     });

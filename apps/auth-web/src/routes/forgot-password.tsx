@@ -76,7 +76,7 @@ function RouteComponent() {
       </form>
       <p>
         Back to&nbsp;
-        <Link to="/sign-in" className="underline">
+        <Link to="/" className="underline">
           sign In
         </Link>
       </p>
