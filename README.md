@@ -1,159 +1,185 @@
-# Turborepo starter
+# Feedback SaaS
 
-This Turborepo starter is maintained by the Turborepo core team.
+A full-stack SaaS platform for collecting and managing user feedback. Built as a [Turborepo](https://turbo.build/repo) monorepo, powered by [Bun](https://bun.sh/).
 
-## Using this example
+---
 
-Run the following command:
+## Workspace Layout
 
-```sh
-npx create-turbo@latest
+```
+apps/
+  auth-web/       # Authentication portal (sign-in, sign-up, password reset)
+  admin-web/      # Customer dashboard for managing feedback
+  marketing/      # Public marketing website                        [upcoming]
+  feedback/       # Embeddable feedback widget for client websites  [upcoming]
+  storybook/      # UI component catalogue
+
+packages/
+  @feedback-saas/auth    # Better Auth configuration, server events, email via Resend
+  @feedback-saas/db      # Drizzle ORM schema, queries, migrations (Neon PostgreSQL)
+  @feedback-saas/ui      # Shared React component library (Base UI + Tailwind v4)
+  @feedback-saas/utils   # Shared utility functions
 ```
 
-## What's inside?
+---
 
-This Turborepo includes the following packages/apps:
+## Tech Stack
 
-### Apps and Packages
+<p>
+  <img src="https://img.shields.io/badge/Bun-%23000000.svg?style=for-the-badge&logo=bun&logoColor=white" alt="Bun" />
+  <img src="https://img.shields.io/badge/Turborepo-%23EF4444.svg?style=for-the-badge&logo=turborepo&logoColor=white" alt="Turborepo" />
+  <img src="https://img.shields.io/badge/React_19-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB" alt="React 19" />
+  <img src="https://img.shields.io/badge/TanStack_Start-%23FF4154.svg?style=for-the-badge" alt="TanStack Start" />
+  <img src="https://img.shields.io/badge/TypeScript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/Tailwind_v4-%2306B6D4.svg?style=for-the-badge&logo=tailwindcss&logoColor=white" alt="Tailwind CSS v4" />
+  <img src="https://img.shields.io/badge/Drizzle-%23C5F74F.svg?style=for-the-badge&logo=drizzle&logoColor=black" alt="Drizzle ORM" />
+  <img src="https://img.shields.io/badge/Neon-%2300E5BF.svg?style=for-the-badge" alt="Neon" />
+  <img src="https://img.shields.io/badge/Better_Auth-%231F2A33.svg?style=for-the-badge" alt="Better Auth" />
+  <img src="https://img.shields.io/badge/Oxlint-%231F2A33.svg?style=for-the-badge" alt="Oxlint" />
+</p>
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+| Layer                     | Choice                                                                                                |
+| ------------------------- | ----------------------------------------------------------------------------------------------------- |
+| Runtime / Package manager | [Bun](https://bun.sh/)                                                                                |
+| Monorepo orchestration    | [Turborepo](https://turbo.build/repo)                                                                 |
+| Framework                 | [TanStack Start](https://tanstack.com/start) + [TanStack Router](https://tanstack.com/router)         |
+| Data fetching             | [TanStack Query](https://tanstack.com/query)                                                          |
+| Forms                     | [TanStack Form](https://tanstack.com/form)                                                            |
+| Database                  | [Drizzle ORM](https://orm.drizzle.team/) + [Neon](https://neon.tech/) (serverless Postgres)           |
+| Authentication            | [Better Auth](https://better-auth.com/) + [Resend](https://resend.com/)                               |
+| UI components             | [Base UI](https://base-ui.com/) + [shadcn/ui](https://ui.shadcn.com/)                                 |
+| Styling                   | [Tailwind CSS v4](https://tailwindcss.com/)                                                           |
+| Icons                     | [Tabler Icons](https://tabler.io/icons)                                                               |
+| i18n                      | [Paraglide JS](https://inlang.com/m/gerre34r/library-inlang-paraglideJs)                              |
+| Error monitoring          | [Sentry](https://sentry.io/)                                                                          |
+| Testing                   | [Vitest](https://vitest.dev/) + [Testing Library](https://testing-library.com/)                       |
+| Linting / Formatting      | [Oxlint](https://oxc.rs/docs/guide/usage/linter) + [Oxfmt](https://oxc.rs/docs/guide/usage/formatter) |
+| Git hooks                 | [Lefthook](https://github.com/evilmartians/lefthook) + [Commitlint](https://commitlint.js.org/)       |
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+---
 
-### Utilities
+## Getting Started
 
-This Turborepo has some additional tools already setup for you:
+**Prerequisite:** [Bun](https://bun.sh/) ≥ 1.3.14
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+```bash
+# Install Bun if you don't have it
+curl -fsSL https://bun.sh/install | bash
 
-### Build
-
-To build all apps and packages, run the following command:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo build
+# Clone and install dependencies
+git clone <repo-url> && cd feedback-saas
+bun install
 ```
 
-Without global `turbo`, use your package manager:
+Copy the environment variables template and fill in the required values:
 
-```sh
-cd my-turborepo
-npx turbo build
-bun dlx turbo build
-bun exec turbo build
+```bash
+cp .env.example .env
 ```
 
-You can build a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
+Required environment variables:
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
+| Variable                           | Description                                |
+| ---------------------------------- | ------------------------------------------ |
+| `DATABASE_URL`                     | Neon PostgreSQL connection string          |
+| `BETTER_AUTH_SECRET`               | Random secret for session signing          |
+| `BETTER_AUTH_URL`                  | Auth server base URL                       |
+| `BETTER_AUTH_TRUSTED_ORIGINS`      | Comma-separated allowed origins            |
+| `RESEND_API_KEY`                   | Resend API key for transactional email     |
+| `VITE_FEEDBACK_SAAS_AUTH_WEB_URL`  | Public URL of the auth app                 |
+| `VITE_FEEDBACK_SAAS_ADMIN_WEB_URL` | Public URL of the admin app                |
+| `VITE_APP_ENV`                     | `development` \| `staging` \| `production` |
 
-```sh
-turbo build --filter=docs
+Push the schema to your database:
+
+```bash
+bun run --filter=@feedback-saas/db db:push
 ```
 
-Without global `turbo`:
+Optionally seed development data:
 
-```sh
-npx turbo build --filter=docs
-bun exec turbo build --filter=docs
-bun exec turbo build --filter=docs
+```bash
+bun run seed
 ```
 
-### Develop
+---
 
-To develop all apps and packages, run the following command:
+## Development
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
+Start all apps and watch all packages simultaneously:
 
-```sh
-cd my-turborepo
-turbo dev
+```bash
+bun run dev
 ```
 
-Without global `turbo`, use your package manager:
+Start a specific app only:
 
-```sh
-cd my-turborepo
-npx turbo dev
-bun exec turbo dev
-bun exec turbo dev
+```bash
+bun run dev --filter=@feedback-saas/admin-web
+bun run dev --filter=@feedback-saas/auth-web
 ```
 
-You can develop a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
+| App         | Default port |
+| ----------- | ------------ |
+| `auth-web`  | `3000`       |
+| `admin-web` | `3001`       |
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
+---
 
-```sh
-turbo dev --filter=web
+## Common Commands
+
+```bash
+# Build everything
+bun run build
+
+# Run all tests
+bun run test
+
+# Lint the workspace
+bun run lint
+
+# Check formatting
+bun run format
+
+# Auto-fix formatting
+bun run format:write
+
+# Open Drizzle Studio
+bun run --filter=@feedback-saas/db db:studio
+
+# Generate a new DB migration
+bun run --filter=@feedback-saas/db db:generate
+
+# Storybook (component catalogue)
+bun run dev --filter=@feedback-saas/storybook
 ```
 
-Without global `turbo`:
+---
 
-```sh
-npx turbo dev --filter=web
-bun exec turbo dev --filter=web
-bun exec turbo dev --filter=web
+## Deployment
+
+All apps are hosted on [Vercel](https://vercel.com/) and deploy automatically on every push — no manual steps needed.
+
+| App         | Branch → Environment                            |
+| ----------- | ----------------------------------------------- |
+| `auth-web`  | `main` → production, any other branch → preview |
+| `admin-web` | `main` → production, any other branch → preview |
+| `marketing` | `main` → production, any other branch → preview |
+| `feedback`  | `main` → production, any other branch → preview |
+| `storybook` | `main` → production, any other branch → preview |
+
+Vercel automatically picks up the Turborepo config and only rebuilds apps affected by a given change. Preview deployments get a unique URL per branch, making it easy to share work-in-progress without touching production.
+
+> Database migrations are **not** run automatically on deploy. Run `bun run --filter=@feedback-saas/db db:push` (or `db:generate` + `db:migrate`) manually before deploying schema changes.
+
+---
+
+## Git Conventions
+
+Commits are linted against [Conventional Commits](https://www.conventionalcommits.org/) via Commitlint. Lefthook runs formatting and linting on staged files before every commit.
+
 ```
-
-### Remote Caching
-
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo login
+feat: add feedback widget embed script
+fix: resolve session expiry race condition
+chore: bump drizzle-orm to 0.45
 ```
-
-Without global `turbo`, use your package manager:
-
-```sh
-cd my-turborepo
-npx turbo login
-bun exec turbo login
-bun exec turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
-
-```sh
-turbo link
-```
-
-Without global `turbo`:
-
-```sh
-npx turbo link
-bun exec turbo link
-bun exec turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turborepo.dev/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.dev/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.dev/docs/reference/configuration)
-- [CLI Usage](https://turborepo.dev/docs/reference/command-line-reference)
