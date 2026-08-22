@@ -183,3 +183,41 @@ feat: add feedback widget embed script
 fix: resolve session expiry race condition
 chore: bump drizzle-orm to 0.45
 ```
+
+## Database & Auth Schema
+
+### Updating the Better Auth schema
+
+Run this whenever you upgrade `better-auth` or change its configuration in `packages/auth/src/index.ts`:
+
+```bash
+cd packages/db
+bun x auth@latest generate --config=../auth/src/index.ts --output=./src/schema
+```
+
+This regenerates `packages/db/src/schema/auth-schema.ts` to match the current Better Auth config. After this, follow the steps in [Pushing schema changes to Neon](#pushing-schema-changes-to-neon).
+
+> **Prerequisite:** `packages/db` must have a `.env` file with `DATABASE_URL` and `BETTER_AUTH_URL` set.
+
+---
+
+### Pushing schema changes to Neon
+
+After updating any schema file under `packages/db/src/schema/`, apply the changes to the database and rebuild the package:
+
+```bash
+# 1. Push schema changes to Neon
+cd packages/db && bun run db:push
+
+# 2. Rebuild the db package so the updated schema is picked up at runtime
+bun run --filter=@feedback-saas/db build
+```
+
+Then restart the dev server.
+
+> **`db:push` vs `db:generate`:** These are two separate Drizzle workflows — do not mix them.
+>
+> - `db:push` diffs the schema directly against the DB and applies changes. No migration files needed or used.
+> - `db:generate` + `db:migrate` generates SQL migration files and runs them — use this for production deployments where migration history matters.
+>
+> For day-to-day development, `db:push` alone is sufficient.

@@ -9,10 +9,6 @@ import { z } from 'zod';
 import { signUpUserOptions } from '@/effects/auth';
 import { m } from '@/paraglide/messages';
 
-export const Route = createFileRoute('/sign-up')({
-  component: RouteComponent,
-});
-
 const formSchema = z
   .object({
     name: z.string().nonempty(m.signUpNameErrorRequired()),
@@ -38,9 +34,12 @@ function RouteComponent() {
       password: '',
       confirm_password: '',
     },
-    validators: {
-      onSubmit: formSchema,
-    },
+    validators: [
+      {
+        triggers: ['blur'],
+        run: formSchema,
+      },
+    ],
     onSubmit: ({ value }) =>
       mutateAsync({
         name: value.name,
@@ -72,15 +71,14 @@ function RouteComponent() {
                   <Input
                     id={field.name}
                     name={field.name}
-                    value={field.state.value}
+                    value={field.value}
                     onChange={(e) => field.handleChange(e.target.value)}
                     onBlur={field.handleBlur}
                     type="text"
                     placeholder={m.signUpNamePlaceholder()}
+                    aria-invalid={field.meta.isInvalid}
                   />
-                  {field.state.meta.isTouched && !field.state.meta.isValid && (
-                    <FieldError errors={field.state.meta.errors} />
-                  )}
+                  <FieldError errors={field.errors} />
                 </Field>
               )}
             </form.Field>
@@ -91,15 +89,14 @@ function RouteComponent() {
                   <Input
                     id={field.name}
                     name={field.name}
-                    value={field.state.value}
+                    value={field.value}
                     onChange={(e) => field.handleChange(e.target.value)}
                     onBlur={field.handleBlur}
                     type="email"
                     placeholder={m.signUpEmailPlaceholder()}
+                    aria-invalid={field.meta.isInvalid}
                   />
-                  {field.state.meta.isTouched && !field.state.meta.isValid && (
-                    <FieldError errors={field.state.meta.errors} />
-                  )}
+                  <FieldError errors={field.errors} />
                 </Field>
               )}
             </form.Field>
@@ -110,15 +107,14 @@ function RouteComponent() {
                   <Input
                     id={field.name}
                     name={field.name}
-                    value={field.state.value}
+                    value={field.value}
                     onChange={(e) => field.handleChange(e.target.value)}
                     onBlur={field.handleBlur}
                     type="password"
                     placeholder={m.signUpPasswordPlaceholder()}
+                    aria-invalid={field.meta.isInvalid}
                   />
-                  {field.state.meta.isTouched && !field.state.meta.isValid && (
-                    <FieldError errors={field.state.meta.errors} />
-                  )}
+                  <FieldError errors={field.errors} />
                 </Field>
               )}
             </form.Field>
@@ -129,15 +125,14 @@ function RouteComponent() {
                   <Input
                     id={field.name}
                     name={field.name}
-                    value={field.state.value}
+                    value={field.value}
                     onChange={(e) => field.handleChange(e.target.value)}
                     onBlur={field.handleBlur}
                     type="password"
                     placeholder={m.signUpPasswordConfirmPlaceholder()}
+                    aria-invalid={field.meta.isInvalid}
                   />
-                  {field.state.meta.isTouched && !field.state.meta.isValid && (
-                    <FieldError errors={field.state.meta.errors} />
-                  )}
+                  <FieldError errors={field.errors} />
                 </Field>
               )}
             </form.Field>
@@ -147,7 +142,7 @@ function RouteComponent() {
           <form.Subscribe selector={(state) => state.isSubmitting}>
             {(isSubmitting) => (
               <Button type="submit" disabled={isSubmitting}>
-                {m.signUpButtonCreateAccount()}{' '}
+                {m.signUpCreateAccountLabel()}
               </Button>
             )}
           </form.Subscribe>
@@ -155,11 +150,15 @@ function RouteComponent() {
         {isError && <>{m.signUpErrorMessage()}</>}
       </form>
       <p>
-        {m.signUpLoginDesc()}{' '}
+        {m.signUpLoginDesc()}
         <Link to="/" className="underline">
-          {m.signUpLoginButton()}
+          {m.signUpLoginLabel()}
         </Link>
       </p>
     </div>
   );
 }
+
+export const Route = createFileRoute('/sign-up')({
+  component: RouteComponent,
+});

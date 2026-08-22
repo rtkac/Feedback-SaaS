@@ -9,10 +9,6 @@ import { z } from 'zod';
 import { signInUserOptions } from '@/effects/auth';
 import { m } from '@/paraglide/messages';
 
-export const Route = createFileRoute('/_authenticated/')({
-  component: RouteComponent,
-});
-
 const formSchema = z.object({
   email: z.email(m.signInEmailInvalid()),
   password: z.string().nonempty(m.signInPasswordRequired()),
@@ -24,9 +20,12 @@ function RouteComponent() {
       email: '',
       password: '',
     },
-    validators: {
-      onSubmit: formSchema,
-    },
+    validators: [
+      {
+        triggers: ['blur'],
+        run: formSchema,
+      },
+    ],
     onSubmit: ({ value }) => mutateAsync(value),
   });
 
@@ -53,15 +52,13 @@ function RouteComponent() {
                   <Input
                     id={field.name}
                     name={field.name}
-                    value={field.state.value}
+                    value={field.value}
                     onChange={(e) => field.handleChange(e.target.value)}
                     onBlur={field.handleBlur}
-                    type="email"
                     placeholder={m.signInEmailPlaceholder()}
+                    aria-invalid={field.meta.isInvalid}
                   />
-                  {field.state.meta.isTouched && !field.state.meta.isValid && (
-                    <FieldError errors={field.state.meta.errors} />
-                  )}
+                  <FieldError errors={field.errors} />
                 </Field>
               )}
             </form.Field>
@@ -72,15 +69,13 @@ function RouteComponent() {
                   <Input
                     id={field.name}
                     name={field.name}
-                    value={field.state.value}
+                    value={field.value}
                     onChange={(e) => field.handleChange(e.target.value)}
                     onBlur={field.handleBlur}
                     type="password"
                     placeholder={m.signInPasswordPlaceholder()}
                   />
-                  {field.state.meta.isTouched && !field.state.meta.isValid && (
-                    <FieldError errors={field.state.meta.errors} />
-                  )}
+                  <FieldError errors={field.errors} />
                 </Field>
               )}
             </form.Field>
@@ -110,3 +105,7 @@ function RouteComponent() {
     </div>
   );
 }
+
+export const Route = createFileRoute('/_authenticated/')({
+  component: RouteComponent,
+});
