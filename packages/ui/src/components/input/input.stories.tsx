@@ -1,0 +1,46 @@
+import type { Meta, StoryObj } from '@storybook/react-vite';
+
+import { FieldError } from '../field-error/fieldError';
+import { Label } from '../label/label';
+import { Input } from './input';
+
+const meta: Meta<typeof Input> = {
+  title: 'UI/Input',
+  component: Input,
+  tags: ['autodocs'],
+  argTypes: {},
+};
+
+export default meta;
+type Story = StoryObj<typeof Input>;
+
+export const Default: Story = {
+  args: {
+    placeholder: 'Enter text',
+  },
+};
+
+export const WithLabel: Story = {
+  args: {
+    placeholder: 'Enter text',
+  },
+  render: (args) => (
+    <div>
+      <Label htmlFor="input-with-label">Email</Label>
+      <Input id="input-with-label" {...args} />
+    </div>
+  ),
+};
+
+export const WithFieldError: Story = {
+  args: {
+    placeholder: 'Enter email',
+  },
+  render: (args) => (
+    <div>
+      <Label htmlFor="input-with-field-error">Email</Label>
+      <Input id="input-with-field-error" {...args} />
+      <FieldError>Please enter a valid email address.</FieldError>
+    </div>
+  ),
+};

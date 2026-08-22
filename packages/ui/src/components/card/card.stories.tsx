@@ -20,6 +20,7 @@ const meta: Meta<typeof Card> = {
     </Card>
   ),
   tags: ['autodocs'],
+  argTypes: {},
 };
 
 export default meta;
