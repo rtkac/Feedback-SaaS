@@ -1,6 +1,6 @@
 import { auth } from '@feedback-saas/auth';
 import { db } from '@feedback-saas/db';
-import { user } from '@feedback-saas/db/schema/auth';
+import { user } from '@feedback-saas/db/schema/auth-schema';
 import { workspace, workspaceMember } from '@feedback-saas/db/schema/workspace';
 import { eq } from 'drizzle-orm';
 

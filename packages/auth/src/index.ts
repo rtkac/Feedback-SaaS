@@ -1,5 +1,5 @@
 import { db } from '@feedback-saas/db';
-import * as schema from '@feedback-saas/db/schema/auth';
+import * as schema from '@feedback-saas/db/schema/auth-schema';
 import { betterAuth } from 'better-auth';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 import { tanstackStartCookies } from 'better-auth/tanstack-start';

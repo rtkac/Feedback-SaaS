@@ -1,4 +1,4 @@
-import { Button } from '@feedback-saas/ui/components';
+import { Button, Field, FieldError, FieldLabel, Input } from '@feedback-saas/ui/components';
 import { useForm } from '@tanstack/react-form';
 import { useMutation } from '@tanstack/react-query';
 import { createFileRoute, Link } from '@tanstack/react-router';
@@ -7,21 +7,12 @@ import { z } from 'zod';
 import { sendRequestPasswordResetOptions } from '@/effects/auth';
 import { m } from '@/paraglide/messages';
 
-// import { Button } from '@/components/ui/button';
-// import { Field, FieldError, FieldGroup, FieldLabel, FieldSet } from '@/components/ui/field';
-// import { Input } from '@/components/ui/input';
-// import { Spinner } from '@/components/ui/spinner';
-// import { m } from '@/paraglide/messages';
-
 export const Route = createFileRoute('/forgot-password')({
   component: RouteComponent,
 });
 
-// const formSchema = z.object({
-//   email: z.email(m.sign_in_email_validation_error_message()),
-// });
 const formSchema = z.object({
-  email: z.email('email err'),
+  email: z.email(m.forgotPasswordEmailInvalid()),
 });
 
 function RouteComponent() {
@@ -29,9 +20,12 @@ function RouteComponent() {
     defaultValues: {
       email: '',
     },
-    validators: {
-      onSubmit: formSchema,
-    },
+    validators: [
+      {
+        triggers: ['blur'],
+        run: formSchema,
+      },
+    ],
     onSubmit: ({ value }) => mutateAsync(value.email),
   });
 
@@ -39,8 +33,8 @@ function RouteComponent() {
 
   return (
     <div className="flex flex-col gap-8 w-full max-w-md">
-      <h1 className="flex flex-col gap-2">Forgot Password</h1>
-      <p>Enter your email to reset your password</p>
+      <h1 className="flex flex-col gap-2">{m.forgotPasswordTitle()}</h1>
+      <p>{m.forgotPasswordDesc()}</p>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -49,35 +43,36 @@ function RouteComponent() {
       >
         <form.Field name="email">
           {(field) => (
-            <>
-              <label htmlFor={field.name}>Email</label>
-              <input
+            <Field>
+              <FieldLabel htmlFor={field.name}>{m.forgotPasswordEmailLabel()}</FieldLabel>
+              <Input
                 id={field.name}
                 name={field.name}
-                value={field.state.value}
+                value={field.value}
                 onChange={(e) => field.handleChange(e.target.value)}
                 onBlur={field.handleBlur}
-                type="email"
-                placeholder={'email placeholder'}
+                placeholder={m.forgotPasswordEmailPlaceholder()}
+                aria-invalid={field.meta.isInvalid}
               />
-            </>
+              <FieldError errors={field.errors} />
+            </Field>
           )}
         </form.Field>
-        <form.Subscribe selector={(state) => state.isSubmitting}>
-          {(isSubmitting) => (
-            <div>
+        <Field orientation="horizontal">
+          <form.Subscribe selector={(state) => state.isSubmitting}>
+            {(isSubmitting) => (
               <Button type="submit" disabled={isSubmitting}>
-                Rend reset link
+                {m.forgotPasswordSendResetLinkLabel()}
               </Button>
-            </div>
-          )}
-        </form.Subscribe>
-        {isError && <p>error message</p>}
+            )}
+          </form.Subscribe>
+        </Field>
+        {isError && <p>{m.forgotPasswordErrorMessage()}</p>}
       </form>
       <p>
-        Back to&nbsp;
+        {m.forgotPasswordBackTo()}&nbsp;
         <Link to="/" className="underline">
-          sign In
+          {m.forgotPasswordLoginLabel()}
         </Link>
       </p>
     </div>
