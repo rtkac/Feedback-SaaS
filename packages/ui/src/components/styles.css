@@ -12,6 +12,8 @@
   --foreground: oklch(0% 0 0);
   --main-foreground: oklch(0% 0 0);
   --main: oklch(66.9% 0.18368 248.8066);
+  --desctructive: oklch(0.5059 0.1927 27.91);
+  --desctructive-foreground: oklch(100% 0 0);
   --border: oklch(0% 0 0);
   --ring: oklch(0% 0 0);
   --overlay: oklch(0% 0 0 / 0.8);
@@ -47,6 +49,8 @@
   --color-secondary-background: var(--secondary-background);
   --color-foreground: var(--foreground);
   --color-main-foreground: var(--main-foreground);
+  --color-desctructive: var(--desctructive);
+  --color-desctructive-foreground: var(--desctructive-foreground);
   --color-border: var(--border);
   --color-overlay: var(--overlay);
   --color-ring: var(--ring);
@@ -82,5 +86,9 @@
   h5,
   h6 {
     @apply font-heading;
+  }
+
+  a {
+    @apply ml-auto inline-block underline-offset-4 underline;
   }
 }
