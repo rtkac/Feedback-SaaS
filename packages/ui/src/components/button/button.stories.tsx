@@ -8,10 +8,10 @@ const meta: Meta<typeof Button> = {
   tags: ['autodocs'],
   argTypes: {
     variant: {
-      options: ['default', 'outline', 'secondary', 'ghost', 'destructive', 'link'],
+      options: ['default', 'noShadow', 'neutral', 'reverse'],
     },
     size: {
-      options: ['default', 'xs', 'sm', 'lg', 'icon', 'icon-xs', 'icon-sm', 'icon-lg'],
+      options: ['default', 'sm', 'lg', 'icon'],
     },
   },
 };

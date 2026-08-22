@@ -1,6 +1,4 @@
-import { Button } from '@feedback-saas/ui/components';
-import { Field, FieldError, FieldGroup, FieldLabel, FieldSet } from '@feedback-saas/ui/components';
-import { Input } from '@feedback-saas/ui/components';
+import { Button, FieldError, Input, Label } from '@feedback-saas/ui/components';
 import { useForm } from '@tanstack/react-form';
 import { useMutation } from '@tanstack/react-query';
 import { createFileRoute, Link } from '@tanstack/react-router';
@@ -62,91 +60,93 @@ function RouteComponent() {
           form.handleSubmit();
         }}
       >
-        <FieldSet>
-          <FieldGroup>
-            <form.Field name="name">
-              {(field) => (
-                <Field>
-                  <FieldLabel htmlFor={field.name}>{m.signUpNameLabel()}</FieldLabel>
-                  <Input
-                    id={field.name}
-                    name={field.name}
-                    value={field.value}
-                    onChange={(e) => field.handleChange(e.target.value)}
-                    onBlur={field.handleBlur}
-                    type="text"
-                    placeholder={m.signUpNamePlaceholder()}
-                    aria-invalid={field.meta.isInvalid}
-                  />
-                  <FieldError errors={field.errors} />
-                </Field>
-              )}
-            </form.Field>
-            <form.Field name="email">
-              {(field) => (
-                <Field>
-                  <FieldLabel htmlFor={field.name}>{m.signUpEmailLabel()}</FieldLabel>
-                  <Input
-                    id={field.name}
-                    name={field.name}
-                    value={field.value}
-                    onChange={(e) => field.handleChange(e.target.value)}
-                    onBlur={field.handleBlur}
-                    type="email"
-                    placeholder={m.signUpEmailPlaceholder()}
-                    aria-invalid={field.meta.isInvalid}
-                  />
-                  <FieldError errors={field.errors} />
-                </Field>
-              )}
-            </form.Field>
-            <form.Field name="password">
-              {(field) => (
-                <Field>
-                  <FieldLabel htmlFor={field.name}>{m.signUpPasswordLabel()}</FieldLabel>
-                  <Input
-                    id={field.name}
-                    name={field.name}
-                    value={field.value}
-                    onChange={(e) => field.handleChange(e.target.value)}
-                    onBlur={field.handleBlur}
-                    type="password"
-                    placeholder={m.signUpPasswordPlaceholder()}
-                    aria-invalid={field.meta.isInvalid}
-                  />
-                  <FieldError errors={field.errors} />
-                </Field>
-              )}
-            </form.Field>
-            <form.Field name="confirm_password">
-              {(field) => (
-                <Field>
-                  <FieldLabel htmlFor={field.name}>{m.signUpPasswordConfirmLabel()}</FieldLabel>
-                  <Input
-                    id={field.name}
-                    name={field.name}
-                    value={field.value}
-                    onChange={(e) => field.handleChange(e.target.value)}
-                    onBlur={field.handleBlur}
-                    type="password"
-                    placeholder={m.signUpPasswordConfirmPlaceholder()}
-                    aria-invalid={field.meta.isInvalid}
-                  />
-                  <FieldError errors={field.errors} />
-                </Field>
-              )}
-            </form.Field>
-          </FieldGroup>
-        </FieldSet>
-        <Field orientation="horizontal">
-          <form.Subscribe selector={(state) => state.isSubmitting}>
-            {(isSubmitting) => (
-              <Button type="submit" disabled={isSubmitting}>
-                {m.signUpCreateAccountLabel()}
-              </Button>
-            )}
-          </form.Subscribe>
-        </Field>
+        <form.Field name="name">
+          {(field) => (
+            <>
+              <Label htmlFor={field.name}>{m.signUpNameLabel()}</Label>
+              <Input
+                id={field.name}
+                name={field.name}
+                value={field.value}
+                onChange={(e) => field.handleChange(e.target.value)}
+                onBlur={field.handleBlur}
+                type="text"
+                placeholder={m.signUpNamePlaceholder()}
+                aria-invalid={field.meta.isInvalid}
+              />
+              <FieldError>
+                {typeof field.errors[0] === 'string' ? field.errors[0] : field.errors[0]?.message}
+              </FieldError>
+            </>
+          )}
+        </form.Field>
+        <form.Field name="email">
+          {(field) => (
+            <>
+              <Label htmlFor={field.name}>{m.signUpEmailLabel()}</Label>
+              <Input
+                id={field.name}
+                name={field.name}
+                value={field.value}
+                onChange={(e) => field.handleChange(e.target.value)}
+                onBlur={field.handleBlur}
+                type="email"
+                placeholder={m.signUpEmailPlaceholder()}
+                aria-invalid={field.meta.isInvalid}
+              />
+              <FieldError>
+                {typeof field.errors[0] === 'string' ? field.errors[0] : field.errors[0]?.message}
+              </FieldError>
+            </>
+          )}
+        </form.Field>
+        <form.Field name="password">
+          {(field) => (
+            <>
+              <Label htmlFor={field.name}>{m.signUpPasswordLabel()}</Label>
+              <Input
+                id={field.name}
+                name={field.name}
+                value={field.value}
+                onChange={(e) => field.handleChange(e.target.value)}
+                onBlur={field.handleBlur}
+                type="password"
+                placeholder={m.signUpPasswordPlaceholder()}
+                aria-invalid={field.meta.isInvalid}
+              />
+              <FieldError>
+                {typeof field.errors[0] === 'string' ? field.errors[0] : field.errors[0]?.message}
+              </FieldError>
+            </>
+          )}
+        </form.Field>
+        <form.Field name="confirm_password">
+          {(field) => (
+            <>
+              <Label htmlFor={field.name}>{m.signUpPasswordConfirmLabel()}</Label>
+              <Input
+                id={field.name}
+                name={field.name}
+                value={field.value}
+                onChange={(e) => field.handleChange(e.target.value)}
+                onBlur={field.handleBlur}
+                type="password"
+                placeholder={m.signUpPasswordConfirmPlaceholder()}
+                aria-invalid={field.meta.isInvalid}
+              />
+              <FieldError>
+                {typeof field.errors[0] === 'string' ? field.errors[0] : field.errors[0]?.message}
+              </FieldError>
+            </>
+          )}
+        </form.Field>
+        <form.Subscribe selector={(state) => state.isSubmitting}>
+          {(isSubmitting) => (
+            <Button type="submit" disabled={isSubmitting}>
+              {m.signUpCreateAccountLabel()}
+            </Button>
+          )}
+        </form.Subscribe>
         {isError && <>{m.signUpErrorMessage()}</>}
       </form>
       <p>

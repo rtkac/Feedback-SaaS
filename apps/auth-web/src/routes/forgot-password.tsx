@@ -1,4 +1,4 @@
-import { Button, Field, FieldError, FieldLabel, Input } from '@feedback-saas/ui/components';
+import { Button, FieldError, Input, Label } from '@feedback-saas/ui/components';
 import { useForm } from '@tanstack/react-form';
 import { useMutation } from '@tanstack/react-query';
 import { createFileRoute, Link } from '@tanstack/react-router';
@@ -43,8 +43,8 @@ function RouteComponent() {
       >
         <form.Field name="email">
           {(field) => (
-            <Field>
-              <FieldLabel htmlFor={field.name}>{m.forgotPasswordEmailLabel()}</FieldLabel>
+            <>
+              <Label htmlFor={field.name}>{m.forgotPasswordEmailLabel()}</Label>
               <Input
                 id={field.name}
                 name={field.name}
@@ -54,11 +54,13 @@ function RouteComponent() {
                 placeholder={m.forgotPasswordEmailPlaceholder()}
                 aria-invalid={field.meta.isInvalid}
               />
-              <FieldError errors={field.errors} />
-            </Field>
+              <FieldError>
+                {typeof field.errors[0] === 'string' ? field.errors[0] : field.errors[0]?.message}
+              </FieldError>
+            </>
           )}
         </form.Field>
-        <Field orientation="horizontal">
+        <div>
           <form.Subscribe selector={(state) => state.isSubmitting}>
             {(isSubmitting) => (
               <Button type="submit" disabled={isSubmitting}>
@@ -66,7 +68,7 @@ function RouteComponent() {
               </Button>
             )}
           </form.Subscribe>
-        </Field>
+        </div>
         {isError && <p>{m.forgotPasswordErrorMessage()}</p>}
       </form>
       <p>

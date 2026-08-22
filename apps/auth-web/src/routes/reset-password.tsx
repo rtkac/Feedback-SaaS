@@ -1,4 +1,4 @@
-import { Button, Field, FieldError, FieldLabel, Input } from '@feedback-saas/ui/components';
+import { Button, FieldError, Input, Label } from '@feedback-saas/ui/components';
 import { useForm } from '@tanstack/react-form';
 import { useMutation } from '@tanstack/react-query';
 import { createFileRoute, Link, stripSearchParams } from '@tanstack/react-router';
@@ -63,8 +63,8 @@ function RouteComponent() {
       >
         <form.Field name="password">
           {(field) => (
-            <Field>
-              <FieldLabel htmlFor={field.name}>{m.resetPasswordPasswordLabel()}</FieldLabel>
+            <>
+              <Label htmlFor={field.name}>{m.resetPasswordPasswordLabel()}</Label>
               <Input
                 id={field.name}
                 name={field.name}
@@ -75,14 +75,16 @@ function RouteComponent() {
                 placeholder={m.resetPasswordPasswordPlaceholder()}
                 aria-invalid={field.meta.isInvalid}
               />
-              <FieldError errors={field.errors} />
-            </Field>
+              <FieldError>
+                {typeof field.errors[0] === 'string' ? field.errors[0] : field.errors[0]?.message}
+              </FieldError>
+            </>
           )}
         </form.Field>
         <form.Field name="confirm_password">
           {(field) => (
-            <Field>
-              <FieldLabel htmlFor={field.name}>{m.resetPasswordConfirmPasswordLabel()}</FieldLabel>
+            <>
+              <Label htmlFor={field.name}>{m.resetPasswordConfirmPasswordLabel()}</Label>
               <Input
                 id={field.name}
                 name={field.name}
@@ -93,8 +95,10 @@ function RouteComponent() {
                 placeholder={m.resetPasswordConfirmPasswordPlaceholder()}
                 aria-invalid={field.meta.isInvalid}
               />
-              <FieldError errors={field.errors} />
-            </Field>
+              <FieldError>
+                {typeof field.errors[0] === 'string' ? field.errors[0] : field.errors[0]?.message}
+              </FieldError>
+            </>
           )}
         </form.Field>
         <form.Subscribe selector={(state) => state.isSubmitting}>
