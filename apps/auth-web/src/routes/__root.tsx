@@ -42,7 +42,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <head>
         <HeadContent />
       </head>
-      <body className="bg-background text-foreground">
+      <body className="md:max-w-5xl lg:max-w-6xl xl:max-w-7xl flex justify-center items-center min-h-screen mx-auto">
         {children}
         <TanStackDevtools
           config={{

@@ -4,8 +4,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './car
 
 const meta: Meta<typeof Card> = {
   title: 'UI/Card',
-  component: () => (
-    <Card>
+  component: ({ variant }) => (
+    <Card variant={variant}>
       <CardHeader>
         <CardTitle>
           <h1 className="text-4xl font-bold">Card title</h1>
@@ -20,7 +20,12 @@ const meta: Meta<typeof Card> = {
     </Card>
   ),
   tags: ['autodocs'],
-  argTypes: {},
+  argTypes: {
+    variant: {
+      options: ['default', 'primary', 'secondary', 'tertiary'],
+      control: { type: 'select' },
+    },
+  },
 };
 
 export default meta;
@@ -29,5 +34,6 @@ type Story = StoryObj<typeof Card>;
 export const Default: Story = {
   args: {
     children: 'Card content',
+    variant: 'default',
   },
 };

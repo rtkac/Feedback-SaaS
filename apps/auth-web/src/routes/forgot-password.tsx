@@ -17,10 +17,6 @@ import { z } from 'zod';
 import { sendRequestPasswordResetOptions } from '@/effects/auth';
 import { m } from '@/paraglide/messages';
 
-export const Route = createFileRoute('/forgot-password')({
-  component: RouteComponent,
-});
-
 const formSchema = z.object({
   email: z.email(m.forgotPasswordEmailInvalid()),
 });
@@ -79,15 +75,13 @@ function RouteComponent() {
               </div>
             )}
           </form.Field>
-          <div>
-            <form.Subscribe selector={(state) => state.isSubmitting}>
-              {(isSubmitting) => (
-                <Button type="submit" disabled={isSubmitting}>
-                  {m.forgotPasswordSendResetLinkLabel()}
-                </Button>
-              )}
-            </form.Subscribe>
-          </div>
+          <form.Subscribe selector={(state) => state.isSubmitting}>
+            {(isSubmitting) => (
+              <Button type="submit" disabled={isSubmitting}>
+                {m.forgotPasswordSendResetLinkLabel()}
+              </Button>
+            )}
+          </form.Subscribe>
           {isError && (
             <p className="text-sm font-base text-destructive mt-1">
               {m.forgotPasswordErrorMessage()}
@@ -102,3 +96,14 @@ function RouteComponent() {
     </Card>
   );
 }
+
+export const Route = createFileRoute('/forgot-password')({
+  component: RouteComponent,
+  head: () => ({
+    meta: [
+      {
+        title: m.forgotPasswordMetaTitle(),
+      },
+    ],
+  }),
+});

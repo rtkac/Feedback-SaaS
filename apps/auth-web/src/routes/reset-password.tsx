@@ -122,11 +122,9 @@ function RouteComponent() {
           </form.Field>
           <form.Subscribe selector={(state) => state.isSubmitting}>
             {(isSubmitting) => (
-              <div>
-                <Button type="submit" disabled={isSubmitting}>
-                  {m.resetPasswordResetLabel()}
-                </Button>
-              </div>
+              <Button type="submit" disabled={isSubmitting}>
+                {m.resetPasswordResetLabel()}
+              </Button>
             )}
           </form.Subscribe>
           {isError && (
@@ -153,4 +151,11 @@ export const Route = createFileRoute('/reset-password')({
     }
   },
   component: RouteComponent,
+  head: () => ({
+    meta: [
+      {
+        title: m.resetPasswordMetaTitle(),
+      },
+    ],
+  }),
 });
