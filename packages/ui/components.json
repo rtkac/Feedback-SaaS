@@ -14,7 +14,8 @@
   "rtl": false,
   "aliases": {
     "components": "src/components",
-    "utils": "src/lib/utils"
+    "utils": "src/lib/utils",
+    "ui": "src/components"
   },
   "menuColor": "default",
   "menuAccent": "bold",

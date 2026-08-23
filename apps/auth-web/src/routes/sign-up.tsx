@@ -179,4 +179,11 @@ function RouteComponent() {
 
 export const Route = createFileRoute('/sign-up')({
   component: RouteComponent,
+  head: () => ({
+    meta: [
+      {
+        title: m.signUpMetaTitle(),
+      },
+    ],
+  }),
 });

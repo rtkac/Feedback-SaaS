@@ -8,12 +8,16 @@
 
 :root {
   --background: oklch(94.27% 0.0268 242.57);
-  --secondary-background: oklch(100% 0 0);
+  --secondary-background: oklch(0.9821 0 0);
   --foreground: oklch(0% 0 0);
-  --main-foreground: oklch(0% 0 0);
-  --main: oklch(66.9% 0.18368 248.8066);
-  --desctructive: oklch(0.5059 0.1927 27.91);
-  --desctructive-foreground: oklch(100% 0 0);
+  --primary-foreground: oklch(0% 0 0);
+  --primary: oklch(0.7853 0.1041 274.71);
+  --secondary: oklch(0.9243 0.1151 95.75);
+  --secondary-foreground: oklch(0% 0 0);
+  --tertiary: oklch(0.5693 0 0);
+  --tertiary-foreground: oklch(1 0 0);
+  --destructive: oklch(0.5059 0.1927 27.91);
+  --destructive-foreground: oklch(100% 0 0);
   --border: oklch(0% 0 0);
   --ring: oklch(0% 0 0);
   --overlay: oklch(0% 0 0 / 0.8);
@@ -30,8 +34,12 @@
   --background: oklch(27.08% 0.0336 240.69);
   --secondary-background: oklch(23.93% 0 0);
   --foreground: oklch(92.49% 0 0);
-  --main-foreground: oklch(0% 0 0);
-  --main: oklch(61.9% 0.16907 248.5982);
+  --primary-foreground: oklch(0% 0 0);
+  --primary: oklch(0.7853 0.1041 274.71);
+  --secondary-foreground: oklch(0% 0 0);
+  --secondary: oklch(0.9243 0.1151 95.75);
+  --tertiary-foreground: oklch(1 0 0);
+  --tertiary: oklch(0.5693 0 0);
   --border: oklch(0% 0 0);
   --ring: oklch(100% 0 0);
   --shadow: 4px 4px 0px 0px var(--border);
@@ -44,13 +52,17 @@
 }
 
 @theme inline {
-  --color-main: var(--main);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-tertiary: var(--tertiary);
   --color-background: var(--background);
   --color-secondary-background: var(--secondary-background);
   --color-foreground: var(--foreground);
-  --color-main-foreground: var(--main-foreground);
-  --color-desctructive: var(--desctructive);
-  --color-desctructive-foreground: var(--desctructive-foreground);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-tertiary-foreground: var(--tertiary-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);
   --color-overlay: var(--overlay);
   --color-ring: var(--ring);
@@ -76,7 +88,7 @@
   }
 
   body {
-    @apply text-foreground font-base bg-background;
+    @apply text-foreground font-base bg-secondary-background;
   }
 
   h1,

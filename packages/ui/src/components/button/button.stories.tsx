@@ -8,10 +8,12 @@ const meta: Meta<typeof Button> = {
   tags: ['autodocs'],
   argTypes: {
     variant: {
-      options: ['default', 'noShadow', 'neutral', 'reverse'],
+      options: ['primary', 'secondary', 'tertiary', 'noShadow', 'neutral', 'reverse'],
+      control: { type: 'select' },
     },
     size: {
       options: ['default', 'sm', 'lg', 'icon'],
+      control: { type: 'select' },
     },
   },
 };
@@ -22,7 +24,7 @@ type Story = StoryObj<typeof Button>;
 export const Default: Story = {
   args: {
     children: 'Click me',
-    variant: 'default',
+    variant: 'primary',
     size: 'default',
   },
 };

@@ -8,13 +8,17 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default:
-          'text-main-foreground bg-main border-2 border-border shadow-shadow hover:translate-x-boxShadowX hover:translate-y-boxShadowY hover:shadow-none',
-        noShadow: 'text-main-foreground bg-main border-2 border-border',
+        primary:
+          'text-primary-foreground bg-primary border-2 border-border shadow-shadow hover:translate-x-boxShadowX hover:translate-y-boxShadowY hover:shadow-none',
+        secondary:
+          'text-secondary-foreground bg-secondary border-2 border-border shadow-shadow hover:translate-x-boxShadowX hover:translate-y-boxShadowY hover:shadow-none',
+        tertiary:
+          'text-tertiary-foreground bg-tertiary border-2 border-border shadow-shadow hover:translate-x-boxShadowX hover:translate-y-boxShadowY hover:shadow-none',
+        noShadow: 'text-primary-foreground bg-primary border-2 border-border',
         neutral:
           'bg-secondary-background text-foreground border-2 border-border shadow-shadow hover:translate-x-boxShadowX hover:translate-y-boxShadowY hover:shadow-none',
         reverse:
-          'text-main-foreground bg-main border-2 border-border hover:translate-x-reverseBoxShadowX hover:translate-y-reverseBoxShadowY hover:shadow-shadow',
+          'text-primary-foreground bg-primary border-2 border-border hover:translate-x-reverseBoxShadowX hover:translate-y-reverseBoxShadowY hover:shadow-shadow',
       },
       size: {
         default: 'h-10 px-4 py-2',
@@ -24,7 +28,7 @@ const buttonVariants = cva(
       },
     },
     defaultVariants: {
-      variant: 'default',
+      variant: 'primary',
       size: 'default',
     },
   },
@@ -32,7 +36,7 @@ const buttonVariants = cva(
 
 function Button({
   className,
-  variant = 'default',
+  variant = 'primary',
   size = 'default',
   ...props
 }: ButtonPrimitive.Props & VariantProps<typeof buttonVariants>) {

@@ -117,12 +117,14 @@ Start a specific app only:
 ```bash
 bun run dev --filter=@feedback-saas/admin-web
 bun run dev --filter=@feedback-saas/auth-web
+bun run dev --filter=@feedback-saas/storybook
 ```
 
 | App         | Default port |
 | ----------- | ------------ |
 | `auth-web`  | `3000`       |
 | `admin-web` | `3001`       |
+| `storybook` | `6006`       |
 
 ---
 
