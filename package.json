@@ -7,7 +7,7 @@
     "scripts"
   ],
   "scripts": {
-    "clean": "bunx --bun rimraf '*/*/build' '*/*/dist' '*/*/node_modules' .turbo/cache bun.lock node_modules --glob",
+    "clean": "bunx --bun rimraf '*/*/build' '*/*/dist' '*/*/node_modules' .turbo '*/*/.turbo' bun.lock node_modules --glob",
     "build": "turbo run build",
     "dev": "turbo run dev",
     "lint": "oxlint",
