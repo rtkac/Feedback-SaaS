@@ -12,6 +12,8 @@
   "ignorePatterns": [
     "**/node_modules/",
     "**/build/",
+    "**/.output/",
+    "**/.storybook-static/",
     "**/coverage/",
     "**/lib/",
     "**/dist/",

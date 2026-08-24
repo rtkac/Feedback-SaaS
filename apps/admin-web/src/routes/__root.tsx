@@ -1,3 +1,4 @@
+import { NotFoundComponent } from '@feedback-saas/ui/components';
 import { TanStackDevtools } from '@tanstack/react-devtools';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { HeadContent, Scripts, createRootRouteWithContext } from '@tanstack/react-router';
@@ -32,6 +33,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
       },
     ],
   }),
+  notFoundComponent: NotFoundComponent,
   shellComponent: RootDocument,
 });
 
@@ -44,7 +46,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <head>
           <HeadContent />
         </head>
-        <body>
+        <body className="md:max-w-5xl lg:max-w-6xl xl:max-w-7xl flex justify-center items-center min-h-screen mx-auto">
           {children}
           <TanStackDevtools
             config={{

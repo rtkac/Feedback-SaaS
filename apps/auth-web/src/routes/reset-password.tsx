@@ -12,6 +12,7 @@ import {
 import { useForm } from '@tanstack/react-form';
 import { useMutation } from '@tanstack/react-query';
 import { createFileRoute, Link, stripSearchParams } from '@tanstack/react-router';
+import { toast } from 'sonner';
 import { z } from 'zod';
 
 import { sendResetPasswordOptions } from '@/effects/auth';
@@ -55,90 +56,97 @@ function RouteComponent() {
       },
     ],
     onSubmit: ({ value }) => {
-      return mutateAsync({ newPassword: value.password, token });
+      toast.promise(mutateAsync({ newPassword: value.password, token }), {
+        loading: m.resetPasswordLoadingMessage(),
+        success: () => {
+          return m.resetPasswordSuccessMessage();
+        },
+        error: m.resetPasswordErrorMessage(),
+      });
     },
   });
 
-  const { mutateAsync, isError } = useMutation(sendResetPasswordOptions());
+  const { mutateAsync } = useMutation(sendResetPasswordOptions());
 
   return (
-    <Card className="w-full max-w-md">
-      <CardHeader>
-        <CardTitle>
-          <h1 className="text-4xl font-bold">{m.resetPasswordTitle()}</h1>
-        </CardTitle>
-        <CardDescription>
-          <p>{m.resetPasswordDesc()}</p>
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="flex flex-col gap-4">
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            form.handleSubmit();
-          }}
-          className="flex flex-col gap-2"
-        >
-          <form.Field name="password">
-            {(field) => (
-              <div>
-                <Label htmlFor={field.name}>{m.resetPasswordPasswordLabel()}</Label>
-                <Input
-                  id={field.name}
-                  name={field.name}
-                  value={field.value}
-                  onChange={(e) => field.handleChange(e.target.value)}
-                  onBlur={field.handleBlur}
-                  type="password"
-                  placeholder={m.resetPasswordPasswordPlaceholder()}
-                  aria-invalid={field.meta.isInvalid}
-                />
-                <FieldError>
-                  {typeof field.errors[0] === 'string' ? field.errors[0] : field.errors[0]?.message}
-                </FieldError>
-              </div>
-            )}
-          </form.Field>
-          <form.Field name="confirm_password">
-            {(field) => (
-              <div>
-                <Label htmlFor={field.name}>{m.resetPasswordConfirmPasswordLabel()}</Label>
-                <Input
-                  id={field.name}
-                  name={field.name}
-                  value={field.value}
-                  onChange={(e) => field.handleChange(e.target.value)}
-                  onBlur={field.handleBlur}
-                  type="password"
-                  placeholder={m.resetPasswordConfirmPasswordPlaceholder()}
-                  aria-invalid={field.meta.isInvalid}
-                />
-                <FieldError>
-                  {typeof field.errors[0] === 'string' ? field.errors[0] : field.errors[0]?.message}
-                </FieldError>
-              </div>
-            )}
-          </form.Field>
-          <form.Subscribe selector={(state) => state.isSubmitting}>
-            {(isSubmitting) => (
-              <Button type="submit" disabled={isSubmitting}>
-                {m.resetPasswordResetLabel()}
-              </Button>
-            )}
-          </form.Subscribe>
-          {isError && (
-            <p className="text-sm font-base text-destructive mt-1">
-              {m.resetPasswordErrorMessage()}
-            </p>
-          )}
-        </form>
-        <p>
-          {m.resetPasswordBackTo()}&nbsp;
-          <Link to="/">{m.resetPasswordLoginLabel()}</Link>
-        </p>
-      </CardContent>
-    </Card>
+    <div className="flex gap-4 md:gap-6 p-4 md:py-8 sm:py-12 flex-1/2 justify-center max-w-3xl flex-col-reverse md:flex-row items-center md:items-stretch">
+      <Card className="w-full max-w-md">
+        <CardHeader>
+          <CardTitle>
+            <h1 className="text-4xl font-bold">{m.resetPasswordTitle()}</h1>
+          </CardTitle>
+          <CardDescription>
+            <p>{m.resetPasswordDesc()}</p>
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="flex flex-col gap-4">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              form.handleSubmit();
+            }}
+            className="flex flex-col gap-2"
+          >
+            <form.Field name="password">
+              {(field) => (
+                <div>
+                  <Label htmlFor={field.name}>{m.resetPasswordPasswordLabel()}</Label>
+                  <Input
+                    id={field.name}
+                    name={field.name}
+                    value={field.value}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    onBlur={field.handleBlur}
+                    type="password"
+                    placeholder={m.resetPasswordPasswordPlaceholder()}
+                    aria-invalid={field.meta.isInvalid}
+                  />
+                  <FieldError>
+                    {typeof field.errors[0] === 'string'
+                      ? field.errors[0]
+                      : field.errors[0]?.message}
+                  </FieldError>
+                </div>
+              )}
+            </form.Field>
+            <form.Field name="confirm_password">
+              {(field) => (
+                <div>
+                  <Label htmlFor={field.name}>{m.resetPasswordConfirmPasswordLabel()}</Label>
+                  <Input
+                    id={field.name}
+                    name={field.name}
+                    value={field.value}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    onBlur={field.handleBlur}
+                    type="password"
+                    placeholder={m.resetPasswordConfirmPasswordPlaceholder()}
+                    aria-invalid={field.meta.isInvalid}
+                  />
+                  <FieldError>
+                    {typeof field.errors[0] === 'string'
+                      ? field.errors[0]
+                      : field.errors[0]?.message}
+                  </FieldError>
+                </div>
+              )}
+            </form.Field>
+            <form.Subscribe selector={(state) => state.isSubmitting}>
+              {(isSubmitting) => (
+                <Button type="submit" disabled={isSubmitting}>
+                  {m.resetPasswordResetLabel()}
+                </Button>
+              )}
+            </form.Subscribe>
+          </form>
+          <p>
+            {m.resetPasswordBackTo()}&nbsp;
+            <Link to="/">{m.resetPasswordLoginLabel()}</Link>
+          </p>
+        </CardContent>
+      </Card>
+    </div>
   );
 }
 
