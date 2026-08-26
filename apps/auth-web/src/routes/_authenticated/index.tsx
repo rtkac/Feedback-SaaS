@@ -15,6 +15,7 @@ import { IconChartLine, IconBolt, IconPalette } from '@tabler/icons-react';
 import { useForm } from '@tanstack/react-form';
 import { useMutation } from '@tanstack/react-query';
 import { createFileRoute, createLink, Link } from '@tanstack/react-router';
+import { toast } from 'sonner';
 import { z } from 'zod';
 
 import { signInUserOptions } from '@/effects/auth';
@@ -39,10 +40,18 @@ function RouteComponent() {
         run: formSchema,
       },
     ],
-    onSubmit: ({ value }) => mutateAsync(value),
+    onSubmit: async ({ value }) => {
+      toast.promise(mutateAsync(value), {
+        loading: m.signInLoadingMessage(),
+        success: () => {
+          return m.signInSuccessMessage();
+        },
+        error: m.signInErrorMessage(),
+      });
+    },
   });
 
-  const { mutateAsync, isError } = useMutation(signInUserOptions());
+  const { mutateAsync } = useMutation(signInUserOptions());
 
   return (
     <div className="flex gap-4 md:gap-6 p-4 md:py-8 sm:py-12 flex-1/2 justify-center max-w-3xl flex-col-reverse md:flex-row items-center md:items-stretch">
@@ -56,16 +65,16 @@ function RouteComponent() {
           </CardDescription>
         </CardHeader>
         <CardContent className="flex flex-col gap-4">
-          <Box className="flex flex-row gap-2">
-            <IconBolt />
+          <Box className="flex flex-row gap-2 items-center">
+            <IconBolt className="shrink-0" />
             <p> {m.signInBox1Title()}</p>
           </Box>
-          <Box className="flex flex-row gap-2">
-            <IconChartLine />
+          <Box className="flex flex-row gap-2 items-center">
+            <IconChartLine className="shrink-0" />
             <p>{m.signInBox2Title()}</p>
           </Box>
-          <Box className="flex flex-row gap-2">
-            <IconPalette />
+          <Box className="flex flex-row gap-2 items-center">
+            <IconPalette className="shrink-0" />
             <p>{m.signInBox3Title()}</p>
           </Box>
         </CardContent>
@@ -145,9 +154,6 @@ function RouteComponent() {
                 </Button>
               )}
             </form.Subscribe>
-            {isError && (
-              <p className="text-sm font-base text-destructive mt-1">{m.signInErrorMessage()}</p>
-            )}
             <div className="flex flex-col gap-6 mt-5">
               <span>
                 <Separator />
