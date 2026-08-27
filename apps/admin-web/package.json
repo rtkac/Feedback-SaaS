@@ -15,7 +15,6 @@
     "@feedback-saas/db": "workspace:*",
     "@feedback-saas/ui": "workspace:*",
     "@feedback-saas/utils": "workspace:*",
-    "@fontsource-variable/dm-sans": "5.3.0",
     "@sentry/tanstackstart-react": "catalog:",
     "@tabler/icons-react": "3.46.0",
     "@tailwindcss/vite": "4.3.3",
