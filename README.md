@@ -17,7 +17,7 @@ apps/
 packages/
   @feedback-saas/auth    # Better Auth configuration, server events, email via Resend
   @feedback-saas/db      # Drizzle ORM schema, queries, migrations (Neon PostgreSQL)
-  @feedback-saas/ui      # Shared React component library (Base UI + Tailwind v4, Neobrutalism style)
+  @feedback-saas/ui      # Shared React component library (coss ui built on top of Base UI and style with Tailwind v4)
   @feedback-saas/utils   # Shared utility functions
 ```
 
@@ -38,23 +38,23 @@ packages/
   <img src="https://img.shields.io/badge/Oxlint-%231F2A33.svg?style=for-the-badge" alt="Oxlint" />
 </p>
 
-| Layer                     | Choice                                                                                                                           |
-| ------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| Runtime / Package manager | [Bun](https://bun.sh/)                                                                                                           |
-| Monorepo orchestration    | [Turborepo](https://turbo.build/repo)                                                                                            |
-| Framework                 | [TanStack Start](https://tanstack.com/start) + [TanStack Router](https://tanstack.com/router)                                    |
-| Data fetching             | [TanStack Query](https://tanstack.com/query)                                                                                     |
-| Forms                     | [TanStack Form](https://tanstack.com/form)                                                                                       |
-| Database                  | [Drizzle ORM](https://orm.drizzle.team/) + [Neon](https://neon.tech/) (serverless Postgres)                                      |
-| Authentication            | [Better Auth](https://better-auth.com/) + [Resend](https://resend.com/)                                                          |
-| UI components             | [Base UI](https://base-ui.com/) + [shadcn/ui](https://ui.shadcn.com/), styled with [Neobrutalism](https://www.neobrutalism.dev/) |
-| Styling                   | [Tailwind CSS v4](https://tailwindcss.com/)                                                                                      |
-| Icons                     | [Tabler Icons](https://tabler.io/icons)                                                                                          |
-| i18n                      | [Paraglide JS](https://inlang.com/m/gerre34r/library-inlang-paraglideJs)                                                         |
-| Error monitoring          | [Sentry](https://sentry.io/)                                                                                                     |
-| Testing                   | [Vitest](https://vitest.dev/) + [Testing Library](https://testing-library.com/)                                                  |
-| Linting / Formatting      | [Oxlint](https://oxc.rs/docs/guide/usage/linter) + [Oxfmt](https://oxc.rs/docs/guide/usage/formatter)                            |
-| Git hooks                 | [Lefthook](https://github.com/evilmartians/lefthook) + [Commitlint](https://commitlint.js.org/)                                  |
+| Layer                     | Choice                                                                                                            |
+| ------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| Runtime / Package manager | [Bun](https://bun.sh/)                                                                                            |
+| Monorepo orchestration    | [Turborepo](https://turbo.build/repo)                                                                             |
+| Framework                 | [TanStack Start](https://tanstack.com/start) + [TanStack Router](https://tanstack.com/router)                     |
+| Data fetching             | [TanStack Query](https://tanstack.com/query)                                                                      |
+| Forms                     | [TanStack Form](https://tanstack.com/form)                                                                        |
+| Database                  | [Drizzle ORM](https://orm.drizzle.team/) + [Neon](https://neon.tech/) (serverless Postgres)                       |
+| Authentication            | [Better Auth](https://better-auth.com/) + [Resend](https://resend.com/)                                           |
+| UI components             | [Base UI](https://base-ui.com/) + [shadcn/ui](https://ui.shadcn.com/), styled with [coss ui](https://coss.com/ui) |
+| Styling                   | [Tailwind CSS v4](https://tailwindcss.com/)                                                                       |
+| Icons                     | [Tabler Icons](https://tabler.io/icons)                                                                           |
+| i18n                      | [Paraglide JS](https://inlang.com/m/gerre34r/library-inlang-paraglideJs)                                          |
+| Error monitoring          | [Sentry](https://sentry.io/)                                                                                      |
+| Testing                   | [Vitest](https://vitest.dev/) + [Testing Library](https://testing-library.com/)                                   |
+| Linting / Formatting      | [Oxlint](https://oxc.rs/docs/guide/usage/linter) + [Oxfmt](https://oxc.rs/docs/guide/usage/formatter)             |
+| Git hooks                 | [Lefthook](https://github.com/evilmartians/lefthook) + [Commitlint](https://commitlint.js.org/)                   |
 
 ---
 
@@ -160,15 +160,13 @@ bun run dev --filter=@feedback-saas/storybook
 
 ## Adding UI Components
 
-Shared components live in `packages/ui` and are styled with [Neobrutalism](https://www.neobrutalism.dev/), using [Base UI](https://base-ui.com/) primitives instead of Radix.
+Shared components live in `packages/ui` and are styled with [coss ui](https://coss.com/ui), using [Base UI](https://base-ui.com/) primitives.
 
-Install a component from the neobrutalism registry via the shadcn CLI, run from the repo root:
+Install a component from the coss ui registry via the shadcn CLI, run from the repo root:
 
 ```bash
-bunx --bun shadcn@latest add https://neobrutalism.dev/r/button.json -c packages/ui
+bunx --bun shadcn@latest add @coss/button -c packages/ui
 ```
-
-Neobrutalism (and plain shadcn/ui) components ship with Radix primitives by default — swap them for the equivalent Base UI primitive after installing to stay consistent with the rest of `packages/ui`.
 
 ---
 

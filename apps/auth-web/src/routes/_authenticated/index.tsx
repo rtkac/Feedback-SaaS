@@ -1,10 +1,10 @@
 import {
-  Box,
   Button,
   Card,
   CardContent,
   CardDescription,
   CardHeader,
+  CardPanel,
   CardTitle,
   FieldError,
   Input,
@@ -55,7 +55,7 @@ function RouteComponent() {
 
   return (
     <div className="flex gap-4 md:gap-6 p-4 md:py-8 sm:py-12 flex-1/2 justify-center max-w-3xl flex-col-reverse md:flex-row items-center md:items-stretch">
-      <Card variant="secondary" className="w-full max-w-md">
+      <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle>
             <h1 className="text-4xl font-bold">{m.signInBoxesTitle()}</h1>
@@ -65,18 +65,18 @@ function RouteComponent() {
           </CardDescription>
         </CardHeader>
         <CardContent className="flex flex-col gap-4">
-          <Box className="flex flex-row gap-2 items-center">
+          <div className="flex flex-row gap-2 items-center">
             <IconBolt className="shrink-0" />
             <p> {m.signInBox1Title()}</p>
-          </Box>
-          <Box className="flex flex-row gap-2 items-center">
+          </div>
+          <div className="flex flex-row gap-2 items-center">
             <IconChartLine className="shrink-0" />
             <p>{m.signInBox2Title()}</p>
-          </Box>
-          <Box className="flex flex-row gap-2 items-center">
+          </div>
+          <div className="flex flex-row gap-2 items-center">
             <IconPalette className="shrink-0" />
             <p>{m.signInBox3Title()}</p>
-          </Box>
+          </div>
         </CardContent>
       </Card>
       <Card className="w-full max-w-md">
@@ -88,10 +88,10 @@ function RouteComponent() {
             <p>{m.signInDesc()}</p>
           </CardDescription>
         </CardHeader>
-        <span className="px-6">
+        <div className="px-6 mb-5">
           <Separator />
-        </span>
-        <CardContent className="flex flex-col gap-4">
+        </div>
+        <CardPanel className="flex flex-col gap-4">
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -124,9 +124,9 @@ function RouteComponent() {
             <form.Field name="password">
               {(field) => (
                 <div>
-                  <div className="flex justify-between">
+                  <div className="flex justify-between mb-2">
                     <Label htmlFor={field.name}>{m.signInPasswordLabel()}</Label>
-                    <Link to="/forgot-password" className="text-sm mb-2">
+                    <Link to="/forgot-password" className="text-sm">
                       {m.signInForgotPassword()}
                     </Link>
                   </div>
@@ -138,6 +138,7 @@ function RouteComponent() {
                     onBlur={field.handleBlur}
                     type="password"
                     placeholder={m.signInPasswordPlaceholder()}
+                    aria-invalid={field.meta.isInvalid}
                   />
                   <FieldError>
                     {typeof field.errors[0] === 'string'
@@ -155,15 +156,13 @@ function RouteComponent() {
               )}
             </form.Subscribe>
             <div className="flex flex-col gap-6 mt-5">
-              <span>
-                <Separator />
-              </span>
+              <Separator />
               <ButtonLink to="/sign-up" variant="secondary">
                 {m.signInCreateAccount()}
               </ButtonLink>
             </div>
           </form>
-        </CardContent>
+        </CardPanel>
       </Card>
     </div>
   );

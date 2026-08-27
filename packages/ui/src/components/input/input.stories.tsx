@@ -8,7 +8,21 @@ const meta: Meta<typeof Input> = {
   title: 'UI/Input',
   component: Input,
   tags: ['autodocs'],
-  argTypes: {},
+  argTypes: {
+    size: {
+      options: ['sm', 'default', 'lg'],
+      control: { type: 'select' },
+    },
+    unstyled: {
+      control: { type: 'boolean' },
+    },
+    nativeInput: {
+      control: { type: 'boolean' },
+    },
+    disabled: {
+      control: { type: 'boolean' },
+    },
+  },
 };
 
 export default meta;
@@ -17,6 +31,7 @@ type Story = StoryObj<typeof Input>;
 export const Default: Story = {
   args: {
     placeholder: 'Enter text',
+    size: 'default',
   },
 };
 

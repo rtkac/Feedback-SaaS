@@ -1,4 +1,3 @@
-import { NotFoundComponent } from '@feedback-saas/ui/components';
 import { TanStackDevtools } from '@tanstack/react-devtools';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { HeadContent, Scripts, createRootRouteWithContext } from '@tanstack/react-router';
@@ -33,7 +32,6 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
       },
     ],
   }),
-  notFoundComponent: NotFoundComponent,
   shellComponent: RootDocument,
 });
 

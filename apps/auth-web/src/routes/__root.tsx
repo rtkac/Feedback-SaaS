@@ -1,4 +1,4 @@
-import { NotFoundComponent, Toaster } from '@feedback-saas/ui/components';
+import { StatusComponent, Toaster } from '@feedback-saas/ui/components';
 import { TanStackDevtools } from '@tanstack/react-devtools';
 import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router';
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
@@ -28,7 +28,7 @@ export const Route = createRootRoute({
       },
     ],
   }),
-  notFoundComponent: NotFoundComponent,
+  notFoundComponent: () => <StatusComponent variant="notFound" />,
   shellComponent: RootDocument,
 });
 

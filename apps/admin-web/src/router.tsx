@@ -1,8 +1,8 @@
+import { StatusComponent } from '@feedback-saas/ui/components';
 import { QueryClient } from '@tanstack/react-query';
 import { createRouter as createTanStackRouter } from '@tanstack/react-router';
 import { setupRouterSsrQueryIntegration } from '@tanstack/react-router-ssr-query';
 
-import { NotFoundStatus } from './components/NotFoundStatus';
 import { routeTree } from './routeTree.gen';
 
 import { ErrorStatus } from '@/components/ErrorStatus';
@@ -15,8 +15,10 @@ export function getRouter() {
     scrollRestoration: true,
     defaultPreload: 'intent',
     defaultPreloadStaleTime: 0,
-    defaultErrorComponent: ({ error }) => <ErrorStatus error={error} />,
-    defaultNotFoundComponent: NotFoundStatus,
+    defaultErrorComponent: ({ error, reset }) => <ErrorStatus error={error} onReset={reset} />,
+    defaultNotFoundComponent: () => (
+      <StatusComponent variant="notFound" onClick={() => router.history.back()} />
+    ),
     context: { queryClient },
   });
 

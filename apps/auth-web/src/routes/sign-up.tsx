@@ -1,9 +1,9 @@
 import {
   Button,
   Card,
-  CardContent,
   CardDescription,
   CardHeader,
+  CardPanel,
   CardTitle,
   FieldError,
   Input,
@@ -80,7 +80,7 @@ function RouteComponent() {
             <p>{m.signUpDesc()}</p>
           </CardDescription>
         </CardHeader>
-        <CardContent className="flex flex-col gap-4">
+        <CardPanel className="flex flex-col gap-4">
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -189,7 +189,7 @@ function RouteComponent() {
             {m.signUpLoginDesc()}&nbsp;
             <Link to="/">{m.signUpLoginLabel()}</Link>
           </p>
-        </CardContent>
+        </CardPanel>
       </Card>
     </div>
   );

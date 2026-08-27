@@ -1,39 +1,42 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { IconAlertCircle } from '@tabler/icons-react';
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './card';
+import { Button } from '../button/button';
+import {
+  Card,
+  CardAction,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardPanel,
+  CardTitle,
+} from './card';
 
 const meta: Meta<typeof Card> = {
   title: 'UI/Card',
-  component: ({ variant }) => (
-    <Card variant={variant}>
-      <CardHeader>
-        <CardTitle>
-          <h1 className="text-4xl font-bold">Card title</h1>
-        </CardTitle>
-        <CardDescription>
-          <p>Card description</p>
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <p>Card content</p>
-      </CardContent>
-    </Card>
-  ),
+  component: Card,
   tags: ['autodocs'],
-  argTypes: {
-    variant: {
-      options: ['default', 'primary', 'secondary', 'tertiary'],
-      control: { type: 'select' },
-    },
-  },
 };
 
 export default meta;
 type Story = StoryObj<typeof Card>;
 
 export const Default: Story = {
-  args: {
-    children: 'Card content',
-    variant: 'default',
-  },
+  render: (args) => (
+    <Card {...args} className="w-96">
+      <CardHeader>
+        <CardTitle>Card title</CardTitle>
+        <CardDescription>Card description</CardDescription>
+      </CardHeader>
+      <CardPanel>
+        <p>Card content</p>
+      </CardPanel>
+      <CardFooter>
+        <div className="flex gap-1 text-muted-foreground text-xs">
+          <IconAlertCircle className="size-3 h-lh shrink-0" />
+          <p>This will take a few seconds to complete.</p>
+        </div>
+      </CardFooter>
+    </Card>
+  ),
 };
