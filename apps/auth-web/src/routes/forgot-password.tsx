@@ -1,9 +1,9 @@
 import {
   Button,
   Card,
-  CardContent,
   CardDescription,
   CardHeader,
+  CardPanel,
   CardTitle,
   FieldError,
   Input,
@@ -57,7 +57,7 @@ function RouteComponent() {
             <p>{m.forgotPasswordDesc()}</p>
           </CardDescription>
         </CardHeader>
-        <CardContent className="flex flex-col gap-4">
+        <CardPanel className="flex flex-col gap-4">
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -99,7 +99,7 @@ function RouteComponent() {
             {m.forgotPasswordBackTo()}&nbsp;
             <Link to="/">{m.forgotPasswordLoginLabel()}</Link>
           </p>
-        </CardContent>
+        </CardPanel>
       </Card>
     </div>
   );

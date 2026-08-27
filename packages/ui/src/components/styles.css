@@ -7,19 +7,19 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: oklch(94.27% 0.0268 242.57);
+  --background: var(--color-white);
   --secondary-background: oklch(0.9821 0 0);
-  --foreground: oklch(0% 0 0);
-  --primary-foreground: oklch(0% 0 0);
-  --primary: oklch(0.7853 0.1041 274.71);
-  --secondary: oklch(0.9243 0.1151 95.75);
-  --secondary-foreground: oklch(0% 0 0);
+  --foreground: var(--color-neutral-800);
+  --primary-foreground: var(--color-neutral-50);
+  --primary: var(--color-neutral-800);
+  --secondary: --alpha(var(--color-black) / 4%);
+  --secondary-foreground: var(--color-neutral-800);
   --tertiary: oklch(0.5693 0 0);
   --tertiary-foreground: oklch(1 0 0);
-  --destructive: oklch(0.5059 0.1927 27.91);
-  --destructive-foreground: oklch(100% 0 0);
-  --border: oklch(0% 0 0);
-  --ring: oklch(0% 0 0);
+  --destructive: var(--color-red-500);
+  --destructive-foreground: var(--color-red-700);
+  --border: --alpha(var(--color-black) / 8%);
+  --ring: var(--color-neutral-400);
   --overlay: oklch(0% 0 0 / 0.8);
   --shadow: 4px 4px 0px 0px var(--border);
   --chart-1: #0099ff;
@@ -28,20 +28,35 @@
   --chart-4: #05e17a;
   --chart-5: #7a83ff;
   --chart-active-dot: #000;
+  --info: var(--color-blue-500);
+  --info-foreground: var(--color-blue-700);
+  --success: var(--color-emerald-500);
+  --success-foreground: var(--color-emerald-700);
+  --warning: var(--color-amber-500);
+  --warning-foreground: var(--color-amber-700);
+  --accent: --alpha(var(--color-black) / 4%);
+  --accent-foreground: var(--color-neutral-800);
+  --card: var(--color-white);
+  --card-foreground: var(--color-neutral-800);
+  --input: --alpha(var(--color-black) / 10%);
+  --muted: --alpha(var(--color-black) / 4%);
+  --muted-foreground: color-mix(in srgb, var(--color-neutral-500) 90%, var(--color-black));
+  --popover: var(--color-white);
+  --popover-foreground: var(--color-neutral-800);
 }
 
 .dark {
-  --background: oklch(27.08% 0.0336 240.69);
+  --background: color-mix(in srgb, var(--color-neutral-950) 95%, var(--color-white));
   --secondary-background: oklch(23.93% 0 0);
-  --foreground: oklch(92.49% 0 0);
-  --primary-foreground: oklch(0% 0 0);
-  --primary: oklch(0.7853 0.1041 274.71);
-  --secondary-foreground: oklch(0% 0 0);
-  --secondary: oklch(0.9243 0.1151 95.75);
+  --foreground: var(--color-neutral-100);
+  --primary-foreground: var(--color-neutral-800);
+  --primary: var(--color-neutral-100);
+  --secondary-foreground: var(--color-neutral-100);
+  --secondary: --alpha(var(--color-white) / 4%);
   --tertiary-foreground: oklch(1 0 0);
   --tertiary: oklch(0.5693 0 0);
-  --border: oklch(0% 0 0);
-  --ring: oklch(100% 0 0);
+  --border: --alpha(var(--color-white) / 6%);
+  --ring: var(--color-neutral-500);
   --shadow: 4px 4px 0px 0px var(--border);
   --chart-1: #008ae5;
   --chart-2: #ff6669;
@@ -49,6 +64,23 @@
   --chart-4: #04c86d;
   --chart-5: #7a83ff;
   --chart-active-dot: #fff;
+  --destructive-foreground: var(--color-red-400);
+  --info: var(--color-blue-500);
+  --info-foreground: var(--color-blue-400);
+  --success: var(--color-emerald-500);
+  --success-foreground: var(--color-emerald-400);
+  --warning: var(--color-amber-500);
+  --warning-foreground: var(--color-amber-400);
+  --accent: --alpha(var(--color-white) / 4%);
+  --accent-foreground: var(--color-neutral-100);
+  --card: color-mix(in srgb, var(--background) 98%, var(--color-white));
+  --card-foreground: var(--color-neutral-100);
+  --destructive: color-mix(in srgb, var(--color-red-500) 90%, var(--color-white));
+  --input: --alpha(var(--color-white) / 8%);
+  --muted: --alpha(var(--color-white) / 4%);
+  --muted-foreground: color-mix(in srgb, var(--color-neutral-500) 90%, var(--color-white));
+  --popover: color-mix(in srgb, var(--background) 98%, var(--color-white));
+  --popover-foreground: var(--color-neutral-100);
 }
 
 @theme inline {
@@ -80,6 +112,105 @@
   --shadow-shadow: var(--shadow);
   --font-weight-base: 500;
   --font-weight-heading: 700;
+  --animate-skeleton: skeleton 2s -1s infinite linear;
+  --animate-caret-blink: 1s ease-out infinite caret-blink;
+  --animate-toast-success-odd: toast-success-odd 0.32s cubic-bezier(0.5, 1, 0.89, 1);
+  --animate-toast-success-even: toast-success-even 0.32s cubic-bezier(0.5, 1, 0.89, 1);
+  --animate-toast-error-odd: toast-error-odd 0.28s cubic-bezier(0.5, 1, 0.89, 1);
+  --animate-toast-error-even: toast-error-even 0.28s cubic-bezier(0.5, 1, 0.89, 1);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-warning: var(--warning);
+  --color-success-foreground: var(--success-foreground);
+  --color-success: var(--success);
+  --color-info-foreground: var(--info-foreground);
+  --color-info: var(--info);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-input: var(--input);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  @keyframes skeleton {
+    to {
+      background-position: -200% 0;
+    }
+  }
+  @keyframes caret-blink {
+    0%,
+    70%,
+    to {
+      opacity: 1;
+    }
+    20%,
+    50% {
+      opacity: 0;
+    }
+  }
+  @keyframes toast-success-odd {
+    0% {
+      scale: 1;
+    }
+    30% {
+      scale: 1.025;
+    }
+    60% {
+      scale: 0.99;
+    }
+    100% {
+      scale: 1;
+    }
+  }
+  @keyframes toast-error-odd {
+    0% {
+      translate: 0 0;
+    }
+    25% {
+      translate: -3px 0;
+    }
+    50% {
+      translate: 3px 0;
+    }
+    75% {
+      translate: -3px 0;
+    }
+    100% {
+      translate: 0 0;
+    }
+  }
+  @keyframes toast-success-even {
+    0% {
+      scale: 1;
+    }
+    30% {
+      scale: 1.025;
+    }
+    60% {
+      scale: 0.99;
+    }
+    100% {
+      scale: 1;
+    }
+  }
+  @keyframes toast-error-even {
+    0% {
+      translate: 0 0;
+    }
+    25% {
+      translate: -3px 0;
+    }
+    50% {
+      translate: 3px 0;
+    }
+    75% {
+      translate: -3px 0;
+    }
+    100% {
+      translate: 0 0;
+    }
+  }
 }
 
 @layer base {
@@ -102,5 +233,9 @@
 
   a {
     @apply ml-auto inline-block underline-offset-4 underline;
+  }
+
+  label:has(+ [data-slot='input-control']) {
+    @apply mb-2;
   }
 }

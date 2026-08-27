@@ -26,8 +26,10 @@ function RouteComponent() {
   };
 
   return (
-    <div>
-      Welcome, {user.name}!<br />
+    <>
+      <>
+        Welcome, {user.name}!<br />
+      </>
       <Button onClick={handleOnSignOut}>{m.signOut()}</Button>
       <br />
       <br />
@@ -39,6 +41,6 @@ function RouteComponent() {
           </option>
         ))}
       </select>
-    </div>
+    </>
   );
 }
