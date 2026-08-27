@@ -8,11 +8,11 @@ import {
   FieldError,
   Input,
   Label,
+  toast,
 } from '@feedback-saas/ui/components';
 import { useForm } from '@tanstack/react-form';
 import { useMutation } from '@tanstack/react-query';
 import { createFileRoute, Link } from '@tanstack/react-router';
-import { toast } from 'sonner';
 import { z } from 'zod';
 
 import { signUpUserOptions } from '@/effects/auth';
@@ -49,8 +49,8 @@ function RouteComponent() {
         run: formSchema,
       },
     ],
-    onSubmit: ({ value }) => {
-      toast.promise(
+    onSubmit: async ({ value }) => {
+      await toast.promise(
         mutateAsync({
           name: value.name,
           email: value.email,
@@ -58,9 +58,7 @@ function RouteComponent() {
         }),
         {
           loading: m.signUpLoadingMessage(),
-          success: () => {
-            return m.signUpSuccessMessage();
-          },
+          success: m.signUpSuccessMessage(),
           error: m.signUpErrorMessage(),
         },
       );
@@ -179,7 +177,7 @@ function RouteComponent() {
             </form.Field>
             <form.Subscribe selector={(state) => state.isSubmitting}>
               {(isSubmitting) => (
-                <Button type="submit" disabled={isSubmitting}>
+                <Button type="submit" loading={isSubmitting}>
                   {m.signUpCreateAccountLabel()}
                 </Button>
               )}

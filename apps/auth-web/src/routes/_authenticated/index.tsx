@@ -10,12 +10,12 @@ import {
   Input,
   Label,
   Separator,
+  toast,
 } from '@feedback-saas/ui/components';
 import { IconChartLine, IconBolt, IconPalette } from '@tabler/icons-react';
 import { useForm } from '@tanstack/react-form';
 import { useMutation } from '@tanstack/react-query';
 import { createFileRoute, createLink, Link } from '@tanstack/react-router';
-import { toast } from 'sonner';
 import { z } from 'zod';
 
 import { signInUserOptions } from '@/effects/auth';
@@ -41,11 +41,9 @@ function RouteComponent() {
       },
     ],
     onSubmit: async ({ value }) => {
-      toast.promise(mutateAsync(value), {
+      await toast.promise(mutateAsync(value), {
         loading: m.signInLoadingMessage(),
-        success: () => {
-          return m.signInSuccessMessage();
-        },
+        success: m.signInSuccessMessage(),
         error: m.signInErrorMessage(),
       });
     },
@@ -58,7 +56,7 @@ function RouteComponent() {
       <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle>
-            <h1 className="text-4xl font-bold">{m.signInBoxesTitle()}</h1>
+            <p className="text-4xl font-bold">{m.signInBoxesTitle()}</p>
           </CardTitle>
           <CardDescription>
             <p>{m.signInBoxesDesc()}</p>
@@ -82,7 +80,7 @@ function RouteComponent() {
       <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle>
-            <h1 className="text-4xl font-bold">{m.signInTitle()}</h1>
+            <h1 className="text-3xl font-bold">{m.signInTitle()}</h1>
           </CardTitle>
           <CardDescription>
             <p>{m.signInDesc()}</p>
@@ -126,7 +124,7 @@ function RouteComponent() {
                 <div>
                   <div className="flex justify-between mb-2">
                     <Label htmlFor={field.name}>{m.signInPasswordLabel()}</Label>
-                    <Link to="/forgot-password" className="text-sm">
+                    <Link to="/forgot-password" className="text-xs">
                       {m.signInForgotPassword()}
                     </Link>
                   </div>
@@ -150,7 +148,7 @@ function RouteComponent() {
             </form.Field>
             <form.Subscribe selector={(state) => state.isSubmitting}>
               {(isSubmitting) => (
-                <Button type="submit" disabled={isSubmitting}>
+                <Button type="submit" loading={isSubmitting}>
                   {m.signInSubmitLabel()}
                 </Button>
               )}

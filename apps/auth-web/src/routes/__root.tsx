@@ -1,4 +1,4 @@
-import { StatusComponent, Toaster } from '@feedback-saas/ui/components';
+import { Toaster } from '@feedback-saas/ui/components';
 import { TanStackDevtools } from '@tanstack/react-devtools';
 import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router';
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
@@ -28,7 +28,6 @@ export const Route = createRootRoute({
       },
     ],
   }),
-  notFoundComponent: () => <StatusComponent variant="notFound" />,
   shellComponent: RootDocument,
 });
 
@@ -39,8 +38,8 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body className="md:max-w-5xl lg:max-w-6xl xl:max-w-7xl flex justify-center items-center min-h-screen mx-auto">
-        <Toaster />
         {children}
+        <Toaster />
         <TanStackDevtools
           config={{
             position: 'bottom-right',

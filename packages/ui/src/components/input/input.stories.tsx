@@ -54,7 +54,7 @@ export const WithFieldError: Story = {
   render: (args) => (
     <div>
       <Label htmlFor="input-with-field-error">Email</Label>
-      <Input id="input-with-field-error" {...args} />
+      <Input id="input-with-field-error" aria-invalid="true" {...args} />
       <FieldError>Please enter a valid email address.</FieldError>
     </div>
   ),

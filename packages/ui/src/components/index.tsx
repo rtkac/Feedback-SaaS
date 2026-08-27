@@ -5,6 +5,6 @@ export * from './input/input';
 export * from './label/label';
 export * from './separator/separator';
 export * from './skeleton/skeleton';
-export * from './sonner/sonner';
 export * from './spinner/spinner';
 export * from './status/status';
+export * from './toast/toast';

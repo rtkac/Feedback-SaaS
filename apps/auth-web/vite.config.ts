@@ -14,9 +14,12 @@ const config = defineConfig({
     devtools(),
     tailwindcss(),
     tanstackStart(),
-    nitro(),
+    nitro({ traceDeps: ['react', 'react-dom'] }),
     viteReact(),
   ],
+  environments: {
+    ssr: { build: { rollupOptions: { input: './server.ts' } } },
+  },
 });
 
 export default config;

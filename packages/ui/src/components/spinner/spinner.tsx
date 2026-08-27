@@ -1,5 +1,5 @@
 import { IconLoader2 } from '@tabler/icons-react';
-import type React from 'react';
+import * as React from 'react';
 
 import { cn } from '../../lib/utils';
 
