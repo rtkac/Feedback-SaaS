@@ -19,7 +19,7 @@ const config = defineConfig({
         enabled: true,
       },
     }),
-    nitro(),
+    nitro({ traceDeps: ['react', 'react-dom'] }),
     viteReact(),
     sentryTanstackStart({
       org: 'devlabs-lu',
