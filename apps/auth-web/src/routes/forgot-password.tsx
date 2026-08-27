@@ -8,7 +8,7 @@ import {
   FieldError,
   Input,
   Label,
-  toastManager,
+  toast,
 } from '@feedback-saas/ui/components';
 import { useForm } from '@tanstack/react-form';
 import { useMutation } from '@tanstack/react-query';
@@ -34,7 +34,7 @@ function RouteComponent() {
       },
     ],
     onSubmit: async ({ value }) => {
-      await toastManager.promise(mutateAsync(value.email), {
+      await toast.promise(mutateAsync(value.email), {
         loading: m.forgotPasswordLoadingMessage(),
         success: m.forgotPasswordSuccessMessage(),
         error: m.forgotPasswordErrorMessage(),

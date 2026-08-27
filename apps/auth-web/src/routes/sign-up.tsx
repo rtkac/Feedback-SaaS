@@ -8,7 +8,7 @@ import {
   FieldError,
   Input,
   Label,
-  toastManager,
+  toast,
 } from '@feedback-saas/ui/components';
 import { useForm } from '@tanstack/react-form';
 import { useMutation } from '@tanstack/react-query';
@@ -50,7 +50,7 @@ function RouteComponent() {
       },
     ],
     onSubmit: async ({ value }) => {
-      await toastManager.promise(
+      await toast.promise(
         mutateAsync({
           name: value.name,
           email: value.email,

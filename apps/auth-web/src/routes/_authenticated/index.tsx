@@ -10,7 +10,7 @@ import {
   Input,
   Label,
   Separator,
-  toastManager,
+  toast,
 } from '@feedback-saas/ui/components';
 import { IconChartLine, IconBolt, IconPalette } from '@tabler/icons-react';
 import { useForm } from '@tanstack/react-form';
@@ -41,7 +41,7 @@ function RouteComponent() {
       },
     ],
     onSubmit: async ({ value }) => {
-      await toastManager.promise(mutateAsync(value), {
+      await toast.promise(mutateAsync(value), {
         loading: m.signInLoadingMessage(),
         success: m.signInSuccessMessage(),
         error: m.signInErrorMessage(),

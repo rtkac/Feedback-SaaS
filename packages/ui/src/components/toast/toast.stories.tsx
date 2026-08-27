@@ -1,137 +1,79 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { Button } from '../button/button';
-import { AnchoredToastProvider, anchoredToastManager, ToastProvider, toastManager } from './toast';
+import { toast } from './toast';
+import { Toaster } from './toast';
 
-const meta: Meta<typeof ToastProvider> = {
+type ToastVariant = 'success' | 'info' | 'warning' | 'error' | 'loading';
+
+const meta: Meta<{ variant: ToastVariant } & React.ComponentProps<typeof Toaster>> = {
   title: 'UI/Toast',
-  component: ToastProvider,
+  component: Toaster,
   tags: ['autodocs'],
   argTypes: {
-    position: {
-      options: [
-        'top-left',
-        'top-center',
-        'top-right',
-        'bottom-left',
-        'bottom-center',
-        'bottom-right',
-      ],
-      control: { type: 'select' },
+    variant: {
+      control: 'select',
+      options: ['success', 'info', 'warning', 'error', 'loading'],
     },
+  },
+  args: {
+    variant: 'success',
   },
 };
 
 export default meta;
-type Story = StoryObj<typeof ToastProvider>;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  args: {
-    position: 'bottom-right',
-  },
-  render: (args) => (
-    <ToastProvider {...args}>
-      <Button onClick={() => toastManager.add({ title: 'Event has been created.' })}>
+  render: ({ variant }) => (
+    <div>
+      <Button onClick={() => toast.add({ description: 'Event has been created.', type: variant })}>
         Show toast
       </Button>
-    </ToastProvider>
+      <Toaster />
+    </div>
   ),
 };
 
 export const WithDescription: Story = {
-  render: () => (
-    <ToastProvider>
+  render: ({ variant }) => (
+    <div>
       <Button
         onClick={() =>
-          toastManager.add({
+          toast.add({
             title: 'Event has been created.',
             description: 'Monday, January 3rd at 6:00pm',
+            type: variant,
           })
         }
       >
         Show toast with description
       </Button>
-    </ToastProvider>
+      <Toaster />
+    </div>
   ),
 };
 
 export const WithAction: Story = {
-  render: () => (
-    <ToastProvider>
+  render: ({ variant }) => (
+    <div>
       <Button
-        onClick={() =>
-          toastManager.add({
+        onClick={() => {
+          const id = toast.add({
             title: 'Event has been created.',
+            type: variant,
             actionProps: {
               children: 'Undo',
-              onClick: () => {},
+              onClick() {
+                toast.close(id);
+              },
             },
-          })
-        }
+          });
+        }}
       >
         Show toast with action
       </Button>
-    </ToastProvider>
-  ),
-};
-
-export const Types: Story = {
-  render: () => (
-    <ToastProvider>
-      <div className="flex flex-wrap gap-2">
-        <Button onClick={() => toastManager.add({ title: 'Saved successfully.', type: 'success' })}>
-          Success
-        </Button>
-        <Button onClick={() => toastManager.add({ title: 'Something went wrong.', type: 'error' })}>
-          Error
-        </Button>
-        <Button onClick={() => toastManager.add({ title: 'Heads up.', type: 'warning' })}>
-          Warning
-        </Button>
-        <Button onClick={() => toastManager.add({ title: 'For your information.', type: 'info' })}>
-          Info
-        </Button>
-        <Button
-          onClick={() => toastManager.add({ title: 'Loading...', type: 'loading', timeout: 0 })}
-        >
-          Loading
-        </Button>
-      </div>
-    </ToastProvider>
-  ),
-};
-
-export const WithPromise: Story = {
-  render: () => (
-    <ToastProvider>
-      <Button
-        onClick={() =>
-          toastManager.promise(new Promise((resolve) => setTimeout(resolve, 2000)), {
-            loading: 'Loading...',
-            success: 'Data loaded successfully.',
-            error: 'Something went wrong.',
-          })
-        }
-      >
-        Show promise toast
-      </Button>
-    </ToastProvider>
-  ),
-};
-
-export const Anchored: Story = {
-  render: () => (
-    <AnchoredToastProvider>
-      <Button
-        onClick={(e) =>
-          anchoredToastManager.add({
-            title: 'Saved',
-            positionerProps: { anchor: e.currentTarget },
-          })
-        }
-      >
-        Show anchored toast
-      </Button>
-    </AnchoredToastProvider>
+      <Toaster />
+    </div>
   ),
 };

@@ -8,7 +8,7 @@ import {
   FieldError,
   Input,
   Label,
-  toastManager,
+  toast,
 } from '@feedback-saas/ui/components';
 import { useForm } from '@tanstack/react-form';
 import { useMutation } from '@tanstack/react-query';
@@ -56,7 +56,7 @@ function RouteComponent() {
       },
     ],
     onSubmit: async ({ value }) => {
-      await toastManager.promise(mutateAsync({ newPassword: value.password, token }), {
+      await toast.promise(mutateAsync({ newPassword: value.password, token }), {
         loading: m.resetPasswordLoadingMessage(),
         success: m.resetPasswordSuccessMessage(),
         error: m.resetPasswordErrorMessage(),
