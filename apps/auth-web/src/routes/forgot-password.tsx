@@ -8,11 +8,11 @@ import {
   FieldError,
   Input,
   Label,
+  toastManager,
 } from '@feedback-saas/ui/components';
 import { useForm } from '@tanstack/react-form';
 import { useMutation } from '@tanstack/react-query';
 import { createFileRoute, Link } from '@tanstack/react-router';
-import { toast } from 'sonner';
 import { z } from 'zod';
 
 import { sendRequestPasswordResetOptions } from '@/effects/auth';
@@ -33,12 +33,10 @@ function RouteComponent() {
         run: formSchema,
       },
     ],
-    onSubmit: ({ value }) => {
-      toast.promise(mutateAsync(value.email), {
+    onSubmit: async ({ value }) => {
+      await toastManager.promise(mutateAsync(value.email), {
         loading: m.forgotPasswordLoadingMessage(),
-        success: () => {
-          return m.forgotPasswordSuccessMessage();
-        },
+        success: m.forgotPasswordSuccessMessage(),
         error: m.forgotPasswordErrorMessage(),
       });
     },
@@ -89,7 +87,7 @@ function RouteComponent() {
             </form.Field>
             <form.Subscribe selector={(state) => state.isSubmitting}>
               {(isSubmitting) => (
-                <Button type="submit" disabled={isSubmitting}>
+                <Button type="submit" loading={isSubmitting}>
                   {m.forgotPasswordSendResetLinkLabel()}
                 </Button>
               )}
