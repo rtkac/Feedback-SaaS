@@ -100,6 +100,9 @@
     "apps/storybook": {
       "name": "@feedback-saas/storybook",
       "version": "0.0.1",
+      "dependencies": {
+        "@feedback-saas/ui": "workspace:*",
+      },
       "devDependencies": {
         "@storybook/react-vite": "10.5.10",
         "@tailwindcss/vite": "4.3.3",

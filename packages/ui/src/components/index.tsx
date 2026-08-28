@@ -14,3 +14,6 @@ export * from './avatar/avatar';
 export * from './menu/menu';
 export * from './scroll-area/scrollArea';
 export * from './dialog/dialog';
+export * from './popover/popover';
+export * from './number-field/numberField';
+export * from './badge/badge';

@@ -33,6 +33,11 @@ export const Default: Story = {
     placeholder: 'Enter text',
     size: 'default',
   },
+  render: (args) => (
+    <div className="max-w-72">
+      <Input {...args} />
+    </div>
+  ),
 };
 
 export const WithLabel: Story = {
@@ -40,7 +45,7 @@ export const WithLabel: Story = {
     placeholder: 'Enter text',
   },
   render: (args) => (
-    <div>
+    <div className="max-w-72">
       <Label htmlFor="input-with-label">Email</Label>
       <Input id="input-with-label" {...args} />
     </div>
@@ -52,7 +57,7 @@ export const WithFieldError: Story = {
     placeholder: 'Enter email',
   },
   render: (args) => (
-    <div>
+    <div className="max-w-72">
       <Label htmlFor="input-with-field-error">Email</Label>
       <Input id="input-with-field-error" aria-invalid="true" {...args} />
       <FieldError>Please enter a valid email address.</FieldError>
