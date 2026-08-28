@@ -11,7 +11,10 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ProtectedRouteImport } from './routes/_protected'
 import { Route as ProtectedIndexRouteImport } from './routes/_protected/index'
+import { Route as ProtectedWorkspaceAdminLayoutRouteRouteImport } from './routes/_protected/$workspace/_adminLayout/route'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
+import { Route as ProtectedWorkspaceAdminLayoutIndexRouteImport } from './routes/_protected/$workspace/_adminLayout/index'
+import { Route as ProtectedWorkspaceAdminLayoutProfileIndexRouteImport } from './routes/_protected/$workspace/_adminLayout/profile/index'
 
 const ProtectedRoute = ProtectedRouteImport.update({
   id: '/_protected',
@@ -22,32 +25,70 @@ const ProtectedIndexRoute = ProtectedIndexRouteImport.update({
   path: '/',
   getParentRoute: () => ProtectedRoute,
 } as any)
+const ProtectedWorkspaceAdminLayoutRouteRoute =
+  ProtectedWorkspaceAdminLayoutRouteRouteImport.update({
+    id: '/$workspace/_adminLayout',
+    path: '/$workspace',
+    getParentRoute: () => ProtectedRoute,
+  } as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   id: '/api/auth/$',
   path: '/api/auth/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProtectedWorkspaceAdminLayoutIndexRoute =
+  ProtectedWorkspaceAdminLayoutIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => ProtectedWorkspaceAdminLayoutRouteRoute,
+  } as any)
+const ProtectedWorkspaceAdminLayoutProfileIndexRoute =
+  ProtectedWorkspaceAdminLayoutProfileIndexRouteImport.update({
+    id: '/profile/',
+    path: '/profile/',
+    getParentRoute: () => ProtectedWorkspaceAdminLayoutRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof ProtectedIndexRoute
+  '/$workspace': typeof ProtectedWorkspaceAdminLayoutRouteRouteWithChildren
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/$workspace/': typeof ProtectedWorkspaceAdminLayoutIndexRoute
+  '/$workspace/profile/': typeof ProtectedWorkspaceAdminLayoutProfileIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof ProtectedIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/$workspace': typeof ProtectedWorkspaceAdminLayoutIndexRoute
+  '/$workspace/profile': typeof ProtectedWorkspaceAdminLayoutProfileIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_protected': typeof ProtectedRouteWithChildren
   '/_protected/': typeof ProtectedIndexRoute
+  '/_protected/$workspace/_adminLayout': typeof ProtectedWorkspaceAdminLayoutRouteRouteWithChildren
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/_protected/$workspace/_adminLayout/': typeof ProtectedWorkspaceAdminLayoutIndexRoute
+  '/_protected/$workspace/_adminLayout/profile/': typeof ProtectedWorkspaceAdminLayoutProfileIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/api/auth/$'
+  fullPaths:
+    | '/'
+    | '/$workspace'
+    | '/api/auth/$'
+    | '/$workspace/'
+    | '/$workspace/profile/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/api/auth/$'
-  id: '__root__' | '/_protected' | '/_protected/' | '/api/auth/$'
+  to: '/' | '/api/auth/$' | '/$workspace' | '/$workspace/profile'
+  id:
+    | '__root__'
+    | '/_protected'
+    | '/_protected/'
+    | '/_protected/$workspace/_adminLayout'
+    | '/api/auth/$'
+    | '/_protected/$workspace/_adminLayout/'
+    | '/_protected/$workspace/_adminLayout/profile/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -71,6 +112,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProtectedIndexRouteImport
       parentRoute: typeof ProtectedRoute
     }
+    '/_protected/$workspace/_adminLayout': {
+      id: '/_protected/$workspace/_adminLayout'
+      path: '/$workspace'
+      fullPath: '/$workspace'
+      preLoaderRoute: typeof ProtectedWorkspaceAdminLayoutRouteRouteImport
+      parentRoute: typeof ProtectedRoute
+    }
     '/api/auth/$': {
       id: '/api/auth/$'
       path: '/api/auth/$'
@@ -78,15 +126,50 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAuthSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_protected/$workspace/_adminLayout/': {
+      id: '/_protected/$workspace/_adminLayout/'
+      path: '/'
+      fullPath: '/$workspace/'
+      preLoaderRoute: typeof ProtectedWorkspaceAdminLayoutIndexRouteImport
+      parentRoute: typeof ProtectedWorkspaceAdminLayoutRouteRoute
+    }
+    '/_protected/$workspace/_adminLayout/profile/': {
+      id: '/_protected/$workspace/_adminLayout/profile/'
+      path: '/profile'
+      fullPath: '/$workspace/profile/'
+      preLoaderRoute: typeof ProtectedWorkspaceAdminLayoutProfileIndexRouteImport
+      parentRoute: typeof ProtectedWorkspaceAdminLayoutRouteRoute
+    }
   }
 }
 
+interface ProtectedWorkspaceAdminLayoutRouteRouteChildren {
+  ProtectedWorkspaceAdminLayoutIndexRoute: typeof ProtectedWorkspaceAdminLayoutIndexRoute
+  ProtectedWorkspaceAdminLayoutProfileIndexRoute: typeof ProtectedWorkspaceAdminLayoutProfileIndexRoute
+}
+
+const ProtectedWorkspaceAdminLayoutRouteRouteChildren: ProtectedWorkspaceAdminLayoutRouteRouteChildren =
+  {
+    ProtectedWorkspaceAdminLayoutIndexRoute:
+      ProtectedWorkspaceAdminLayoutIndexRoute,
+    ProtectedWorkspaceAdminLayoutProfileIndexRoute:
+      ProtectedWorkspaceAdminLayoutProfileIndexRoute,
+  }
+
+const ProtectedWorkspaceAdminLayoutRouteRouteWithChildren =
+  ProtectedWorkspaceAdminLayoutRouteRoute._addFileChildren(
+    ProtectedWorkspaceAdminLayoutRouteRouteChildren,
+  )
+
 interface ProtectedRouteChildren {
   ProtectedIndexRoute: typeof ProtectedIndexRoute
+  ProtectedWorkspaceAdminLayoutRouteRoute: typeof ProtectedWorkspaceAdminLayoutRouteRouteWithChildren
 }
 
 const ProtectedRouteChildren: ProtectedRouteChildren = {
   ProtectedIndexRoute: ProtectedIndexRoute,
+  ProtectedWorkspaceAdminLayoutRouteRoute:
+    ProtectedWorkspaceAdminLayoutRouteRouteWithChildren,
 }
 
 const ProtectedRouteWithChildren = ProtectedRoute._addFileChildren(
