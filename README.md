@@ -90,12 +90,6 @@ Required environment variables:
 | `VITE_FEEDBACK_SAAS_ADMIN_WEB_URL` | Public URL of the admin app                |
 | `VITE_APP_ENV`                     | `development` \| `staging` \| `production` |
 
-Push the schema to your database:
-
-```bash
-bun run --filter=@feedback-saas/db db:push
-```
-
 Optionally seed development data:
 
 ```bash
@@ -176,15 +170,17 @@ All apps are hosted on [Vercel](https://vercel.com/) and deploy automatically on
 
 | App         | Branch → Environment                            |
 | ----------- | ----------------------------------------------- |
-| `auth-web`  | `main` → production, any other branch → preview |
-| `admin-web` | `main` → production, any other branch → preview |
+| `auth-web`  | `main` → production, `develop` → preview        |
+| `admin-web` | `main` → production, `develop` → preview        |
 | `marketing` | `main` → production, any other branch → preview |
 | `feedback`  | `main` → production, any other branch → preview |
 | `storybook` | `main` → production, any other branch → preview |
 
-Vercel automatically picks up the Turborepo config and only rebuilds apps affected by a given change. Preview deployments get a unique URL per branch, making it easy to share work-in-progress without touching production.
+For `auth-web` and `admin-web`, only the `develop` branch produces a preview deployment, with a fixed URL per app, e.g. `preview.admin.feedback-saas.XXX` for `admin-web`, `preview.auth.feedback-saas.XXX` for `auth-web`. The other apps still get a unique preview URL per branch.
 
-> Database migrations are **not** run automatically on deploy. Run `bun run --filter=@feedback-saas/db db:push` (or `db:generate` + `db:migrate`) manually before deploying schema changes.
+Vercel automatically picks up the Turborepo config and only rebuilds apps affected by a given change.
+
+> Database migrations are **not** run automatically on deploy. Read more in the section [Pushing schema changes to Neon](#pushing-schema-changes-to-neon).
 
 ---
 
