@@ -308,7 +308,7 @@
     @apply font-heading;
   }
 
-  a {
+  a:not(nav a, header a) {
     @apply ml-auto inline-block underline-offset-4 underline;
   }
 
