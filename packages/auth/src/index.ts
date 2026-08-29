@@ -1,4 +1,5 @@
 import { db } from '@feedback-saas/db';
+import { createDefaultWorkspace } from '@feedback-saas/db/queries/workspace';
 import * as schema from '@feedback-saas/db/schema/auth-schema';
 import { betterAuth } from 'better-auth';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
@@ -32,6 +33,9 @@ export const auth = betterAuth({
     autoSignInAfterVerification: true,
     sendVerificationEmail: async ({ user, url }) => {
       await sendSignUpVerificationEmail(user.email, url);
+    },
+    async afterEmailVerification(user) {
+      await createDefaultWorkspace(user.id, user.name);
     },
   },
   baseURL: process.env.BETTER_AUTH_URL,
