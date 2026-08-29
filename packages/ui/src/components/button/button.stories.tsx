@@ -57,6 +57,19 @@ export const Default: Story = {
   },
 };
 
+export const Icon: Story = {
+  args: {
+    variant: 'default',
+    size: 'icon',
+    loading: false,
+  },
+  render: (args) => (
+    <Button aria-label="Add" {...args}>
+      <IconDownload aria-hidden="true" />
+    </Button>
+  ),
+};
+
 export const WithIcon: Story = {
   args: {
     children: 'Click me',
@@ -72,30 +85,22 @@ export const WithIcon: Story = {
   ),
 };
 
-export const Icon: Story = {
+export const WithLink: Story = {
   args: {
     variant: 'default',
     size: 'default',
     loading: false,
   },
-  render: (args) => (
-    <Button aria-label="Add" {...args}>
-      <IconDownload aria-hidden="true" />
-    </Button>
-  ),
+  render: (args) => <Button render={<a href="/login">Login</a>} {...args} />,
 };
 
-export const Link: Story = {
+export const LoadingBuiltIn: Story = {
   args: {
-    variant: 'link',
+    children: 'Submit',
+    variant: 'default',
     size: 'default',
-    loading: false,
+    loading: true,
   },
-  render: (args) => (
-    <Button render={<a href="/" />} {...args}>
-      Link
-    </Button>
-  ),
 };
 
 export const LoadingCustomComposition: Story = {
