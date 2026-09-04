@@ -15,30 +15,34 @@ import {
   DialogClose,
   DialogDescription,
 } from '@feedback-saas/ui/components';
-import {
-  IconLogout,
-  IconMenu2,
-  IconLayoutDashboard,
-  IconBuildingBroadcastTower,
-  IconBug,
-  IconEyeSearch,
-  IconSettings,
-  IconRocket,
-  IconUser,
-} from '@tabler/icons-react';
+import { IconLogout, IconMenu2, IconUser } from '@tabler/icons-react';
 import { createLink, Link } from '@tanstack/react-router';
 import { useState } from 'react';
 
 const MenuItemLink = createLink(MenuItem);
 
+export type SidebarLink = {
+  to: string;
+  label: string;
+  icon: (props: { size?: number }) => React.ReactNode;
+  params?: Record<string, string>;
+};
+
 type SidebarProps = {
+  links: SidebarLink[];
   sidebarOpen: boolean;
   toggleSidebar: () => void;
   onSignOut: () => Awaited<void>;
   isPending: boolean;
 };
 
-export const Sidebar = ({ sidebarOpen, toggleSidebar, onSignOut, isPending }: SidebarProps) => {
+export const Sidebar = ({
+  links,
+  sidebarOpen,
+  toggleSidebar,
+  onSignOut,
+  isPending,
+}: SidebarProps) => {
   const [dialogOpen, setDialogOpen] = useState(false);
 
   return (
@@ -66,48 +70,21 @@ export const Sidebar = ({ sidebarOpen, toggleSidebar, onSignOut, isPending }: Si
           </div>
 
           <nav className="space-y-1 px-3 py-6">
-            <Link
-              to="/"
-              className="group flex items-center gap-3 dark:bg-brand-900/20 dark:text-brand-100 text-sm font-medium text-brand-900 bg-brand-50 rounded-lg pt-2.5 pr-3 pb-2.5 pl-3 bg-slate-50 dark:hover:bg-white/5"
-            >
-              <IconLayoutDashboard size={20} />
-              Overview
-            </Link>
-            <Link
-              to="/"
-              className="group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-white/5 dark:hover:text-white transition-all"
-            >
-              <IconBuildingBroadcastTower size={20} />
-              Signals
-            </Link>
-            <Link
-              to="/"
-              className="group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-white/5 dark:hover:text-white transition-all"
-            >
-              <IconBug size={20} />
-              Problems
-            </Link>
-            <Link
-              to="/"
-              className="group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-white/5 dark:hover:text-white transition-all"
-            >
-              <IconEyeSearch size={20} />
-              Insights
-            </Link>
-            <Link
-              to="/"
-              className="group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-white/5 dark:hover:text-white transition-all"
-            >
-              <IconRocket size={20} />
-              Releases
-            </Link>
-            <Link
-              to="/"
-              className="group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-white/5 dark:hover:text-white transition-all"
-            >
-              <IconSettings size={20} />
-              Settings
-            </Link>
+            {links.map(({ to, label, icon: Icon, params }, index) => (
+              <Link
+                key={label}
+                to={to}
+                params={params}
+                className={
+                  index === 0
+                    ? 'group flex items-center gap-3 dark:bg-brand-900/20 dark:text-brand-100 text-sm font-medium text-brand-900 bg-brand-50 rounded-lg pt-2.5 pr-3 pb-2.5 pl-3 bg-slate-50 dark:hover:bg-white/5'
+                    : 'group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-white/5 dark:hover:text-white transition-all'
+                }
+              >
+                <Icon size={20} />
+                {label}
+              </Link>
+            ))}
           </nav>
         </div>
 
@@ -125,7 +102,7 @@ export const Sidebar = ({ sidebarOpen, toggleSidebar, onSignOut, isPending }: Si
               <MenuPopup align="start" className="w-52">
                 <MenuGroup>
                   <MenuGroupLabel>Account</MenuGroupLabel>
-                  <MenuItemLink to="/$workspace/profile" params={{ workspace: 'default' }}>
+                  <MenuItemLink to="/$workspaceId/profile" params={{ workspaceId: 'default' }}>
                     Profile
                   </MenuItemLink>
                 </MenuGroup>

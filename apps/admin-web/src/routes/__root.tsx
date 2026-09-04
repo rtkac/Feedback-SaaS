@@ -6,6 +6,7 @@ import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
 
 import appCss from '@feedback-saas/ui/styles.css?url';
 
+import { m } from '@/paraglide/messages';
 import { getLocale } from '@/paraglide/runtime';
 
 interface MyRouterContext {
@@ -21,9 +22,6 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
       {
         name: 'viewport',
         content: 'width=device-width, initial-scale=1',
-      },
-      {
-        title: 'TanStack Start Starter',
       },
     ],
     links: [

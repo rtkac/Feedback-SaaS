@@ -1,11 +1,13 @@
-import { InputGroup, InputGroupAddon, InputGroupInput } from '@feedback-saas/ui/components';
-import { IconSearch, IconMenu2, IconBell } from '@tabler/icons-react';
+import { IconMenu2, IconBell } from '@tabler/icons-react';
+import { Link, MakeRouteMatchUnion } from '@tanstack/react-router';
+import React from 'react';
 
 type TopNavigationProps = {
   toggleSidebar: () => void;
+  breadcrumbs: MakeRouteMatchUnion[];
 };
 
-export const TopNavigation = ({ toggleSidebar }: TopNavigationProps) => (
+export const TopNavigation = ({ toggleSidebar, breadcrumbs }: TopNavigationProps) => (
   <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-slate-200/60 bg-white/80 px-4 glass-effect lg:px-8 dark:border-dark-border dark:bg-dark-bg/80">
     <div className="flex items-center gap-4">
       <button
@@ -14,12 +16,18 @@ export const TopNavigation = ({ toggleSidebar }: TopNavigationProps) => (
       >
         <IconMenu2 />
       </button>
-      <InputGroup>
-        <InputGroupInput aria-label="Search" placeholder="Search" type="search" />
-        <InputGroupAddon>
-          <IconSearch aria-hidden="true" />
-        </InputGroupAddon>
-      </InputGroup>
+      {breadcrumbs.map(({ pathname, staticData }, index, arr) =>
+        index < arr.length - 1 ? (
+          <React.Fragment key={pathname}>
+            <Link to={staticData.breadcrumbTo ?? pathname} key={pathname}>
+              {staticData.titleText}
+            </Link>
+            /
+          </React.Fragment>
+        ) : (
+          <span key={pathname}>{staticData.titleText}</span>
+        ),
+      )}
     </div>
 
     <div className="flex items-center gap-3">

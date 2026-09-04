@@ -1,4 +1,6 @@
 {
   "$schema": "https://inlang.com/schema/inlang-message-format",
-  "signOut": "Sign Out"
+  "signOut": "Sign Out",
+  "titleIndex": "Workspaces",
+  "titleWorkspaceId": "{workspaceName}"
 }
