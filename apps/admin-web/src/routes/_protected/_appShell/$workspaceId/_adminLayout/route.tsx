@@ -18,11 +18,4 @@ export const Route = createFileRoute('/_protected/_appShell/$workspaceId/_adminL
       <Skeleton className="flex w-full h-50" />
     </div>
   ),
-  head: ({ loaderData }) => ({
-    meta: [
-      {
-        title: loaderData?.name,
-      },
-    ],
-  }),
 });

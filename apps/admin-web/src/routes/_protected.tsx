@@ -1,5 +1,5 @@
 import { getSession } from '@feedback-saas/auth/server';
-import { Skeleton, Spinner } from '@feedback-saas/ui/components';
+import { Skeleton } from '@feedback-saas/ui/components';
 import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
 
 import { fetchUserWorkspacesOptions } from '@/effects/workspace';

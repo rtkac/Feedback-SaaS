@@ -17,3 +17,4 @@ export * from './dialog/dialog';
 export * from './popover/popover';
 export * from './number-field/numberField';
 export * from './badge/badge';
+export * from './select/select';

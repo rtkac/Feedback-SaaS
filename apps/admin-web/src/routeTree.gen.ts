@@ -14,8 +14,8 @@ import { Route as ProtectedAppShellRouteRouteImport } from './routes/_protected/
 import { Route as ProtectedAppShellIndexRouteImport } from './routes/_protected/_appShell/index'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 import { Route as ProtectedAppShellWorkspaceIdAdminLayoutRouteRouteImport } from './routes/_protected/_appShell/$workspaceId/_adminLayout/route'
+import { Route as ProtectedAppShellProfileIndexRouteImport } from './routes/_protected/_appShell/profile/index'
 import { Route as ProtectedAppShellWorkspaceIdAdminLayoutIndexRouteImport } from './routes/_protected/_appShell/$workspaceId/_adminLayout/index'
-import { Route as ProtectedAppShellWorkspaceIdAdminLayoutProfileIndexRouteImport } from './routes/_protected/_appShell/$workspaceId/_adminLayout/profile/index'
 
 const ProtectedRoute = ProtectedRouteImport.update({
   id: '/_protected',
@@ -41,16 +41,16 @@ const ProtectedAppShellWorkspaceIdAdminLayoutRouteRoute =
     path: '/$workspaceId',
     getParentRoute: () => ProtectedAppShellRouteRoute,
   } as any)
+const ProtectedAppShellProfileIndexRoute =
+  ProtectedAppShellProfileIndexRouteImport.update({
+    id: '/profile/',
+    path: '/profile/',
+    getParentRoute: () => ProtectedAppShellRouteRoute,
+  } as any)
 const ProtectedAppShellWorkspaceIdAdminLayoutIndexRoute =
   ProtectedAppShellWorkspaceIdAdminLayoutIndexRouteImport.update({
     id: '/',
     path: '/',
-    getParentRoute: () => ProtectedAppShellWorkspaceIdAdminLayoutRouteRoute,
-  } as any)
-const ProtectedAppShellWorkspaceIdAdminLayoutProfileIndexRoute =
-  ProtectedAppShellWorkspaceIdAdminLayoutProfileIndexRouteImport.update({
-    id: '/profile/',
-    path: '/profile/',
     getParentRoute: () => ProtectedAppShellWorkspaceIdAdminLayoutRouteRoute,
   } as any)
 
@@ -58,14 +58,14 @@ export interface FileRoutesByFullPath {
   '/': typeof ProtectedAppShellIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/$workspaceId': typeof ProtectedAppShellWorkspaceIdAdminLayoutRouteRouteWithChildren
+  '/profile/': typeof ProtectedAppShellProfileIndexRoute
   '/$workspaceId/': typeof ProtectedAppShellWorkspaceIdAdminLayoutIndexRoute
-  '/$workspaceId/profile/': typeof ProtectedAppShellWorkspaceIdAdminLayoutProfileIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof ProtectedAppShellIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/profile': typeof ProtectedAppShellProfileIndexRoute
   '/$workspaceId': typeof ProtectedAppShellWorkspaceIdAdminLayoutIndexRoute
-  '/$workspaceId/profile': typeof ProtectedAppShellWorkspaceIdAdminLayoutProfileIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -74,19 +74,15 @@ export interface FileRoutesById {
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/_protected/_appShell/': typeof ProtectedAppShellIndexRoute
   '/_protected/_appShell/$workspaceId/_adminLayout': typeof ProtectedAppShellWorkspaceIdAdminLayoutRouteRouteWithChildren
+  '/_protected/_appShell/profile/': typeof ProtectedAppShellProfileIndexRoute
   '/_protected/_appShell/$workspaceId/_adminLayout/': typeof ProtectedAppShellWorkspaceIdAdminLayoutIndexRoute
-  '/_protected/_appShell/$workspaceId/_adminLayout/profile/': typeof ProtectedAppShellWorkspaceIdAdminLayoutProfileIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/'
-    | '/api/auth/$'
-    | '/$workspaceId'
-    | '/$workspaceId/'
-    | '/$workspaceId/profile/'
+    '/' | '/api/auth/$' | '/$workspaceId' | '/profile/' | '/$workspaceId/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/api/auth/$' | '/$workspaceId' | '/$workspaceId/profile'
+  to: '/' | '/api/auth/$' | '/profile' | '/$workspaceId'
   id:
     | '__root__'
     | '/_protected'
@@ -94,8 +90,8 @@ export interface FileRouteTypes {
     | '/api/auth/$'
     | '/_protected/_appShell/'
     | '/_protected/_appShell/$workspaceId/_adminLayout'
+    | '/_protected/_appShell/profile/'
     | '/_protected/_appShell/$workspaceId/_adminLayout/'
-    | '/_protected/_appShell/$workspaceId/_adminLayout/profile/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -140,6 +136,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProtectedAppShellWorkspaceIdAdminLayoutRouteRouteImport
       parentRoute: typeof ProtectedAppShellRouteRoute
     }
+    '/_protected/_appShell/profile/': {
+      id: '/_protected/_appShell/profile/'
+      path: '/profile'
+      fullPath: '/profile/'
+      preLoaderRoute: typeof ProtectedAppShellProfileIndexRouteImport
+      parentRoute: typeof ProtectedAppShellRouteRoute
+    }
     '/_protected/_appShell/$workspaceId/_adminLayout/': {
       id: '/_protected/_appShell/$workspaceId/_adminLayout/'
       path: '/'
@@ -147,27 +150,17 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProtectedAppShellWorkspaceIdAdminLayoutIndexRouteImport
       parentRoute: typeof ProtectedAppShellWorkspaceIdAdminLayoutRouteRoute
     }
-    '/_protected/_appShell/$workspaceId/_adminLayout/profile/': {
-      id: '/_protected/_appShell/$workspaceId/_adminLayout/profile/'
-      path: '/profile'
-      fullPath: '/$workspaceId/profile/'
-      preLoaderRoute: typeof ProtectedAppShellWorkspaceIdAdminLayoutProfileIndexRouteImport
-      parentRoute: typeof ProtectedAppShellWorkspaceIdAdminLayoutRouteRoute
-    }
   }
 }
 
 interface ProtectedAppShellWorkspaceIdAdminLayoutRouteRouteChildren {
   ProtectedAppShellWorkspaceIdAdminLayoutIndexRoute: typeof ProtectedAppShellWorkspaceIdAdminLayoutIndexRoute
-  ProtectedAppShellWorkspaceIdAdminLayoutProfileIndexRoute: typeof ProtectedAppShellWorkspaceIdAdminLayoutProfileIndexRoute
 }
 
 const ProtectedAppShellWorkspaceIdAdminLayoutRouteRouteChildren: ProtectedAppShellWorkspaceIdAdminLayoutRouteRouteChildren =
   {
     ProtectedAppShellWorkspaceIdAdminLayoutIndexRoute:
       ProtectedAppShellWorkspaceIdAdminLayoutIndexRoute,
-    ProtectedAppShellWorkspaceIdAdminLayoutProfileIndexRoute:
-      ProtectedAppShellWorkspaceIdAdminLayoutProfileIndexRoute,
   }
 
 const ProtectedAppShellWorkspaceIdAdminLayoutRouteRouteWithChildren =
@@ -178,6 +171,7 @@ const ProtectedAppShellWorkspaceIdAdminLayoutRouteRouteWithChildren =
 interface ProtectedAppShellRouteRouteChildren {
   ProtectedAppShellIndexRoute: typeof ProtectedAppShellIndexRoute
   ProtectedAppShellWorkspaceIdAdminLayoutRouteRoute: typeof ProtectedAppShellWorkspaceIdAdminLayoutRouteRouteWithChildren
+  ProtectedAppShellProfileIndexRoute: typeof ProtectedAppShellProfileIndexRoute
 }
 
 const ProtectedAppShellRouteRouteChildren: ProtectedAppShellRouteRouteChildren =
@@ -185,6 +179,7 @@ const ProtectedAppShellRouteRouteChildren: ProtectedAppShellRouteRouteChildren =
     ProtectedAppShellIndexRoute: ProtectedAppShellIndexRoute,
     ProtectedAppShellWorkspaceIdAdminLayoutRouteRoute:
       ProtectedAppShellWorkspaceIdAdminLayoutRouteRouteWithChildren,
+    ProtectedAppShellProfileIndexRoute: ProtectedAppShellProfileIndexRoute,
   }
 
 const ProtectedAppShellRouteRouteWithChildren =

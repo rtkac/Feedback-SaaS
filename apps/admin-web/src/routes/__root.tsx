@@ -6,7 +6,6 @@ import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
 
 import appCss from '@feedback-saas/ui/styles.css?url';
 
-import { m } from '@/paraglide/messages';
 import { getLocale } from '@/paraglide/runtime';
 
 interface MyRouterContext {

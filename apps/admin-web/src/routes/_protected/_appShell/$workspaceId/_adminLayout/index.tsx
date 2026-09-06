@@ -1,6 +1,8 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute, Link } from '@tanstack/react-router';
 
+import { m } from '@/paraglide/messages';
+
 function RouteComponent() {
   const context = Route.useRouteContext();
 
@@ -12,10 +14,7 @@ function RouteComponent() {
       <br />
       to <Link to="..">Workspaces</Link>
       <br />
-      to{' '}
-      <Link to="/$workspaceId/profile" params={{ workspaceId: data.id }}>
-        Profile
-      </Link>
+      to <Link to="/profile">Profile</Link>
     </div>
   );
 }
@@ -23,9 +22,16 @@ function RouteComponent() {
 export const Route = createFileRoute('/_protected/_appShell/$workspaceId/_adminLayout/')({
   component: RouteComponent,
   staticData: {
-    titleText: 'Overview',
+    titleText: m.titleWorkspaceId(),
   },
   loader: ({ context }) => {
     context.queryClient.query(context.fetchUserWorkspaceByIdOptions);
   },
+  head: ({ match }) => ({
+    meta: [
+      {
+        title: match.staticData.titleText,
+      },
+    ],
+  }),
 });
