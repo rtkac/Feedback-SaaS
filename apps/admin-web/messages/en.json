@@ -1,6 +1,9 @@
 {
   "$schema": "https://inlang.com/schema/inlang-message-format",
-  "signOut": "Sign Out",
+  "footerLabel": "© {date} DevLabs s.r.o. All rights reserved.",
   "titleIndex": "Workspaces",
-  "titleWorkspaceId": "{workspaceName}"
+  "titleWorkspaceId": "Overview",
+  "titleProfile": "Profile",
+  "selectWorkspace": "Select workspace",
+  "workspaceCardRole": "Role"
 }

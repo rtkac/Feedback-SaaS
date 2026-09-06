@@ -1,31 +1,24 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 
+import { m } from '@/paraglide/messages';
+
 function RouteComponent() {
-  const { workspaceId } = Route.useParams();
   const { user } = Route.useRouteContext();
 
   return (
-    <>
-      <>
-        Welcome, {user.name}!<br />
-      </>
-      <br />
-      <br />
-      <label htmlFor="workspace-select">Your workspace: {workspaceId}</label>
+    <div>
+      Welcome, {user.name}!<br />
       <br />
       <br />
       to <Link to="/">Workspaces</Link>
-      <br />
-      <br />
-      to <Link to="..">{workspaceId}</Link>
-    </>
+    </div>
   );
 }
 
-export const Route = createFileRoute('/_protected/_appShell/$workspaceId/_adminLayout/profile/')({
+export const Route = createFileRoute('/_protected/_appShell/profile/')({
   component: RouteComponent,
   staticData: {
-    titleText: 'Profile',
+    titleText: m.titleProfile(),
   },
   loader: ({ context }) => {
     context.queryClient.query(context.fetchUserWorkspacesOptions);

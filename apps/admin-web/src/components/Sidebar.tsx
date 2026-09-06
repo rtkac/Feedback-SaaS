@@ -1,3 +1,4 @@
+import { useSession } from '@feedback-saas/auth/client';
 import {
   Menu,
   MenuTrigger,
@@ -17,7 +18,7 @@ import {
 } from '@feedback-saas/ui/components';
 import { IconLogout, IconMenu2, IconUser } from '@tabler/icons-react';
 import { createLink, Link } from '@tanstack/react-router';
-import { useState } from 'react';
+import { PropsWithChildren, useState } from 'react';
 
 const MenuItemLink = createLink(MenuItem);
 
@@ -34,7 +35,7 @@ type SidebarProps = {
   toggleSidebar: () => void;
   onSignOut: () => Awaited<void>;
   isPending: boolean;
-};
+} & PropsWithChildren;
 
 export const Sidebar = ({
   links,
@@ -42,8 +43,11 @@ export const Sidebar = ({
   toggleSidebar,
   onSignOut,
   isPending,
+  children,
 }: SidebarProps) => {
   const [dialogOpen, setDialogOpen] = useState(false);
+
+  const { data: session, isPending: isSessionPending } = useSession();
 
   return (
     <>
@@ -56,17 +60,11 @@ export const Sidebar = ({
         <IconMenu2 />
       </button>
       <aside
-        id="sidebar"
         className={`sidebar-transition fixed inset-y-0 left-0 z-50 w-64 border-r border-slate-200 bg-white lg:static lg:translate-x-0 dark:border-dark-border dark:bg-dark-card flex flex-col justify-between ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}
       >
         <div>
           <div className="flex h-16 items-center px-6 border-b border-slate-100 dark:border-dark-border">
-            <div className="flex items-center gap-2">
-              <div className="h-6 w-6 rounded bg-brand-900 flex items-center justify-center text-white"></div>
-              <span className="dark:text-white text-lg font-extrabold text-slate-900 tracking-tight font-poppins">
-                DevLabs
-              </span>
-            </div>
+            {children}
           </div>
 
           <nav className="space-y-1 px-3 py-6">
@@ -95,16 +93,14 @@ export const Sidebar = ({
                 <IconUser size={20} />
                 <div className="flex flex-col w-full">
                   <span className="text-xs font-semibold text-slate-900 dark:text-white w-full">
-                    Radovan Tkac
+                    {isSessionPending ? '' : (session?.user.name ?? 'User')}
                   </span>
                 </div>
               </MenuTrigger>
               <MenuPopup align="start" className="w-52">
                 <MenuGroup>
                   <MenuGroupLabel>Account</MenuGroupLabel>
-                  <MenuItemLink to="/$workspaceId/profile" params={{ workspaceId: 'default' }}>
-                    Profile
-                  </MenuItemLink>
+                  <MenuItemLink to="/profile">Profile</MenuItemLink>
                 </MenuGroup>
                 <MenuSeparator />
                 <MenuGroup>
