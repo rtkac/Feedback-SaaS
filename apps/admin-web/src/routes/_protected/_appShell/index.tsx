@@ -18,7 +18,7 @@ function RouteComponent() {
         {data.map(({ workspace, workspace_member }) => (
           <CardFrame key={workspace.id}>
             <CardLink
-              to="/$workspaceId"
+              to="/w/$workspaceId"
               params={{ workspaceId: workspace.id }}
               className="cursor-pointer"
             >

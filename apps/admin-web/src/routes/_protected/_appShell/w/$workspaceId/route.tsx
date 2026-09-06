@@ -3,7 +3,7 @@ import { createFileRoute, Outlet } from '@tanstack/react-router';
 
 import { fetchUserWorkspaceByIdOptions } from '@/effects/workspace';
 
-export const Route = createFileRoute('/_protected/_appShell/$workspaceId/_adminLayout')({
+export const Route = createFileRoute('/_protected/_appShell/w/$workspaceId')({
   component: () => <Outlet />,
   context: ({ params }) => ({
     fetchUserWorkspaceByIdOptions: fetchUserWorkspaceByIdOptions(params.workspaceId),

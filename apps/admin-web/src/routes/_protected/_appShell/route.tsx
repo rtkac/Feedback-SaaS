@@ -82,7 +82,7 @@ function RouteComponent() {
               <SelectItemLink
                 key={value}
                 value={value}
-                to={workspaceId ? '.' : '/$workspaceId'}
+                to={workspaceId ? '.' : '/w/$workspaceId'}
                 params={(prev) => ({ ...prev, workspaceId: value })}
               >
                 {label}
