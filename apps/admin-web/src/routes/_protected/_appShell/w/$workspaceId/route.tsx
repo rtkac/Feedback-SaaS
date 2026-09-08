@@ -8,6 +8,13 @@ export const Route = createFileRoute('/_protected/_appShell/w/$workspaceId')({
   context: ({ params }) => ({
     fetchUserWorkspaceByIdOptions: fetchUserWorkspaceByIdOptions(params.workspaceId),
   }),
+  beforeLoad: async ({ context }) => {
+    try {
+      await context.queryClient.query(context.fetchUserWorkspaceByIdOptions);
+    } catch {
+      throw Route.redirect({ to: '/' });
+    }
+  },
   loader: ({ context }) => {
     context.queryClient.query({
       ...context.fetchUserWorkspaceByIdOptions,
