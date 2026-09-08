@@ -12,14 +12,14 @@ function RouteComponent() {
     <div>
       <h1>Selected Workspace: {data.name}</h1>
       <br />
-      to <Link to="..">Workspaces</Link>
+      to <Link to="/">Workspaces</Link>
       <br />
       to <Link to="/profile">Profile</Link>
     </div>
   );
 }
 
-export const Route = createFileRoute('/_protected/_appShell/$workspaceId/_adminLayout/')({
+export const Route = createFileRoute('/_protected/_appShell/w/$workspaceId/')({
   component: RouteComponent,
   staticData: {
     titleText: m.titleWorkspaceId(),
