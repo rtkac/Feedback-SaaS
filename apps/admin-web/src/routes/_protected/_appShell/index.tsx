@@ -61,7 +61,7 @@ function RouteComponent() {
         ))}
         <Frame>
           <FramePanel>
-            <Link to="/">
+            <Link to="/create-workspace">
               <div className="flex gap-3 items-center text-muted-foreground">
                 <IconPlus />
                 <FrameTitle>{m.workspaceCreate()}</FrameTitle>

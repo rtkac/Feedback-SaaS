@@ -63,7 +63,7 @@ export const Sidebar = ({
         className={`sidebar-transition fixed inset-y-0 left-0 z-50 w-64 border-r border-slate-200 bg-white lg:static lg:translate-x-0 dark:border-dark-border dark:bg-dark-card flex flex-col justify-between ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}
       >
         <div>
-          <div className="flex h-16 items-center px-6 border-b border-slate-100 dark:border-dark-border">
+          <div className="flex h-16 items-center px-3 border-b border-slate-100 dark:border-dark-border">
             {children}
           </div>
 

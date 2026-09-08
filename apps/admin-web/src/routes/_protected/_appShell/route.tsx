@@ -1,5 +1,6 @@
 import { signOut } from '@feedback-saas/auth/client';
 import {
+  Button,
   Select,
   SelectItem,
   SelectPopup,
@@ -11,8 +12,10 @@ import {
   IconBuildingBroadcastTower,
   IconEyeSearch,
   IconLayoutDashboard,
+  IconPlus,
   IconRocket,
   IconSettings,
+  IconX,
 } from '@tabler/icons-react';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import {
@@ -30,6 +33,7 @@ import { TopNavigation } from '@/components/TopNavigation';
 import { m } from '@/paraglide/messages';
 
 const SelectItemLink = createLink(SelectItem);
+const ButtonLink = createLink(Button);
 
 export const workspaceNavLinks = (): SidebarLink[] => [
   { to: '/', label: 'Overview', icon: IconLayoutDashboard },
@@ -89,27 +93,40 @@ function RouteComponent() {
         onSignOut={handleOnSignOut}
         isPending={isPending}
       >
-        <Select
-          aria-label={m.selectWorkspace()}
-          value={workspaceId || m.selectWorkspace()}
-          items={data}
-        >
-          <SelectTrigger>
-            <SelectValue />
-          </SelectTrigger>
-          <SelectPopup>
-            {data.map(({ label, value }) => (
-              <SelectItemLink
-                key={value}
-                value={value}
-                to={workspaceId ? '.' : '/w/$workspaceId'}
-                params={(prev) => ({ ...prev, workspaceId: value })}
-              >
-                {label}
+        <div className="flex w-full gap-1">
+          <Select
+            aria-label={m.selectWorkspace()}
+            value={workspaceId || m.selectWorkspace()}
+            items={data}
+          >
+            <SelectTrigger>
+              <SelectValue />
+            </SelectTrigger>
+            <SelectPopup>
+              {data.map(({ label, value }) => (
+                <SelectItemLink
+                  key={value}
+                  value={value}
+                  to={workspaceId ? '.' : '/w/$workspaceId'}
+                  params={(prev) => ({ ...prev, workspaceId: value })}
+                >
+                  {label}
+                </SelectItemLink>
+              ))}
+              <SelectItemLink to="/create-workspace">
+                <span className="flex items-center gap-2">
+                  <IconPlus />
+                  {m.createWorkspace()}
+                </span>
               </SelectItemLink>
-            ))}
-          </SelectPopup>
-        </Select>
+            </SelectPopup>
+          </Select>
+          {workspaceId && (
+            <ButtonLink to="/" variant="secondary">
+              <IconX />
+            </ButtonLink>
+          )}
+        </div>
       </Sidebar>
       <main className="flex-1 flex flex-col h-screen overflow-hidden relative">
         <TopNavigation toggleSidebar={toggleSidebar} breadcrumbs={breadcrumbs} />

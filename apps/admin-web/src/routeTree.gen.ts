@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as ProtectedRouteImport } from './routes/_protected'
 import { Route as ProtectedAppShellRouteRouteImport } from './routes/_protected/_appShell/route'
 import { Route as ProtectedAppShellIndexRouteImport } from './routes/_protected/_appShell/index'
+import { Route as ProtectedAppShellCreateWorkspaceRouteImport } from './routes/_protected/_appShell/create-workspace'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 import { Route as ProtectedAppShellProfileIndexRouteImport } from './routes/_protected/_appShell/profile/index'
 import { Route as ProtectedAppShellWIndexRouteImport } from './routes/_protected/_appShell/w/index'
@@ -31,6 +32,12 @@ const ProtectedAppShellIndexRoute = ProtectedAppShellIndexRouteImport.update({
   path: '/',
   getParentRoute: () => ProtectedAppShellRouteRoute,
 } as any)
+const ProtectedAppShellCreateWorkspaceRoute =
+  ProtectedAppShellCreateWorkspaceRouteImport.update({
+    id: '/create-workspace',
+    path: '/create-workspace',
+    getParentRoute: () => ProtectedAppShellRouteRoute,
+  } as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   id: '/api/auth/$',
   path: '/api/auth/$',
@@ -62,6 +69,7 @@ const ProtectedAppShellWWorkspaceIdIndexRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof ProtectedAppShellIndexRoute
+  '/create-workspace': typeof ProtectedAppShellCreateWorkspaceRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/w/$workspaceId': typeof ProtectedAppShellWWorkspaceIdRouteRouteWithChildren
   '/profile/': typeof ProtectedAppShellProfileIndexRoute
@@ -70,6 +78,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof ProtectedAppShellIndexRoute
+  '/create-workspace': typeof ProtectedAppShellCreateWorkspaceRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/profile': typeof ProtectedAppShellProfileIndexRoute
   '/w': typeof ProtectedAppShellWIndexRoute
@@ -79,6 +88,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_protected': typeof ProtectedRouteWithChildren
   '/_protected/_appShell': typeof ProtectedAppShellRouteRouteWithChildren
+  '/_protected/_appShell/create-workspace': typeof ProtectedAppShellCreateWorkspaceRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/_protected/_appShell/': typeof ProtectedAppShellIndexRoute
   '/_protected/_appShell/w/$workspaceId': typeof ProtectedAppShellWWorkspaceIdRouteRouteWithChildren
@@ -90,17 +100,25 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/create-workspace'
     | '/api/auth/$'
     | '/w/$workspaceId'
     | '/profile/'
     | '/w/'
     | '/w/$workspaceId/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/api/auth/$' | '/profile' | '/w' | '/w/$workspaceId'
+  to:
+    | '/'
+    | '/create-workspace'
+    | '/api/auth/$'
+    | '/profile'
+    | '/w'
+    | '/w/$workspaceId'
   id:
     | '__root__'
     | '/_protected'
     | '/_protected/_appShell'
+    | '/_protected/_appShell/create-workspace'
     | '/api/auth/$'
     | '/_protected/_appShell/'
     | '/_protected/_appShell/w/$workspaceId'
@@ -135,6 +153,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof ProtectedAppShellIndexRouteImport
+      parentRoute: typeof ProtectedAppShellRouteRoute
+    }
+    '/_protected/_appShell/create-workspace': {
+      id: '/_protected/_appShell/create-workspace'
+      path: '/create-workspace'
+      fullPath: '/create-workspace'
+      preLoaderRoute: typeof ProtectedAppShellCreateWorkspaceRouteImport
       parentRoute: typeof ProtectedAppShellRouteRoute
     }
     '/api/auth/$': {
@@ -191,6 +216,7 @@ const ProtectedAppShellWWorkspaceIdRouteRouteWithChildren =
   )
 
 interface ProtectedAppShellRouteRouteChildren {
+  ProtectedAppShellCreateWorkspaceRoute: typeof ProtectedAppShellCreateWorkspaceRoute
   ProtectedAppShellIndexRoute: typeof ProtectedAppShellIndexRoute
   ProtectedAppShellWWorkspaceIdRouteRoute: typeof ProtectedAppShellWWorkspaceIdRouteRouteWithChildren
   ProtectedAppShellProfileIndexRoute: typeof ProtectedAppShellProfileIndexRoute
@@ -199,6 +225,8 @@ interface ProtectedAppShellRouteRouteChildren {
 
 const ProtectedAppShellRouteRouteChildren: ProtectedAppShellRouteRouteChildren =
   {
+    ProtectedAppShellCreateWorkspaceRoute:
+      ProtectedAppShellCreateWorkspaceRoute,
     ProtectedAppShellIndexRoute: ProtectedAppShellIndexRoute,
     ProtectedAppShellWWorkspaceIdRouteRoute:
       ProtectedAppShellWWorkspaceIdRouteRouteWithChildren,
