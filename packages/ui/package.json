@@ -8,6 +8,10 @@
       "types": "./src/components/index.ts",
       "default": "./dist/components/index.js"
     },
+    "./icons": {
+      "types": "./src/icons/index.ts",
+      "default": "./dist/icons/index.js"
+    },
     "./lib": {
       "types": "./src/lib/utils.ts",
       "default": "./dist/lib/utils.js"

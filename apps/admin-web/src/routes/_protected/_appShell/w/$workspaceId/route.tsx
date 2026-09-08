@@ -9,7 +9,10 @@ export const Route = createFileRoute('/_protected/_appShell/w/$workspaceId')({
     fetchUserWorkspaceByIdOptions: fetchUserWorkspaceByIdOptions(params.workspaceId),
   }),
   loader: ({ context }) => {
-    return context.queryClient.query(context.fetchUserWorkspaceByIdOptions);
+    context.queryClient.query({
+      ...context.fetchUserWorkspaceByIdOptions,
+      staleTime: 'static',
+    });
   },
   pendingComponent: () => (
     <div className="my-4 mx-8 grid grid-cols-2 gap-4">

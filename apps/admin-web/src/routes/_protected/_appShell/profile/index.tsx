@@ -1,13 +1,14 @@
+import { useSession } from '@feedback-saas/auth/client';
 import { createFileRoute, Link } from '@tanstack/react-router';
 
 import { m } from '@/paraglide/messages';
 
 function RouteComponent() {
-  const { user } = Route.useRouteContext();
+  const { data } = useSession();
 
   return (
     <div>
-      Welcome, {user.name}!<br />
+      Welcome, {data?.user.name}!<br />
       <br />
       <br />
       to <Link to="/">Workspaces</Link>

@@ -2,7 +2,6 @@ import { signIn } from '@feedback-saas/auth/client';
 import {
   Button,
   Card,
-  CardContent,
   CardDescription,
   CardHeader,
   CardPanel,
@@ -13,16 +12,14 @@ import {
   Separator,
   toast,
 } from '@feedback-saas/ui/components';
-import { IconChartLine, IconBolt, IconPalette } from '@tabler/icons-react';
+import { GoogleIcon } from '@feedback-saas/ui/icons';
 import { useForm } from '@tanstack/react-form';
 import { useMutation } from '@tanstack/react-query';
-import { createFileRoute, createLink, Link } from '@tanstack/react-router';
+import { createFileRoute, Link } from '@tanstack/react-router';
 import { z } from 'zod';
 
 import { signInUserOptions } from '@/effects/auth';
 import { m } from '@/paraglide/messages';
-
-const ButtonLink = createLink(Button);
 
 const formSchema = z.object({
   email: z.email(m.signInEmailInvalid()),
@@ -59,121 +56,96 @@ function RouteComponent() {
   };
 
   return (
-    <div className="flex gap-4 md:gap-6 p-4 md:py-8 sm:py-12 flex-1/2 justify-center max-w-3xl flex-col-reverse md:flex-row items-center md:items-stretch">
-      <Card className="w-full max-w-md">
-        <CardHeader>
-          <CardTitle>
-            <p className="text-4xl font-bold">{m.signInBoxesTitle()}</p>
-          </CardTitle>
-          <CardDescription>
-            <p>{m.signInBoxesDesc()}</p>
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="flex flex-col gap-4">
-          <div className="flex flex-row gap-2 items-center">
-            <IconBolt className="shrink-0" />
-            <p> {m.signInBox1Title()}</p>
-          </div>
-          <div className="flex flex-row gap-2 items-center">
-            <IconChartLine className="shrink-0" />
-            <p>{m.signInBox2Title()}</p>
-          </div>
-          <div className="flex flex-row gap-2 items-center">
-            <IconPalette className="shrink-0" />
-            <p>{m.signInBox3Title()}</p>
-          </div>
-        </CardContent>
-      </Card>
-      <Card className="w-full max-w-md">
-        <CardHeader>
-          <CardTitle>
-            <h1 className="text-3xl font-bold">{m.signInTitle()}</h1>
-          </CardTitle>
-          <CardDescription>
-            <p>{m.signInDesc()}</p>
-          </CardDescription>
-        </CardHeader>
-        <div className="px-6 mb-5">
-          <Separator />
-        </div>
-        <CardPanel className="flex flex-col gap-4">
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              form.handleSubmit();
-            }}
-            className="flex flex-col gap-2"
-          >
-            <form.Field name="email">
-              {(field) => (
-                <div>
-                  <Label htmlFor={field.name}>{m.signInEmailLabel()}</Label>
-                  <Input
-                    id={field.name}
-                    name={field.name}
-                    value={field.value}
-                    onChange={(e) => field.handleChange(e.target.value)}
-                    onBlur={field.handleBlur}
-                    placeholder={m.signInEmailPlaceholder()}
-                    aria-invalid={field.meta.isInvalid}
-                  />
-                  <FieldError>
-                    {typeof field.errors[0] === 'string'
-                      ? field.errors[0]
-                      : field.errors[0]?.message}
-                  </FieldError>
+    <Card className="w-full max-w-sm">
+      <CardHeader>
+        <CardTitle>
+          <h1 className="text-3xl font-bold">{m.signInTitle()}</h1>
+        </CardTitle>
+        <CardDescription>
+          <p>{m.signInDesc()}</p>
+        </CardDescription>
+      </CardHeader>
+      <CardPanel className="flex flex-col gap-4">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            form.handleSubmit();
+          }}
+          className="flex flex-col gap-3"
+        >
+          <form.Field name="email">
+            {(field) => (
+              <div>
+                <Label htmlFor={field.name}>{m.signInEmailLabel()}</Label>
+                <Input
+                  id={field.name}
+                  name={field.name}
+                  value={field.value}
+                  onChange={(e) => field.handleChange(e.target.value)}
+                  onBlur={field.handleBlur}
+                  placeholder={m.signInEmailPlaceholder()}
+                  aria-invalid={field.meta.isInvalid}
+                />
+                <FieldError>
+                  {typeof field.errors[0] === 'string' ? field.errors[0] : field.errors[0]?.message}
+                </FieldError>
+              </div>
+            )}
+          </form.Field>
+          <form.Field name="password">
+            {(field) => (
+              <div>
+                <div className="flex justify-between mb-2">
+                  <Label htmlFor={field.name}>{m.signInPasswordLabel()}</Label>
+                  <Link to="/forgot-password" className="text-xs">
+                    {m.signInForgotPassword()}
+                  </Link>
                 </div>
-              )}
-            </form.Field>
-            <form.Field name="password">
-              {(field) => (
-                <div>
-                  <div className="flex justify-between mb-2">
-                    <Label htmlFor={field.name}>{m.signInPasswordLabel()}</Label>
-                    <Link to="/forgot-password" className="text-xs">
-                      {m.signInForgotPassword()}
-                    </Link>
-                  </div>
-                  <Input
-                    id={field.name}
-                    name={field.name}
-                    value={field.value}
-                    onChange={(e) => field.handleChange(e.target.value)}
-                    onBlur={field.handleBlur}
-                    type="password"
-                    placeholder={m.signInPasswordPlaceholder()}
-                    aria-invalid={field.meta.isInvalid}
-                  />
-                  <FieldError>
-                    {typeof field.errors[0] === 'string'
-                      ? field.errors[0]
-                      : field.errors[0]?.message}
-                  </FieldError>
-                </div>
-              )}
-            </form.Field>
-            <form.Subscribe selector={(state) => state.isSubmitting}>
-              {(isSubmitting) => (
-                <Button type="submit" loading={isSubmitting}>
-                  {m.signInSubmitLabel()}
-                </Button>
-              )}
-            </form.Subscribe>
-            <div className="flex flex-col gap-6 mt-5">
+                <Input
+                  id={field.name}
+                  name={field.name}
+                  value={field.value}
+                  onChange={(e) => field.handleChange(e.target.value)}
+                  onBlur={field.handleBlur}
+                  type="password"
+                  placeholder={m.signInPasswordPlaceholder()}
+                  aria-invalid={field.meta.isInvalid}
+                />
+                <FieldError>
+                  {typeof field.errors[0] === 'string' ? field.errors[0] : field.errors[0]?.message}
+                </FieldError>
+              </div>
+            )}
+          </form.Field>
+          <form.Subscribe selector={(state) => state.isSubmitting}>
+            {(isSubmitting) => (
+              <Button size="lg" type="submit" loading={isSubmitting}>
+                {m.signInSubmitLabel()}
+              </Button>
+            )}
+          </form.Subscribe>
+          <div className="flex flex-col gap-6 mt-3">
+            <div className="flex overflow-x-auto justify-center items-center gap-3">
               <Separator />
-              <Button onClick={handleGoogleSignIn}>Sign in with Google</Button>
-            </div>
-            <div className="flex flex-col gap-6 mt-5">
+              <span className="text-sm text-muted-foreground">or</span>
               <Separator />
-              <ButtonLink to="/sign-up" variant="secondary">
-                {m.signInCreateAccount()}
-              </ButtonLink>
             </div>
-          </form>
-        </CardPanel>
-      </Card>
-    </div>
+            <Button size="lg" variant="outline" onClick={handleGoogleSignIn}>
+              <GoogleIcon />
+              {m.signInGoogleLabel()}
+            </Button>
+          </div>
+          <div className="mt-5">
+            <p className="text-sm">
+              <span className="text-muted-foreground">{m.signInCreateAccount()}</span>
+              &nbsp;
+              <Link to="/sign-up">{m.signInCreateAccountLabel()}</Link>
+            </p>
+          </div>
+        </form>
+      </CardPanel>
+    </Card>
   );
 }
 
