@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { IconArrowRight } from '@tabler/icons-react';
 
+import { Avatar, AvatarFallback } from '..';
 import { Frame, FrameDescription, FrameFooter, FrameHeader, FramePanel, FrameTitle } from './frame';
 
 const meta: Meta<typeof Frame> = {
@@ -72,20 +73,22 @@ export const SeparatedPanels: Story = {
 export const Clickable: Story = {
   render: (args) => (
     <Frame {...args} className="w-96">
-      <FrameHeader>
-        <FrameTitle>Title</FrameTitle>
-        <FrameDescription>Description</FrameDescription>
-      </FrameHeader>
-      <FramePanel className="p-0">
-        <a
-          className="flex items-center gap-3 rounded-[calc(var(--radius-xl)-1px)] p-5 outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1 focus-visible:ring-offset-background"
-          href="/settings/billing"
-        >
-          <div className="flex flex-col gap-1">
-            <FrameTitle>Billing</FrameTitle>
-            <FrameDescription>Manage your subscription and payment methods</FrameDescription>
+      <FramePanel>
+        <a href="#">
+          <div className="flex gap-1 items-center">
+            <div className="flex flex-col gap-1">
+              <div className="flex gap-4 items-center">
+                <Avatar className="size-10">
+                  <AvatarFallback>AB</AvatarFallback>
+                </Avatar>
+                <div className="flex flex-col gap-1">
+                  <FrameTitle>Title</FrameTitle>
+                  <FrameDescription>Description</FrameDescription>
+                </div>
+              </div>
+            </div>
+            <IconArrowRight className="ms-auto size-4 shrink-0 text-muted-foreground" />
           </div>
-          <IconArrowRight className="ms-auto size-4 shrink-0 text-muted-foreground" />
         </a>
       </FramePanel>
     </Frame>

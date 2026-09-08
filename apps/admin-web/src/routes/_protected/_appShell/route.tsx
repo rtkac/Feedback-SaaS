@@ -6,6 +6,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@feedback-saas/ui/components';
+import {
+  IconBug,
+  IconBuildingBroadcastTower,
+  IconEyeSearch,
+  IconLayoutDashboard,
+  IconRocket,
+  IconSettings,
+} from '@tabler/icons-react';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import {
   createFileRoute,
@@ -17,12 +25,24 @@ import {
 import { useState, useTransition } from 'react';
 
 import { Footer } from '@/components/Footer';
-import { Sidebar } from '@/components/Sidebar';
-import { workspaceNavLinks } from '@/components/Sidebar.links';
+import { Sidebar, SidebarLink } from '@/components/Sidebar';
 import { TopNavigation } from '@/components/TopNavigation';
 import { m } from '@/paraglide/messages';
 
 const SelectItemLink = createLink(SelectItem);
+
+export const workspaceNavLinks = (): SidebarLink[] => [
+  { to: '/', label: 'Overview', icon: IconLayoutDashboard },
+  {
+    to: '/',
+    label: 'Signals',
+    icon: IconBuildingBroadcastTower,
+  },
+  { to: '/', label: 'Problems', icon: IconBug },
+  { to: '/', label: 'Insights', icon: IconEyeSearch },
+  { to: '/', label: 'Releases', icon: IconRocket },
+  { to: '/', label: 'Settings', icon: IconSettings },
+];
 
 function RouteComponent() {
   const { workspaceId } = useParams({ strict: false });
@@ -63,7 +83,7 @@ function RouteComponent() {
   return (
     <div className="flex h-screen overflow-hidden">
       <Sidebar
-        links={workspaceId ? workspaceNavLinks(workspaceId) : []}
+        links={workspaceId ? workspaceNavLinks() : []}
         sidebarOpen={sidebarOpen}
         toggleSidebar={toggleSidebar}
         onSignOut={handleOnSignOut}
