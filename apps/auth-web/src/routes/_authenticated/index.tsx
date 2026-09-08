@@ -1,3 +1,4 @@
+import { signIn } from '@feedback-saas/auth/client';
 import {
   Button,
   Card,
@@ -50,6 +51,12 @@ function RouteComponent() {
   });
 
   const { mutateAsync } = useMutation(signInUserOptions());
+
+  const handleGoogleSignIn = async () => {
+    await signIn.social({
+      provider: 'google',
+    });
+  };
 
   return (
     <div className="flex gap-4 md:gap-6 p-4 md:py-8 sm:py-12 flex-1/2 justify-center max-w-3xl flex-col-reverse md:flex-row items-center md:items-stretch">
@@ -153,6 +160,10 @@ function RouteComponent() {
                 </Button>
               )}
             </form.Subscribe>
+            <div className="flex flex-col gap-6 mt-5">
+              <Separator />
+              <Button onClick={handleGoogleSignIn}>Sign in with Google</Button>
+            </div>
             <div className="flex flex-col gap-6 mt-5">
               <Separator />
               <ButtonLink to="/sign-up" variant="secondary">

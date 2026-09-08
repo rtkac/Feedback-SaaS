@@ -12,6 +12,15 @@ export const auth = betterAuth({
     provider: 'pg',
     schema,
   }),
+  databaseHooks: {
+    user: {
+      create: {
+        after: async (user) => {
+          await createDefaultWorkspace(user.id, user.name);
+        },
+      },
+    },
+  },
   trustedOrigins: (process.env.BETTER_AUTH_TRUSTED_ORIGINS ?? '')
     .split(',')
     .map((o) => o.trim())
@@ -34,8 +43,11 @@ export const auth = betterAuth({
     sendVerificationEmail: async ({ user, url }) => {
       await sendSignUpVerificationEmail(user.email, url);
     },
-    async afterEmailVerification(user) {
-      await createDefaultWorkspace(user.id, user.name);
+  },
+  socialProviders: {
+    google: {
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     },
   },
   baseURL: process.env.BETTER_AUTH_URL,
