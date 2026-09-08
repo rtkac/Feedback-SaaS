@@ -5,5 +5,9 @@
   "titleWorkspaceId": "Overview",
   "titleProfile": "Profile",
   "selectWorkspace": "Select workspace",
-  "workspaceCardRole": "Role"
+  "workspaceTitleTop": "Welcome back, {name}.",
+  "workspaceTitle": "Choose a workspace",
+  "workspaceDesc": "Select a workspace to continue or create a new one.",
+  "workspaceCardRole": "Role",
+  "workspaceCreate": "Create workspace"
 }

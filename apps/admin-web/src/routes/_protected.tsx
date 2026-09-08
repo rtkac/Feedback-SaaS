@@ -12,13 +12,12 @@ export const Route = createFileRoute('/_protected')({
         href: import.meta.env.VITE_FEEDBACK_SAAS_AUTH_WEB_URL,
       });
     }
-    return { user: session.user };
   },
   context: () => ({
     fetchUserWorkspacesOptions: fetchUserWorkspacesOptions(),
   }),
   loader: ({ context }) => {
-    context.queryClient.query(context.fetchUserWorkspacesOptions);
+    context.queryClient.query({ ...context.fetchUserWorkspacesOptions, staleTime: 'static' });
   },
   component: () => <Outlet />,
   pendingComponent: () => (

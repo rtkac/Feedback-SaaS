@@ -18,3 +18,4 @@ export * from './popover/popover';
 export * from './number-field/numberField';
 export * from './badge/badge';
 export * from './select/select';
+export * from './frame/frame';
