@@ -85,6 +85,8 @@ Required environment variables:
 | `BETTER_AUTH_SECRET`               | Random secret for session signing          |
 | `BETTER_AUTH_URL`                  | Auth server base URL                       |
 | `BETTER_AUTH_TRUSTED_ORIGINS`      | Comma-separated allowed origins            |
+| `GOOGLE_CLIENT_ID`                 | Google OAuth client ID                     |
+| `GOOGLE_CLIENT_SECRET`             | Google OAuth client secret                 |
 | `RESEND_API_KEY`                   | Resend API key for transactional email     |
 | `VITE_FEEDBACK_SAAS_AUTH_WEB_URL`  | Public URL of the auth app                 |
 | `VITE_FEEDBACK_SAAS_ADMIN_WEB_URL` | Public URL of the admin app                |
