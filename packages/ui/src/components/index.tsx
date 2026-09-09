@@ -20,3 +20,8 @@ export * from './badge/badge';
 export * from './select/select';
 export * from './frame/frame';
 export * from './empty/empty';
+export * from './tooltip/tooltip';
+export * from './drawer/drawer';
+export * from './autocomplete/autocomplete';
+export * from './command/command';
+export * from './collapsible/collapsible';
