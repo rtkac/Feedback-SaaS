@@ -1,5 +1,9 @@
 import { ensureSession } from '@feedback-saas/auth/server';
-import { getUserWorkspaces, getUserWorkspaceById } from '@feedback-saas/db/queries/workspace';
+import {
+  getUserWorkspaces,
+  getUserWorkspaceById,
+  updateWorkspaceName,
+} from '@feedback-saas/db/queries/workspace';
 import { createServerFn } from '@tanstack/react-start';
 
 export const getUserWorkspacesFn = createServerFn({ method: 'GET' }).handler(async () => {
@@ -13,5 +17,33 @@ export const getUserWorkspaceByIdFn = createServerFn({ method: 'GET' })
   .handler(async ({ data }) => {
     const session = await ensureSession();
     const workspace = await getUserWorkspaceById(session.user.id, data.id);
+    return workspace;
+  });
+
+export const updateWorkspaceNameFn = createServerFn({ method: 'POST' })
+  .validator((data: { id: string; name: string }) => {
+    const name = data.name.trim();
+
+    if (!data.id) {
+      throw new Error('Workspace ID is required');
+    }
+
+    if (!name) {
+      throw new Error('Workspace name is required');
+    }
+
+    if (name.length > 100) {
+      throw new Error('Workspace name must be 100 characters or less');
+    }
+
+    return {
+      id: data.id,
+      name,
+    };
+  })
+  .handler(async ({ data }) => {
+    const session = await ensureSession();
+    await getUserWorkspaceById(session.user.id, data.id);
+    const workspace = await updateWorkspaceName(data.id, data.name);
     return workspace;
   });

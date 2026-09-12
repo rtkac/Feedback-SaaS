@@ -46,11 +46,11 @@ export const navMainItems: NavItem[] = [
   {
     icon: IconSettings,
     title: 'Settings',
-    to: '/',
+    to: '/workspace/$workspaceId/settings',
   },
 ];
 
-export const profileNavMainItems: NavItem[] = [
+export const accountNavMainItems: NavItem[] = [
   {
     icon: IconLayoutDashboard,
     title: 'Workspaces',

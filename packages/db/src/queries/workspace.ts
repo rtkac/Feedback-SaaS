@@ -43,20 +43,23 @@ export async function createDefaultWorkspace(userId: string, userName: string) {
 
 export function getUserWorkspaces(userId: string) {
   return db
-    .select()
+    .select({
+      workspace,
+      workspaceMember,
+    })
     .from(workspaceMember)
     .innerJoin(workspace, eq(workspaceMember.workspaceId, workspace.id))
     .where(eq(workspaceMember.userId, userId));
 }
 
-export async function getUserWorkspaceById(userId: string, id: string) {
+export async function getUserWorkspaceById(userId: string, workspaceId: string) {
   const [result] = await db
     .select({
       workspace,
     })
     .from(workspace)
     .innerJoin(workspaceMember, eq(workspaceMember.workspaceId, workspace.id))
-    .where(and(eq(workspace.id, id), eq(workspaceMember.userId, userId)))
+    .where(and(eq(workspace.id, workspaceId), eq(workspaceMember.userId, userId)))
     .limit(1);
 
   if (!result) {
@@ -64,6 +67,23 @@ export async function getUserWorkspaceById(userId: string, id: string) {
   }
 
   return result.workspace;
+}
+
+export async function updateWorkspaceName(workspaceId: string, name: string) {
+  const [updatedWorkspace] = await db
+    .update(workspace)
+    .set({
+      name,
+      updatedAt: new Date(),
+    })
+    .where(eq(workspace.id, workspaceId))
+    .returning();
+
+  if (!updatedWorkspace) {
+    throw new Error('Workspace not found');
+  }
+
+  return updatedWorkspace;
 }
 
 async function workspaceSlugExists(tx: DbTransaction, slug: string): Promise<boolean> {

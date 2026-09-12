@@ -14,7 +14,7 @@ import { AdminLayout } from '@/components/app/admin-layout';
 import { Main } from '@/components/app/main';
 import { MobileNavigation } from '@/components/app/mobile-navigation';
 import { Sidebar } from '@/components/app/sidebar';
-import { navMainItems, profileNavMainItems } from '@/lib/navigation-data';
+import { navMainItems, accountNavMainItems } from '@/lib/navigation-data';
 import { m } from '@/paraglide/messages';
 
 const SelectItemLink = createLink(SelectItem);
@@ -77,11 +77,11 @@ function RouteComponent() {
           )}
         </div>
         <Sidebar
-          navMainItems={workspaceId ? navMainItems : isAccountRoute ? profileNavMainItems : []}
+          navMainItems={workspaceId ? navMainItems : isAccountRoute ? accountNavMainItems : []}
         />
       </div>
       <MobileNavigation
-        navMainItems={workspaceId ? navMainItems : isAccountRoute ? profileNavMainItems : []}
+        navMainItems={workspaceId ? navMainItems : isAccountRoute ? accountNavMainItems : []}
       />
       <Main>
         <Outlet />

@@ -32,7 +32,7 @@ function RouteComponent() {
         <p className="text-muted-foreground">{m.workspaceDesc()}</p>
       </div>
       <div className="w-full max-w-lg">
-        {data.map(({ workspace, workspace_member }) => (
+        {data.map(({ workspace, workspaceMember }) => (
           <Frame key={workspace.id}>
             <FramePanel>
               <Link to="/workspace/$workspaceId" params={{ workspaceId: workspace.id }}>
@@ -48,7 +48,7 @@ function RouteComponent() {
                       <div className="flex flex-col gap-1">
                         <FrameTitle>{workspace.name}</FrameTitle>
                         <FrameDescription>
-                          {m.workspaceCardRole()}:&nbsp;{workspace_member.role}
+                          {m.workspaceCardRole()}:&nbsp;{workspaceMember.role}
                         </FrameDescription>
                       </div>
                     </div>
