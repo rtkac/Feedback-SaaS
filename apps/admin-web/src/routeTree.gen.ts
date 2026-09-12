@@ -19,6 +19,7 @@ import { Route as ProtectedAdminLayoutAccountIndexRouteImport } from './routes/_
 import { Route as ProtectedAdminLayoutWorkspaceIndexRouteImport } from './routes/_protected/_admin-layout/workspace/index'
 import { Route as ProtectedAdminLayoutWorkspaceWorkspaceIdRouteRouteImport } from './routes/_protected/_admin-layout/workspace/$workspaceId/route'
 import { Route as ProtectedAdminLayoutWorkspaceWorkspaceIdIndexRouteImport } from './routes/_protected/_admin-layout/workspace/$workspaceId/index'
+import { Route as ProtectedAdminLayoutWorkspaceWorkspaceIdSettingsRouteImport } from './routes/_protected/_admin-layout/workspace/$workspaceId/settings'
 
 const ProtectedRoute = ProtectedRouteImport.update({
   id: '/_protected',
@@ -76,6 +77,12 @@ const ProtectedAdminLayoutWorkspaceWorkspaceIdIndexRoute =
     path: '/',
     getParentRoute: () => ProtectedAdminLayoutWorkspaceWorkspaceIdRouteRoute,
   } as any)
+const ProtectedAdminLayoutWorkspaceWorkspaceIdSettingsRoute =
+  ProtectedAdminLayoutWorkspaceWorkspaceIdSettingsRouteImport.update({
+    id: '/settings',
+    path: '/settings',
+    getParentRoute: () => ProtectedAdminLayoutWorkspaceWorkspaceIdRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof ProtectedAdminLayoutdashboardIndexRoute
@@ -85,6 +92,7 @@ export interface FileRoutesByFullPath {
   '/test': typeof ProtectedAdminLayoutdashboardTestRoute
   '/account/': typeof ProtectedAdminLayoutAccountIndexRoute
   '/workspace/': typeof ProtectedAdminLayoutWorkspaceIndexRoute
+  '/workspace/$workspaceId/settings': typeof ProtectedAdminLayoutWorkspaceWorkspaceIdSettingsRoute
   '/workspace/$workspaceId/': typeof ProtectedAdminLayoutWorkspaceWorkspaceIdIndexRoute
 }
 export interface FileRoutesByTo {
@@ -94,6 +102,7 @@ export interface FileRoutesByTo {
   '/test': typeof ProtectedAdminLayoutdashboardTestRoute
   '/account': typeof ProtectedAdminLayoutAccountIndexRoute
   '/workspace': typeof ProtectedAdminLayoutWorkspaceIndexRoute
+  '/workspace/$workspaceId/settings': typeof ProtectedAdminLayoutWorkspaceWorkspaceIdSettingsRoute
   '/workspace/$workspaceId': typeof ProtectedAdminLayoutWorkspaceWorkspaceIdIndexRoute
 }
 export interface FileRoutesById {
@@ -107,6 +116,7 @@ export interface FileRoutesById {
   '/_protected/_admin-layout/(dashboard)/': typeof ProtectedAdminLayoutdashboardIndexRoute
   '/_protected/_admin-layout/account/': typeof ProtectedAdminLayoutAccountIndexRoute
   '/_protected/_admin-layout/workspace/': typeof ProtectedAdminLayoutWorkspaceIndexRoute
+  '/_protected/_admin-layout/workspace/$workspaceId/settings': typeof ProtectedAdminLayoutWorkspaceWorkspaceIdSettingsRoute
   '/_protected/_admin-layout/workspace/$workspaceId/': typeof ProtectedAdminLayoutWorkspaceWorkspaceIdIndexRoute
 }
 export interface FileRouteTypes {
@@ -119,6 +129,7 @@ export interface FileRouteTypes {
     | '/test'
     | '/account/'
     | '/workspace/'
+    | '/workspace/$workspaceId/settings'
     | '/workspace/$workspaceId/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -128,6 +139,7 @@ export interface FileRouteTypes {
     | '/test'
     | '/account'
     | '/workspace'
+    | '/workspace/$workspaceId/settings'
     | '/workspace/$workspaceId'
   id:
     | '__root__'
@@ -140,6 +152,7 @@ export interface FileRouteTypes {
     | '/_protected/_admin-layout/(dashboard)/'
     | '/_protected/_admin-layout/account/'
     | '/_protected/_admin-layout/workspace/'
+    | '/_protected/_admin-layout/workspace/$workspaceId/settings'
     | '/_protected/_admin-layout/workspace/$workspaceId/'
   fileRoutesById: FileRoutesById
 }
@@ -220,15 +233,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProtectedAdminLayoutWorkspaceWorkspaceIdIndexRouteImport
       parentRoute: typeof ProtectedAdminLayoutWorkspaceWorkspaceIdRouteRoute
     }
+    '/_protected/_admin-layout/workspace/$workspaceId/settings': {
+      id: '/_protected/_admin-layout/workspace/$workspaceId/settings'
+      path: '/settings'
+      fullPath: '/workspace/$workspaceId/settings'
+      preLoaderRoute: typeof ProtectedAdminLayoutWorkspaceWorkspaceIdSettingsRouteImport
+      parentRoute: typeof ProtectedAdminLayoutWorkspaceWorkspaceIdRouteRoute
+    }
   }
 }
 
 interface ProtectedAdminLayoutWorkspaceWorkspaceIdRouteRouteChildren {
+  ProtectedAdminLayoutWorkspaceWorkspaceIdSettingsRoute: typeof ProtectedAdminLayoutWorkspaceWorkspaceIdSettingsRoute
   ProtectedAdminLayoutWorkspaceWorkspaceIdIndexRoute: typeof ProtectedAdminLayoutWorkspaceWorkspaceIdIndexRoute
 }
 
 const ProtectedAdminLayoutWorkspaceWorkspaceIdRouteRouteChildren: ProtectedAdminLayoutWorkspaceWorkspaceIdRouteRouteChildren =
   {
+    ProtectedAdminLayoutWorkspaceWorkspaceIdSettingsRoute:
+      ProtectedAdminLayoutWorkspaceWorkspaceIdSettingsRoute,
     ProtectedAdminLayoutWorkspaceWorkspaceIdIndexRoute:
       ProtectedAdminLayoutWorkspaceWorkspaceIdIndexRoute,
   }
