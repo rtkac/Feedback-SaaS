@@ -12,9 +12,13 @@
       "types": "./src/icons/index.ts",
       "default": "./dist/icons/index.js"
     },
-    "./lib": {
-      "types": "./src/lib/utils.ts",
-      "default": "./dist/lib/utils.js"
+    "./lib/*": {
+      "types": "./src/lib/*.ts",
+      "default": "./dist/lib/*.js"
+    },
+    "./hooks/*": {
+      "types": "./src/hooks/*.ts",
+      "default": "./dist/hooks/*.js"
     },
     "./styles.css": "./src/components/styles.css"
   },

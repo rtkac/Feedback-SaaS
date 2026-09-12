@@ -42,7 +42,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <head>
           <HeadContent />
         </head>
-        <body>
+        <body className="relative bg-sidebar font-sans text-foreground antialiased">
           {children}
           <Toaster />
           <TanStackDevtools

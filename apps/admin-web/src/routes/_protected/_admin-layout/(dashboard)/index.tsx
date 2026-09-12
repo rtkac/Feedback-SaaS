@@ -35,7 +35,7 @@ function RouteComponent() {
         {data.map(({ workspace, workspace_member }) => (
           <Frame key={workspace.id}>
             <FramePanel>
-              <Link to="/w/$workspaceId" params={{ workspaceId: workspace.id }}>
+              <Link to="/workspace/$workspaceId" params={{ workspaceId: workspace.id }}>
                 <div className="flex gap-1 items-center">
                   <div className="flex flex-col gap-1">
                     <div className="flex gap-4 items-center">
@@ -61,7 +61,7 @@ function RouteComponent() {
         ))}
         <Frame>
           <FramePanel>
-            <Link to="/">
+            <Link to="/create-workspace">
               <div className="flex gap-3 items-center text-muted-foreground">
                 <IconPlus />
                 <FrameTitle>{m.workspaceCreate()}</FrameTitle>
@@ -74,13 +74,9 @@ function RouteComponent() {
   );
 }
 
-export const Route = createFileRoute('/_protected/_appShell/')({
+export const Route = createFileRoute('/_protected/_admin-layout/(dashboard)/')({
   component: RouteComponent,
-  head: () => ({
-    meta: [
-      {
-        title: m.titleIndex(),
-      },
-    ],
-  }),
+  loader: ({ context }) => {
+    context.queryClient.query({ ...context.fetchUserWorkspacesOptions, staleTime: 'static' });
+  },
 });

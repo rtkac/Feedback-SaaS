@@ -84,7 +84,7 @@
   --sidebar-accent: --alpha(var(--color-black) / 4%);
   --sidebar-accent-foreground: var(--color-neutral-800);
   --sidebar-border: --alpha(var(--color-black) / 6%);
-  --sidebar-foreground: color-mix(in srgb, var(--color-neutral-800) 64%, var(--sidebar));
+  --sidebar-foreground: color-mix(in srgb, var(--color-neutral-800) 80%, var(--sidebar));
   --sidebar-primary: var(--color-neutral-800);
   --sidebar-primary-foreground: var(--color-neutral-50);
   --sidebar-ring: var(--color-neutral-400);
@@ -306,10 +306,6 @@
   h5,
   h6 {
     @apply font-heading;
-  }
-
-  a:not(nav a, header a) {
-    @apply ml-auto inline-block underline-offset-4 underline;
   }
 
   label:has(+ [data-slot='input-control']) {
