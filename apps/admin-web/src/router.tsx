@@ -26,6 +26,7 @@ export function getRouter() {
     scrollRestoration: true,
     defaultPreload: 'intent',
     defaultPreloadStaleTime: 0,
+    defaultPendingMs: 0,
     defaultErrorComponent: ({ error, reset }) => (
       <ErrorStatus error={error as Error} onReset={reset} />
     ),
