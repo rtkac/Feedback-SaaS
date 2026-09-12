@@ -1,6 +1,6 @@
 import { generateId } from 'better-auth';
 import { relations } from 'drizzle-orm';
-import { pgTable, text, timestamp, index, pgEnum } from 'drizzle-orm/pg-core';
+import { pgTable, text, timestamp, index, pgEnum, unique } from 'drizzle-orm/pg-core';
 
 import { user } from './auth-schema';
 
@@ -39,6 +39,7 @@ export const workspaceMember = pgTable(
     createdAt: timestamp('created_at').defaultNow().notNull(),
   },
   (table) => [
+    unique('workspace_member_workspace_user_unique').on(table.workspaceId, table.userId),
     index('workspace_member_workspaceId_idx').on(table.workspaceId),
     index('workspace_member_userId_idx').on(table.userId),
   ],
