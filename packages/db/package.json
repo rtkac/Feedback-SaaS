@@ -18,6 +18,10 @@
     "./queries/*": {
       "types": "./src/queries/*.ts",
       "default": "./dist/queries/*.js"
+    },
+    "./utils/*": {
+      "types": "./src/utils/*.ts",
+      "default": "./dist/utils/*.js"
     }
   },
   "scripts": {

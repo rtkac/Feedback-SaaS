@@ -1,21 +1,44 @@
 import { and, eq } from 'drizzle-orm';
 
-import { db } from '../index';
+import { db, DbTransaction } from '../index';
 import { workspace, workspaceMember } from '../schema/workspace-schema';
+import { slugify } from '../utils/slug';
 
 export async function createDefaultWorkspace(userId: string, userName: string) {
-  const slug = userName.toLowerCase().replace(/\s+/g, '-') + '-workspace';
-  const [newWorkspace] = await db
-    .insert(workspace)
-    .values({ name: `${userName}'s Workspace`, slug })
-    .returning();
-  if (!newWorkspace) throw new Error('Failed to create default workspace');
-  const [member] = await db
-    .insert(workspaceMember)
-    .values({ workspaceId: newWorkspace.id, userId, role: 'owner' })
-    .returning();
-  if (!member) throw new Error('Failed to create default workspace member');
-  return [{ workspace: newWorkspace, workspace_member: member }];
+  return db.transaction(async (tx) => {
+    const name = `${userName}'s Workspace`;
+    const slug = await generateUniqueWorkspaceSlug(tx, name);
+
+    const [newWorkspace] = await tx
+      .insert(workspace)
+      .values({
+        name: `${userName}'s Workspace`,
+        slug,
+      })
+      .returning();
+
+    if (!newWorkspace) {
+      throw new Error('Failed to create default workspace');
+    }
+
+    const [member] = await tx
+      .insert(workspaceMember)
+      .values({
+        workspaceId: newWorkspace.id,
+        userId,
+        role: 'owner',
+      })
+      .returning();
+
+    if (!member) {
+      throw new Error('Failed to create default workspace member');
+    }
+
+    return {
+      workspace: newWorkspace,
+      member,
+    };
+  });
 }
 
 export function getUserWorkspaces(userId: string) {
@@ -41,4 +64,28 @@ export async function getUserWorkspaceById(userId: string, id: string) {
   }
 
   return result.workspace;
+}
+
+async function workspaceSlugExists(tx: DbTransaction, slug: string): Promise<boolean> {
+  const [existingWorkspace] = await tx
+    .select({ id: workspace.id })
+    .from(workspace)
+    .where(eq(workspace.slug, slug))
+    .limit(1);
+
+  return !!existingWorkspace;
+}
+
+async function generateUniqueWorkspaceSlug(tx: DbTransaction, name: string): Promise<string> {
+  const baseSlug = slugify(name) || 'workspace';
+
+  let slug = baseSlug;
+  let suffix = 2;
+
+  while (await workspaceSlugExists(tx, slug)) {
+    slug = `${baseSlug}-${suffix}`;
+    suffix++;
+  }
+
+  return slug;
 }
