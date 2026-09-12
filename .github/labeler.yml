@@ -1,0 +1,38 @@
+frontend:
+  - changed-files:
+      - any-glob-to-any-file:
+          - apps/admin/**
+          - apps/auth/**
+          - apps/marketing/**
+          - apps/storybook/**
+          - apps/widget/**
+          - packages/ui/**
+
+database:
+  - changed-files:
+      - any-glob-to-any-file:
+          - packages/db/**
+
+auth:
+  - changed-files:
+      - any-glob-to-any-file:
+          - packages/auth/**
+          - apps/auth/**
+
+ci:
+  - changed-files:
+      - any-glob-to-any-file:
+          - .github/**
+
+documentation:
+  - changed-files:
+      - any-glob-to-any-file:
+          - '**/*.md'
+          - docs/**
+
+dependencies:
+  - changed-files:
+      - any-glob-to-any-file:
+          - package.json
+          - bun.lock
+          - '**/package.json'
