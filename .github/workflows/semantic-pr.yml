@@ -1,0 +1,56 @@
+name: Semantic PR
+
+on:
+  pull_request_target:
+    types:
+      - opened
+      - edited
+      - synchronize
+      - reopened
+
+permissions:
+  pull-requests: write
+
+jobs:
+  semantic:
+    name: Semantic PR
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Validate PR title
+        id: semantic
+        continue-on-error: true
+        uses: amannn/action-semantic-pull-request@v6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          types: |
+            feat
+            fix
+            refactor
+            docs
+            test
+            chore
+            ci
+            perf
+            build
+
+      - name: Comment result
+        if: always()
+        uses: marocchino/sticky-pull-request-comment@v3
+        with:
+          header: semantic-pr
+          message: |
+            ## 🔤 Semantic PR
+
+            ${{ steps.semantic.outcome == 'success'
+              && '✅ PR title follows Conventional Commits.'
+              || '❌ PR title does not follow Conventional Commits.' }}
+
+            ${{ steps.semantic.outcome == 'failure'
+              && 'Expected format: `type: description`'
+              || '' }}
+
+      - name: Fail if semantic PR check failed
+        if: steps.semantic.outcome == 'failure'
+        run: exit 1
