@@ -19,13 +19,14 @@ import { ErrorStatus } from '@/components/app/error-status';
 const ButtonLink = createLink(Button);
 
 export function getRouter() {
-  const queryClient = new QueryClient();
+  const queryClient = new QueryClient({ defaultOptions: { queries: { staleTime: 60000 } } });
 
   const router = createTanStackRouter({
     routeTree,
     scrollRestoration: true,
     defaultPreload: 'intent',
     defaultPreloadStaleTime: 0,
+    defaultPendingMs: 0,
     defaultErrorComponent: ({ error, reset }) => (
       <ErrorStatus error={error as Error} onReset={reset} />
     ),

@@ -1,74 +1,73 @@
-import { getSession } from '@feedback-saas/auth/server';
 import { Skeleton } from '@feedback-saas/ui/components';
 import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
 
+import { AdminLayout } from '@/components/app/admin-layout';
+import { Main } from '@/components/app/main';
+import { fetchSessionOptions } from '@/effects/session';
 import { fetchUserWorkspacesOptions } from '@/effects/workspace';
 
 export const Route = createFileRoute('/_protected')({
-  beforeLoad: async () => {
-    const session = await getSession();
+  context: () => ({
+    fetchUserWorkspacesOptions: fetchUserWorkspacesOptions(),
+  }),
+  beforeLoad: async ({ context }) => {
+    const session = await context.queryClient.query(fetchSessionOptions());
     if (!session) {
       throw redirect({
         href: import.meta.env.VITE_FEEDBACK_SAAS_AUTH_WEB_URL,
       });
     }
   },
-  context: () => ({
-    fetchUserWorkspacesOptions: fetchUserWorkspacesOptions(),
-  }),
   loader: ({ context }) => {
     context.queryClient.query({ ...context.fetchUserWorkspacesOptions, staleTime: 'static' });
   },
   component: () => <Outlet />,
   pendingComponent: () => (
-    <div className="flex h-screen overflow-hidden">
-      <aside className="sidebar-transition fixed inset-y-0 left-0 z-50 w-64 border-r border-slate-200 bg-white lg:static lg:translate-x-0 dark:border-dark-border dark:bg-dark-card flex flex-col justify-between -translate-x-full">
-        <div>
-          <div className="flex h-16 items-center px-3 py-4 border-b border-slate-100 dark:border-dark-border">
-            <Skeleton className="flex w-full h-full" />
-          </div>
-          <nav className="space-y-2 px-3 py-6">
-            <div className="rounded-lg">
-              <Skeleton className="flex w-full h-10" />
-            </div>
-            <div className="rounded-lg">
-              <Skeleton className="flex w-full h-10" />
-            </div>
-            <div className="rounded-lg">
-              <Skeleton className="flex w-full h-10" />
-            </div>
-            <div className="rounded-lg">
-              <Skeleton className="flex w-full h-10" />
-            </div>
-            <div className="rounded-lg">
-              <Skeleton className="flex w-full h-10" />
-            </div>
-            <div className="rounded-lg">
-              <Skeleton className="flex w-full h-10" />
-            </div>
-          </nav>
+    <AdminLayout>
+      <div className="pr-2 md:pr-0 pl-2 py-2 flex flex-col md:h-svh gap-2">
+        <div className="rounded-lg h-9">
+          <Skeleton className="flex w-full h-full" />
         </div>
-        <div className="border-t border-slate-100 p-3 dark:border-dark-border">
-          <Skeleton className="flex w-full h-6" />
+        <div className="rounded-lg h-9">
+          <Skeleton className="flex w-full h-full" />
         </div>
-      </aside>
-      <main className="flex-1 flex flex-col">
-        <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-slate-200/60 bg-white/80 px-4 glass-effect lg:px-8 dark:border-dark-border dark:bg-dark-bg/80">
-          <div className="flex w-full h-full py-4">
-            <Skeleton className="flex w-full h-full" />
+        <div className="rounded-lg h-9">
+          <Skeleton className="flex w-full h-full" />
+        </div>
+        <div className="rounded-lg h-9">
+          <Skeleton className="flex w-full h-full" />
+        </div>
+        <div className="rounded-lg h-9">
+          <Skeleton className="flex w-full h-full" />
+        </div>
+        <aside className="w-75 size-full flex-1">
+          <div className="size-full justify-end flex flex-col">
+            <div className="rounded-lg h-9">
+              <Skeleton className="flex w-full h-full" />
+            </div>
           </div>
-        </header>
-        <div>
-          <div className="my-4 mx-8 grid grid-cols-3 gap-4">
-            <Skeleton className="flex   h-10" />
+        </aside>
+      </div>
+      <Main>
+        <div className="flex flex-col gap-4">
+          <div className="flex flex-col w-1/3 gap-4">
+            <div className="rounded-lg h-9">
+              <Skeleton className="flex w-full h-full" />
+            </div>
+            <div className="rounded-lg h-15">
+              <Skeleton className="flex w-full h-full" />
+            </div>
           </div>
-          <div className="my-4 mx-8 grid grid-cols-3 gap-4">
-            <Skeleton className="flex   h-50" />
-            <Skeleton className="flex   h-50" />
-            <Skeleton className="flex  h-50" />
+          <div className="flex flex-col w-1/2 gap-4">
+            <div className="rounded-lg h-21">
+              <Skeleton className="flex w-full h-full" />
+            </div>
+            <div className="rounded-lg h-16">
+              <Skeleton className="flex w-full h-full" />
+            </div>
           </div>
         </div>
-      </main>
-    </div>
+      </Main>
+    </AdminLayout>
   ),
 });

@@ -16,6 +16,8 @@ import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 import { Route as ProtectedAdminLayoutdashboardIndexRouteImport } from './routes/_protected/_admin-layout/(dashboard)/index'
 import { Route as ProtectedAdminLayoutdashboardTestRouteImport } from './routes/_protected/_admin-layout/(dashboard)/test'
 import { Route as ProtectedAdminLayoutAccountIndexRouteImport } from './routes/_protected/_admin-layout/account/index'
+import { Route as ProtectedAdminLayoutWorkspaceIndexRouteImport } from './routes/_protected/_admin-layout/workspace/index'
+import { Route as ProtectedAdminLayoutWorkspaceWorkspaceIdRouteRouteImport } from './routes/_protected/_admin-layout/workspace/$workspaceId/route'
 import { Route as ProtectedAdminLayoutWorkspaceWorkspaceIdIndexRouteImport } from './routes/_protected/_admin-layout/workspace/$workspaceId/index'
 
 const ProtectedRoute = ProtectedRouteImport.update({
@@ -56,19 +58,33 @@ const ProtectedAdminLayoutAccountIndexRoute =
     path: '/account/',
     getParentRoute: () => ProtectedAdminLayoutRouteRoute,
   } as any)
+const ProtectedAdminLayoutWorkspaceIndexRoute =
+  ProtectedAdminLayoutWorkspaceIndexRouteImport.update({
+    id: '/workspace/',
+    path: '/workspace/',
+    getParentRoute: () => ProtectedAdminLayoutRouteRoute,
+  } as any)
+const ProtectedAdminLayoutWorkspaceWorkspaceIdRouteRoute =
+  ProtectedAdminLayoutWorkspaceWorkspaceIdRouteRouteImport.update({
+    id: '/workspace/$workspaceId',
+    path: '/workspace/$workspaceId',
+    getParentRoute: () => ProtectedAdminLayoutRouteRoute,
+  } as any)
 const ProtectedAdminLayoutWorkspaceWorkspaceIdIndexRoute =
   ProtectedAdminLayoutWorkspaceWorkspaceIdIndexRouteImport.update({
-    id: '/workspace/$workspaceId/',
-    path: '/workspace/$workspaceId/',
-    getParentRoute: () => ProtectedAdminLayoutRouteRoute,
+    id: '/',
+    path: '/',
+    getParentRoute: () => ProtectedAdminLayoutWorkspaceWorkspaceIdRouteRoute,
   } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof ProtectedAdminLayoutdashboardIndexRoute
   '/create-workspace': typeof ProtectedCreateWorkspaceRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/workspace/$workspaceId': typeof ProtectedAdminLayoutWorkspaceWorkspaceIdRouteRouteWithChildren
   '/test': typeof ProtectedAdminLayoutdashboardTestRoute
   '/account/': typeof ProtectedAdminLayoutAccountIndexRoute
+  '/workspace/': typeof ProtectedAdminLayoutWorkspaceIndexRoute
   '/workspace/$workspaceId/': typeof ProtectedAdminLayoutWorkspaceWorkspaceIdIndexRoute
 }
 export interface FileRoutesByTo {
@@ -77,6 +93,7 @@ export interface FileRoutesByTo {
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/test': typeof ProtectedAdminLayoutdashboardTestRoute
   '/account': typeof ProtectedAdminLayoutAccountIndexRoute
+  '/workspace': typeof ProtectedAdminLayoutWorkspaceIndexRoute
   '/workspace/$workspaceId': typeof ProtectedAdminLayoutWorkspaceWorkspaceIdIndexRoute
 }
 export interface FileRoutesById {
@@ -85,9 +102,11 @@ export interface FileRoutesById {
   '/_protected/_admin-layout': typeof ProtectedAdminLayoutRouteRouteWithChildren
   '/_protected/create-workspace': typeof ProtectedCreateWorkspaceRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/_protected/_admin-layout/workspace/$workspaceId': typeof ProtectedAdminLayoutWorkspaceWorkspaceIdRouteRouteWithChildren
   '/_protected/_admin-layout/(dashboard)/test': typeof ProtectedAdminLayoutdashboardTestRoute
   '/_protected/_admin-layout/(dashboard)/': typeof ProtectedAdminLayoutdashboardIndexRoute
   '/_protected/_admin-layout/account/': typeof ProtectedAdminLayoutAccountIndexRoute
+  '/_protected/_admin-layout/workspace/': typeof ProtectedAdminLayoutWorkspaceIndexRoute
   '/_protected/_admin-layout/workspace/$workspaceId/': typeof ProtectedAdminLayoutWorkspaceWorkspaceIdIndexRoute
 }
 export interface FileRouteTypes {
@@ -96,8 +115,10 @@ export interface FileRouteTypes {
     | '/'
     | '/create-workspace'
     | '/api/auth/$'
+    | '/workspace/$workspaceId'
     | '/test'
     | '/account/'
+    | '/workspace/'
     | '/workspace/$workspaceId/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -106,6 +127,7 @@ export interface FileRouteTypes {
     | '/api/auth/$'
     | '/test'
     | '/account'
+    | '/workspace'
     | '/workspace/$workspaceId'
   id:
     | '__root__'
@@ -113,9 +135,11 @@ export interface FileRouteTypes {
     | '/_protected/_admin-layout'
     | '/_protected/create-workspace'
     | '/api/auth/$'
+    | '/_protected/_admin-layout/workspace/$workspaceId'
     | '/_protected/_admin-layout/(dashboard)/test'
     | '/_protected/_admin-layout/(dashboard)/'
     | '/_protected/_admin-layout/account/'
+    | '/_protected/_admin-layout/workspace/'
     | '/_protected/_admin-layout/workspace/$workspaceId/'
   fileRoutesById: FileRoutesById
 }
@@ -175,33 +199,65 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProtectedAdminLayoutAccountIndexRouteImport
       parentRoute: typeof ProtectedAdminLayoutRouteRoute
     }
+    '/_protected/_admin-layout/workspace/': {
+      id: '/_protected/_admin-layout/workspace/'
+      path: '/workspace'
+      fullPath: '/workspace/'
+      preLoaderRoute: typeof ProtectedAdminLayoutWorkspaceIndexRouteImport
+      parentRoute: typeof ProtectedAdminLayoutRouteRoute
+    }
+    '/_protected/_admin-layout/workspace/$workspaceId': {
+      id: '/_protected/_admin-layout/workspace/$workspaceId'
+      path: '/workspace/$workspaceId'
+      fullPath: '/workspace/$workspaceId'
+      preLoaderRoute: typeof ProtectedAdminLayoutWorkspaceWorkspaceIdRouteRouteImport
+      parentRoute: typeof ProtectedAdminLayoutRouteRoute
+    }
     '/_protected/_admin-layout/workspace/$workspaceId/': {
       id: '/_protected/_admin-layout/workspace/$workspaceId/'
-      path: '/workspace/$workspaceId'
+      path: '/'
       fullPath: '/workspace/$workspaceId/'
       preLoaderRoute: typeof ProtectedAdminLayoutWorkspaceWorkspaceIdIndexRouteImport
-      parentRoute: typeof ProtectedAdminLayoutRouteRoute
+      parentRoute: typeof ProtectedAdminLayoutWorkspaceWorkspaceIdRouteRoute
     }
   }
 }
 
+interface ProtectedAdminLayoutWorkspaceWorkspaceIdRouteRouteChildren {
+  ProtectedAdminLayoutWorkspaceWorkspaceIdIndexRoute: typeof ProtectedAdminLayoutWorkspaceWorkspaceIdIndexRoute
+}
+
+const ProtectedAdminLayoutWorkspaceWorkspaceIdRouteRouteChildren: ProtectedAdminLayoutWorkspaceWorkspaceIdRouteRouteChildren =
+  {
+    ProtectedAdminLayoutWorkspaceWorkspaceIdIndexRoute:
+      ProtectedAdminLayoutWorkspaceWorkspaceIdIndexRoute,
+  }
+
+const ProtectedAdminLayoutWorkspaceWorkspaceIdRouteRouteWithChildren =
+  ProtectedAdminLayoutWorkspaceWorkspaceIdRouteRoute._addFileChildren(
+    ProtectedAdminLayoutWorkspaceWorkspaceIdRouteRouteChildren,
+  )
+
 interface ProtectedAdminLayoutRouteRouteChildren {
+  ProtectedAdminLayoutWorkspaceWorkspaceIdRouteRoute: typeof ProtectedAdminLayoutWorkspaceWorkspaceIdRouteRouteWithChildren
   ProtectedAdminLayoutdashboardTestRoute: typeof ProtectedAdminLayoutdashboardTestRoute
   ProtectedAdminLayoutdashboardIndexRoute: typeof ProtectedAdminLayoutdashboardIndexRoute
   ProtectedAdminLayoutAccountIndexRoute: typeof ProtectedAdminLayoutAccountIndexRoute
-  ProtectedAdminLayoutWorkspaceWorkspaceIdIndexRoute: typeof ProtectedAdminLayoutWorkspaceWorkspaceIdIndexRoute
+  ProtectedAdminLayoutWorkspaceIndexRoute: typeof ProtectedAdminLayoutWorkspaceIndexRoute
 }
 
 const ProtectedAdminLayoutRouteRouteChildren: ProtectedAdminLayoutRouteRouteChildren =
   {
+    ProtectedAdminLayoutWorkspaceWorkspaceIdRouteRoute:
+      ProtectedAdminLayoutWorkspaceWorkspaceIdRouteRouteWithChildren,
     ProtectedAdminLayoutdashboardTestRoute:
       ProtectedAdminLayoutdashboardTestRoute,
     ProtectedAdminLayoutdashboardIndexRoute:
       ProtectedAdminLayoutdashboardIndexRoute,
     ProtectedAdminLayoutAccountIndexRoute:
       ProtectedAdminLayoutAccountIndexRoute,
-    ProtectedAdminLayoutWorkspaceWorkspaceIdIndexRoute:
-      ProtectedAdminLayoutWorkspaceWorkspaceIdIndexRoute,
+    ProtectedAdminLayoutWorkspaceIndexRoute:
+      ProtectedAdminLayoutWorkspaceIndexRoute,
   }
 
 const ProtectedAdminLayoutRouteRouteWithChildren =

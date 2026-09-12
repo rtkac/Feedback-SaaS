@@ -1,7 +1,14 @@
 import { createFileRoute } from '@tanstack/react-router';
 
+import { AdminLayout } from '@/components/app/admin-layout';
+import { Main } from '@/components/app/main';
+
 function RouteComponent() {
-  return <div>Hello "/_protected/create-workspace"!</div>;
+  return (
+    <AdminLayout>
+      <Main>create workspace</Main>
+    </AdminLayout>
+  );
 }
 
 export const Route = createFileRoute('/_protected/create-workspace')({
