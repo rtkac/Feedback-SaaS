@@ -14,7 +14,7 @@ import { setupRouterSsrQueryIntegration } from '@tanstack/react-router-ssr-query
 
 import { routeTree } from './routeTree.gen';
 
-import { ErrorStatus } from '@/components/ErrorStatus';
+import { ErrorStatus } from '@/components/app/error-status';
 
 const ButtonLink = createLink(Button);
 
@@ -26,7 +26,9 @@ export function getRouter() {
     scrollRestoration: true,
     defaultPreload: 'intent',
     defaultPreloadStaleTime: 0,
-    defaultErrorComponent: ({ error, reset }) => <ErrorStatus error={error} onReset={reset} />,
+    defaultErrorComponent: ({ error, reset }) => (
+      <ErrorStatus error={error as Error} onReset={reset} />
+    ),
     defaultNotFoundComponent: () => (
       <Empty>
         <EmptyHeader>
@@ -41,7 +43,7 @@ export function getRouter() {
             <ButtonLink to="/" size="sm">
               Workspaces
             </ButtonLink>
-            <ButtonLink to="/profile" size="sm" variant="outline">
+            <ButtonLink to="/account" size="sm" variant="outline">
               <IconUserHexagon />
               View profile
             </ButtonLink>

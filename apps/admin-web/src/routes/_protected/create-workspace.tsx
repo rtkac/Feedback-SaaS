@@ -1,10 +1,10 @@
 import { createFileRoute } from '@tanstack/react-router';
 
 function RouteComponent() {
-  return <div>Hello "/_protected/_appShell/create-workspace"!</div>;
+  return <div>Hello "/_protected/create-workspace"!</div>;
 }
 
-export const Route = createFileRoute('/_protected/_appShell/create-workspace')({
+export const Route = createFileRoute('/_protected/create-workspace')({
   staticData: {
     titleText: 'Create workspace',
   },
