@@ -1,17 +1,17 @@
-import { getSession } from '@feedback-saas/auth/server';
 import { Skeleton } from '@feedback-saas/ui/components';
 import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
 
 import { AdminLayout } from '@/components/app/admin-layout';
 import { Main } from '@/components/app/main';
+import { fetchSessionOptions } from '@/effects/session';
 import { fetchUserWorkspacesOptions } from '@/effects/workspace';
 
 export const Route = createFileRoute('/_protected')({
   context: () => ({
     fetchUserWorkspacesOptions: fetchUserWorkspacesOptions(),
   }),
-  beforeLoad: async () => {
-    const session = await getSession();
+  beforeLoad: async ({ context }) => {
+    const session = await context.queryClient.query(fetchSessionOptions());
     if (!session) {
       throw redirect({
         href: import.meta.env.VITE_FEEDBACK_SAAS_AUTH_WEB_URL,

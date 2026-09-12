@@ -19,7 +19,7 @@ import { ErrorStatus } from '@/components/app/error-status';
 const ButtonLink = createLink(Button);
 
 export function getRouter() {
-  const queryClient = new QueryClient();
+  const queryClient = new QueryClient({ defaultOptions: { queries: { staleTime: 60000 } } });
 
   const router = createTanStackRouter({
     routeTree,
