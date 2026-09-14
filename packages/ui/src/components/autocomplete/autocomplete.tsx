@@ -4,8 +4,9 @@ import { Autocomplete as AutocompletePrimitive } from '@base-ui/react/autocomple
 import { IconSelector, IconX } from '@tabler/icons-react';
 import type React from 'react';
 
-import { ScrollArea, Input } from '..';
 import { cn } from '../../lib/utils';
+import { Input } from '../input/input';
+import { ScrollArea } from '../scroll-area/scroll-area';
 
 export const Autocomplete: typeof AutocompletePrimitive.Root = AutocompletePrimitive.Root;
 

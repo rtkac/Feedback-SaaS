@@ -10,8 +10,9 @@ import { IconChevronRight, IconX } from '@tabler/icons-react';
 import type React from 'react';
 import { createContext, useContext } from 'react';
 
-import { ScrollArea, Button } from '..';
 import { cn } from '../../lib/utils';
+import { Button } from '../button/button';
+import { ScrollArea } from '../scroll-area/scroll-area';
 
 type DrawerPosition = 'right' | 'left' | 'top' | 'bottom';
 

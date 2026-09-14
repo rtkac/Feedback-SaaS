@@ -1,6 +1,7 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["typescript", "react", "unicorn", "jsx-a11y"],
+  "plugins": ["typescript", "react", "unicorn", "jsx-a11y", "import"],
+  "options": { "typeAware": true },
   "categories": {
     "correctness": "off"
   },
@@ -143,7 +144,25 @@
     "react-hooks/exhaustive-deps": "warn",
     "jsx-a11y/lang": "warn",
     "jsx-a11y/no-aria-hidden-on-focusable": "warn",
-    "jsx-a11y/prefer-tag-over-role": "warn"
+    "jsx-a11y/prefer-tag-over-role": "warn",
+    "import/no-cycle": "error",
+    "import/no-duplicates": "error",
+    "typescript/require-await": "error",
+    "typescript/no-unnecessary-condition": "error",
+    "typescript/dot-notation": "error",
+    "typescript/consistent-type-exports": "error",
+    "typescript/array-type": "error",
+    "unicorn/throw-new-error": "error",
+    "unicorn/prefer-ternary": "error",
+    "unicorn/prefer-spread": "error",
+    "unicorn/prefer-optional-catch-binding": "error",
+    "react/jsx-no-useless-fragment": "error",
+    "typescript/await-thenable": "error",
+    "no-useless-concat": "error",
+    "prefer-destructuring": ["error", { "object": true, "array": true }],
+    "unicorn/no-unreadable-array-destructuring": "error",
+    "unicorn/no-useless-fallback-in-spread": "error",
+    "unicorn/no-useless-spread": "error"
   },
   "globals": {
     "CSSStyleProperties": "readonly",

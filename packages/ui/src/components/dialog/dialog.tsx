@@ -6,9 +6,9 @@ import { useRender } from '@base-ui/react/use-render';
 import { IconX } from '@tabler/icons-react';
 import type React from 'react';
 
-import { Button } from '..';
-import { ScrollArea } from '..';
 import { cn } from '../../lib/utils';
+import { Button } from '../button/button';
+import { ScrollArea } from '../scroll-area/scroll-area';
 
 export const DialogCreateHandle: typeof DialogPrimitive.createHandle = DialogPrimitive.createHandle;
 

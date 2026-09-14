@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { Button } from '../button/button';
-import { toast } from './toast';
-import { Toaster } from './toast';
+import { Toaster, toast } from './toast';
 
 type ToastVariant = 'default' | 'success' | 'info' | 'warning' | 'error' | 'loading';
 

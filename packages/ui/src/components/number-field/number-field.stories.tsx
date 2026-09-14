@@ -10,7 +10,7 @@ import {
   NumberFieldIncrement,
   NumberFieldInput,
   NumberFieldScrubArea,
-} from './numberField';
+} from './number-field';
 
 const meta: Meta<typeof NumberField> = {
   title: 'UI/NumberField',
