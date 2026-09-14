@@ -148,7 +148,7 @@ function RouteComponent() {
 export const Route = createFileRoute('/reset-password')({
   validateSearch: searchSchema,
   search: { middlewares: [stripSearchParams(defaultSearchValues)] },
-  beforeLoad: async ({ search }) => {
+  beforeLoad: ({ search }) => {
     if (!search.token) {
       throw new Error('Missing token');
     }

@@ -1,7 +1,7 @@
 import { auth } from '@feedback-saas/auth';
 import { db } from '@feedback-saas/db';
 import { user } from '@feedback-saas/db/schema/auth-schema';
-import { workspace, workspaceMember } from '@feedback-saas/db/schema/workspace';
+import { workspace, workspaceMember } from '@feedback-saas/db/schema/workspace-schema';
 import { eq } from 'drizzle-orm';
 
 const TEST_EMAIL = 'admin@test.com';
@@ -14,10 +14,10 @@ const existing = await db
   .where(eq(user.email, TEST_EMAIL))
   .then((rows) => rows[0]);
 
-if (existing) {
-  console.log(`User ${TEST_EMAIL} already exists, skipping.`);
-  process.exit(0);
-}
+// if (existing) {
+//   console.log(`User ${TEST_EMAIL} already exists, skipping.`);
+//   process.exit(0);
+// }
 
 // signUpEmail may fail at the email-sending step in a script context
 // (sendSignUpVerificationEmailFn is a createServerFn, no server is running).
@@ -40,10 +40,10 @@ const seededUser = await db
   .where(eq(user.email, TEST_EMAIL))
   .then((rows) => rows[0]);
 
-if (!seededUser) {
-  console.error('User was not created — signUpEmail may have failed before the DB insert.');
-  process.exit(1);
-}
+// if (!seededUser) {
+//   console.error('User was not created — signUpEmail may have failed before the DB insert.');
+//   process.exit(1);
+// }
 
 // Manually mark as verified since email sending is skipped in dev/seed context.
 await db.update(user).set({ emailVerified: true }).where(eq(user.id, seededUser.id));

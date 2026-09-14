@@ -52,7 +52,7 @@ function RouteComponent() {
               <SelectValue />
             </SelectTrigger>
             <SelectPopup>
-              {data?.map(({ label, value }) => (
+              {data.map(({ label, value }) => (
                 <SelectItemLink
                   key={value}
                   value={value}

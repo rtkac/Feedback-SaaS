@@ -11,8 +11,8 @@ import {
 } from '@tabler/icons-react';
 import * as React from 'react';
 
-import { Button } from '..';
 import { cn } from '../../lib/utils';
+import { Button } from '../button/button';
 
 const toast = ToastPrimitive.createToastManager();
 
@@ -202,8 +202,8 @@ function Toaster({ children, toastManager = toast, ...props }: ToastPrimitive.Pr
   );
 }
 
-const createToastManager = ToastPrimitive.createToastManager;
-const useToastManager = ToastPrimitive.useToastManager;
+const { createToastManager } = ToastPrimitive;
+const { useToastManager } = ToastPrimitive;
 
 export {
   Toaster,

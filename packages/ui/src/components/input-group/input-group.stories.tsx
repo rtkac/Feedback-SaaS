@@ -3,7 +3,7 @@ import { IconInfoCircle, IconMail, IconX } from '@tabler/icons-react';
 
 import { Badge } from '../badge/badge';
 import { Button } from '../button/button';
-import { NumberField, NumberFieldInput } from '../number-field/numberField';
+import { NumberField, NumberFieldInput } from '../number-field/number-field';
 import { Popover, PopoverPopup, PopoverTrigger } from '../popover/popover';
 import { Spinner } from '../spinner/spinner';
 import {
@@ -12,7 +12,7 @@ import {
   InputGroupInput,
   InputGroupText,
   InputGroupTextarea,
-} from './inputGroup';
+} from './input-group';
 
 const meta: Meta<typeof InputGroup> = {
   title: 'UI/InputGroup',

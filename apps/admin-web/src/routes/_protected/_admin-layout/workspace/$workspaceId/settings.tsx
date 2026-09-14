@@ -21,7 +21,7 @@ function RouteComponent() {
 
   const form = useForm({
     defaultValues: {
-      name: data?.name ?? '',
+      name: data.name,
     },
     validators: [
       {

@@ -4,6 +4,7 @@ import { Dialog as CommandDialogPrimitive } from '@base-ui/react/dialog';
 import { IconSearch } from '@tabler/icons-react';
 import type * as React from 'react';
 
+import { cn } from '../../lib/utils';
 import {
   Autocomplete,
   AutocompleteCollection,
@@ -14,8 +15,7 @@ import {
   AutocompleteItem,
   AutocompleteList,
   AutocompleteSeparator,
-} from '..';
-import { cn } from '../../lib/utils';
+} from '../autocomplete/autocomplete';
 
 export const CommandDialog: typeof CommandDialogPrimitive.Root = CommandDialogPrimitive.Root;
 
