@@ -93,7 +93,9 @@ function RouteComponent() {
             <p className="text-sm">
               <span className="text-muted-foreground">{m.forgotPasswordBackTo()}</span>
               &nbsp;
-              <Link to="/">{m.forgotPasswordLoginLabel()}</Link>
+              <Link to="/" className="underline-offset-4 underline">
+                {m.forgotPasswordLoginLabel()}
+              </Link>
             </p>
           </div>
         </form>
