@@ -197,7 +197,9 @@ function RouteComponent() {
             <p className="text-sm">
               <span className="text-muted-foreground">{m.signUpLoginDesc()}</span>
               &nbsp;
-              <Link to="/">{m.signUpLoginLabel()}</Link>
+              <Link to="/" className="underline-offset-4 underline">
+                {m.signUpLoginLabel()}
+              </Link>
             </p>
           </div>
         </form>

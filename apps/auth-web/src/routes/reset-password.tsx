@@ -136,7 +136,9 @@ function RouteComponent() {
             <p className="text-sm">
               <span className="text-muted-foreground">{m.resetPasswordBackTo()}</span>
               &nbsp;
-              <Link to="/">{m.resetPasswordLoginLabel()}</Link>
+              <Link to="/" className="underline-offset-4 underline">
+                {m.resetPasswordLoginLabel()}
+              </Link>
             </p>
           </div>
         </form>

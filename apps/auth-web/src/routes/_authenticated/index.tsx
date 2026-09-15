@@ -98,7 +98,7 @@ function RouteComponent() {
               <div>
                 <div className="flex justify-between mb-2">
                   <Label htmlFor={field.name}>{m.signInPasswordLabel()}</Label>
-                  <Link to="/forgot-password" className="text-xs">
+                  <Link to="/forgot-password" className="text-xs underline-offset-4 underline">
                     {m.signInForgotPassword()}
                   </Link>
                 </div>
@@ -140,7 +140,9 @@ function RouteComponent() {
             <p className="text-sm">
               <span className="text-muted-foreground">{m.signInCreateAccount()}</span>
               &nbsp;
-              <Link to="/sign-up">{m.signInCreateAccountLabel()}</Link>
+              <Link to="/sign-up" className="underline-offset-4 underline">
+                {m.signInCreateAccountLabel()}
+              </Link>
             </p>
           </div>
         </form>
